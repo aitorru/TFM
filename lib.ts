@@ -1,4 +1,5 @@
 
+let libPrefix = "";
 let libSuffix = "";
 // Detect the os
 switch (Deno.build.os) {
@@ -9,11 +10,12 @@ switch (Deno.build.os) {
     libSuffix = "dylib";
     break;
   default:
+    libPrefix = "lib"
     libSuffix = "so";
     break;
 }
 
-const lib = Deno.dlopen(`./target/debug/tfm.${libSuffix}`, {
+const lib = Deno.dlopen(`./target/debug/${libPrefix}tfm.${libSuffix}`, {
     add: {
         parameters: ['f64', 'f64'],
         result: 'f64'

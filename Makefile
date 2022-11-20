@@ -1,11 +1,11 @@
 lib:
 	cargo build
 
-test-ts:
+test-ts: lib
 	deno test --allow-ffi --unstable test.ts
 
-test-rs:
+test-rs: lib
 	cargo test
 
-run:
+run: lib
 	deno run --allow-ffi --unstable main.ts
