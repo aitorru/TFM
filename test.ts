@@ -38,22 +38,3 @@ Deno.test(
         assert(result);
     }
 )
-
-Deno.test(
-    "ffi_vs_JS_perf_test",
-    async () => {
-        const target_text = "iloveffi";
-        const ffi_promises = [];
-        console.time("ffi_benchmark");
-        for (let i = 0; i < 5; i++) {
-            ffi_promises.push(hash(target_text))
-            console.timeLog("ffi_benchmark")
-        }
-        const results = await Promise.all(ffi_promises);
-        console.log(results);
-        console.timeEnd("ffi_benchmark")
-        results.forEach(async pointer => {
-            assert(await verify(target_text, pointer))
-        })
-    }
-)
