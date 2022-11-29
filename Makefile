@@ -9,3 +9,6 @@ test-rs: lib
 
 run: lib
 	deno run --allow-ffi --unstable main.ts
+
+wasm: 
+	cargo build --target wasm32-unknown-unknown
