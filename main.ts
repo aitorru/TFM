@@ -4,10 +4,10 @@ import * as bcrypt_deno from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
 // TODO: Create static dic.
 const random_text_generator = () => {
     let resulting_text = "";
-    for(let i = 0; i < 1; i++) {
+    for(let i = 0; i < 10000; i++) {
         resulting_text = resulting_text + crypto.randomUUID();
     }
-    return resulting_text + '\0';
+    return resulting_text;
 }
 
 const rust_hash_promises = [];
@@ -15,7 +15,7 @@ const rust_hash_promises = [];
 console.time('rust-ffi');
 
 // Generate 10 random hashes in paralell.
-for (let i = 0; i < 50;i++) {
+for (let i = 0; i < 1;i++) {
     const uuidv4 = random_text_generator();
     rust_hash_promises.push(
         {

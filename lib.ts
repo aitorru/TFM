@@ -21,12 +21,12 @@ const lib = Deno.dlopen(`./target/${Deno.args[0] ? 'release' : 'debug'}/${libPre
         result: 'f64'
     },
     hash : {
-      parameters: ['buffer', 'u32'],
+      parameters: ['pointer', 'u32'],
       result: 'pointer',
       nonblocking: true,
     },
     verify: {
-      parameters: ['buffer', 'buffer'],
+      parameters: ['pointer', 'pointer'],
       result: 'bool',
       nonblocking: true,
     },
@@ -53,9 +53,10 @@ const add = (x: number, y: number) => {
  * @returns The desired hash.
  */
 const hash = async (input: string, cost = 12): Promise<string> => {
+  const buffer = new TextEncoder().encode(`${input}\0`);
    const raw_pointer = new Deno.UnsafePointerView(
     await lib.symbols.hash(
-      new TextEncoder().encode(`${input}\0`), 
+      Deno.UnsafePointer.of(buffer), 
       cost
       )
   )
@@ -66,8 +67,8 @@ const hash = async (input: string, cost = 12): Promise<string> => {
 
 const verify = (password: string, hash: string): Promise<boolean> => {
   return lib.symbols.verify(
-    new TextEncoder().encode(`${password}\0`), // NULL TERMINATED
-    new TextEncoder().encode(`${hash}\0`)
+    Deno.UnsafePointer.of(new TextEncoder().encode(`${password}\0`)), // NULL TERMINATED
+    Deno.UnsafePointer.of(new TextEncoder().encode(`${hash}\0`))
   )
 }
 
@@ -75,6 +76,8 @@ const string_test = (): string => {
   // Convert the raw pointer into a safe string
   return new Deno.UnsafePointerView(lib.symbols.string_test()).getCString()
 } 
+
+export default lib;
 
 export {
     add,
