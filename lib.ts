@@ -15,7 +15,7 @@ switch (Deno.build.os) {
     break;
 }
 
-const lib = Deno.dlopen(`./target/debug/${libPrefix}tfm.${libSuffix}`, {
+const lib = Deno.dlopen(`./target/${Deno.args[0] ? 'release' : 'debug'}/${libPrefix}tfm.${libSuffix}`, {
     add: {
         parameters: ['f64', 'f64'],
         result: 'f64'

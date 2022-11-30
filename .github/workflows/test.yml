@@ -16,3 +16,5 @@ jobs:
       - run: make test-rs
       - run: make test-ts
       - run: make run
+      - run: make lib-prod
+      - run: make run-prod
