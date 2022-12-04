@@ -19,8 +19,8 @@ const random_text_generator = (length: number) => {
   return result;
 };
 
-const FOR_INIT = 500;
-const FOR_END = 1000;
+const FOR_INIT = 10000000;
+const FOR_END = 10000050;
 
 const bar = new Progressbar(
   "  Rust lib: |:bar| eta: :eta S | Current Tick: :current Total Ticks: :total | :percent",
@@ -58,7 +58,7 @@ for (let i = FOR_INIT; i < FOR_END; i++) {
 
     await Deno.writeTextFile(
       TARGET_FILE,
-      `${i},${rs_elapsed_time},${deno_elapsed_time}\n`,
+      `${i},${Math.floor(rs_elapsed_time)},${Math.floor(deno_elapsed_time)}\n`,
       { append: true },
     );
     bar.tick(1);
