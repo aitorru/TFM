@@ -11,10 +11,10 @@ test-rs: lib
 	cargo test
 
 run: lib
-	deno run --allow-ffi  --allow-net --unstable main.ts
+	deno run --allow-ffi --allow-hrtime --allow-write --allow-net --unstable main.ts
 
 run-prod: lib-prod
-	deno run --allow-ffi  --allow-net --unstable main.ts true
+	deno run --allow-ffi --allow-hrtime --allow-write --allow-net --unstable main.ts true
 
 
 wasm: 

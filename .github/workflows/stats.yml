@@ -12,6 +12,9 @@ jobs:
         uses: ATiltedTree/setup-rust@v1
         with:
           rust-version: stable
-      - run: make lib
-      - run: make test-rs
-      - run: make test-ts
+      - run: make lib-prod
+      - run: make run-prod
+      - uses: actions/upload-artifact@v3
+        with:
+          name: stats.csv
+          path: stats.csv

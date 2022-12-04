@@ -4,17 +4,6 @@ use std::{
 };
 
 #[no_mangle]
-extern "C" fn add(x: f64, y: f64) -> f64 {
-    x + y
-}
-
-#[no_mangle]
-extern "C" fn string_test() -> *mut c_char {
-    let string_to_return = CString::new("Hola mundo").expect("Error converting to c_char");
-    string_to_return.into_raw()
-}
-
-#[no_mangle]
 extern "C" fn hash(input_text_pointer: *const c_char, cost: u32) -> *mut c_char {
     let password: &str;
 
@@ -54,13 +43,7 @@ extern "C" fn verify(password_pointer: *const c_char, hash_pointer: *const c_cha
 mod tests {
     use std::ffi::CString;
 
-    use crate::{add, hash, verify};
-
-    #[test]
-    fn add_ffi() {
-        let result = add(2.0, 2.0);
-        assert_eq!(result, 4.0);
-    }
+    use crate::{hash, verify};
 
     #[test]
     fn verify_ffi() {

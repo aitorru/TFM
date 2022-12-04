@@ -10,6 +10,8 @@ crate-type = ["cdylib"]
 
 [dependencies]
 bcrypt = "0.13"
+crypto_kx = "0.1.0"
+crypto_box = "0.8.2"
 
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
@@ -19,4 +21,4 @@ web-sys = "0.3"
 
 [profile.release]
 # Tell `rustc` to optimize for small code size.
-opt-level = 3
+opt-level = 2
