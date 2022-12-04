@@ -1,4 +1,4 @@
-name: test
+name: stats
 on: [push]
 jobs:
   test:
