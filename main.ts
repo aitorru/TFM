@@ -1,5 +1,6 @@
 import RustyCrypto from "./lib.ts";
 import * as bcrypt_deno from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
+import { Progressbar } from "https://deno.land/x/deno_progress@0.6.0/mod.ts";
 
 const TARGET_FILE = "./stats.csv";
 
@@ -18,7 +19,17 @@ const random_text_generator = (length: number) => {
   return result;
 };
 
-for (let i = 0; i < 10000; i++) {
+const FOR_INIT = 500;
+const FOR_END = 1000;
+
+const bar = new Progressbar(
+  "  Rust lib: |:bar| eta: :eta S | Current Tick: :current Total Ticks: :total | :percent",
+  {
+    total: FOR_END - FOR_INIT,
+  },
+);
+
+for (let i = FOR_INIT; i < FOR_END; i++) {
   const data_to_encrypt = random_text_generator(i);
 
   const rs_lib = new RustyCrypto();
@@ -50,6 +61,7 @@ for (let i = 0; i < 10000; i++) {
       `${i},${rs_elapsed_time},${deno_elapsed_time}\n`,
       { append: true },
     );
+    bar.tick(1);
     rs_lib.close();
   }
 }
