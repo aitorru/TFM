@@ -59,20 +59,26 @@ for (let i = FOR_INIT; i < FOR_END; i++) {
     deno_compute(),
   ]);
 
-  if (
-    (await rs_lib.verify(data_to_encrypt, rs_computed.rs_hash)) &&
-    (await bcrypt_deno.compare(data_to_encrypt, deno_computed.deno_hash))
-  ) {
-    // write stats to disk.
+  try {
+    if (
+      (await rs_lib.verify(data_to_encrypt, rs_computed.rs_hash)) &&
+      (await bcrypt_deno.compare(data_to_encrypt, deno_computed.deno_hash))
+    ) {
+      // write stats to disk.
 
-    await Deno.writeTextFile(
-      TARGET_FILE,
-      `${i},${Math.floor(rs_computed.rs_elapsed_time)},${Math.floor(
-        deno_computed.deno_elapsed_time
-      )}\n`,
-      { append: true }
-    );
-    bar.tick(1);
+      await Deno.writeTextFile(
+        TARGET_FILE,
+        `${i},${Math.floor(rs_computed.rs_elapsed_time)},${Math.floor(
+          deno_computed.deno_elapsed_time
+        )}\n`,
+        { append: true }
+      );
+      bar.tick(1);
+    }
+  } catch (_) {
+    // Most likelly is a rust panic.
+    // Todo: catch??
+    continue;
   }
 }
 
