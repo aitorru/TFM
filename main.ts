@@ -17,7 +17,7 @@ const random_text_generator = (length: number) => {
 };
 
 const FOR_INIT = 0;
-const FOR_END = 10000;
+const FOR_END = 100;
 const rs_lib = new RustyCrypto();
 
 const bar = new Progressbar(
