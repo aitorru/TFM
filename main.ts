@@ -5,7 +5,7 @@ import { Progressbar } from "https://deno.land/x/deno_progress@0.6.0/mod.ts";
 const TARGET_FILE = "./stats.csv";
 
 // Clean the stats file
-await Deno.writeTextFile(TARGET_FILE, "");
+await Deno.writeTextFile(TARGET_FILE, "Serie,Rust,Deno\n");
 
 // TODO: Create static dic.
 const random_text_generator = (length: number) => {
