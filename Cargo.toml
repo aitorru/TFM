@@ -21,4 +21,4 @@ web-sys = "0.3"
 
 [profile.release]
 # Tell `rustc` to optimize for small code size.
-opt-level = 2
+opt-level = 3
