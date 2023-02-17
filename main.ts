@@ -16,8 +16,8 @@ const random_text_generator = (length: number) => {
   return result;
 };
 
-const FOR_INIT = 0;
-const FOR_END = 100;
+const FOR_INIT = 100;
+const FOR_END = 2000;
 const rs_lib = new RustyCrypto();
 
 const bar = new Progressbar(
@@ -27,13 +27,13 @@ const bar = new Progressbar(
   }
 );
 
-for (let i = FOR_INIT; i < FOR_END; i++) {
+for (let i = FOR_INIT; i < FOR_END + 1; i++) {
   const data_to_encrypt = random_text_generator(i);
 
   const rs_compute = async () => {
     const rs_start_time = performance.now();
 
-    const rs_hash = await rs_lib.hash(data_to_encrypt, 5);
+    const rs_hash = await rs_lib.hash(data_to_encrypt, 10);
 
     const rs_end_time = performance.now();
 
@@ -45,7 +45,7 @@ for (let i = FOR_INIT; i < FOR_END; i++) {
   const deno_compute = async () => {
     const deno_start_time = performance.now();
 
-    const deno_hash = await bcrypt_deno.hash(data_to_encrypt);
+    const deno_hash = await bcrypt_deno.hash(data_to_encrypt); // The default and only possible value is 10
 
     const deno_end_time = performance.now();
 
