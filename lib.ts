@@ -12,6 +12,7 @@ class RustyCrypto {
           nonblocking: true;
         };
         verify: { parameters: "pointer"[]; result: "bool"; nonblocking: true };
+        _secret_box: {parameters: "pointer"[]; result:"pointer"; nonblocking: true};
       }
     >
     | null = null;
@@ -63,6 +64,28 @@ class RustyCrypto {
     );
   }
 
+  /**
+   * 
+   * @param secret_key The secret key in base 64 format
+   * @param nonce The nonce in base 64 format
+   * @param message Plain text to encrypt
+   * @returns The encrypted data in base 64
+   */
+  async secretbox(secret_key: string, nonce: string, message: string): Promise<string> {
+    if (this.instance === null) {
+      throw {
+        error: "Library is closed.",
+      };
+    }
+    const result = await this.instance.symbols._secret_box(
+      Deno.UnsafePointer.of(new TextEncoder().encode(`${secret_key}\0`)),
+      Deno.UnsafePointer.of(new TextEncoder().encode(`${nonce}\0`)),
+      Deno.UnsafePointer.of(new TextEncoder().encode(`${message}\0`)),
+    );
+    const raw_pointer = new Deno.UnsafePointerView(result);
+    return raw_pointer.getCString();
+  }
+
   close() {
     this.instance?.close();
     this.instance = null;
@@ -100,6 +123,11 @@ class RustyCrypto {
           result: "bool",
           nonblocking: true,
         },
+        _secret_box: {
+          parameters: ["pointer", "pointer", "pointer"],
+          result: "pointer",
+          nonblocking: true
+        }
       },
     );
   }

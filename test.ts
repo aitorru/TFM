@@ -41,3 +41,19 @@ Deno.test(
     lib.close();
   },
 );
+Deno.test(
+  "ffi_secretbox_encrypt",
+  async () => {
+    const lib = new RustyCrypto();
+    const nonce = "ApAsVLwI0S+2RNpxdblflLiVF4Sp3Dlk";
+    const key = "RGLSbtumR+PLDGKX2/WVqfnPL/rglGyRs0U1DQppJm8=";
+
+    const message = "deno!"
+
+    const result = await lib.secretbox(key, nonce, message)
+
+    assert(result == "tIT+cUYJiozEPwb9BwY/1wIrolhY")
+
+    lib.close();
+  }
+)
