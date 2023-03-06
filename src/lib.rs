@@ -102,13 +102,62 @@ extern "C" fn _secret_box(
 }
 
 #[no_mangle]
-extern "C" fn unsecret_box() {}
+extern "C" fn _unsecret_box(
+    secret_key_pointer: *const c_char,
+    nonce_pointer: *const c_char,
+    secret_message_pointer: *const c_char,
+) -> *mut c_char {
+    let secret_key: &str;
+    let nonce: &str;
+    let secret_message: &str;
+
+    unsafe {
+        secret_key = CStr::from_ptr(secret_key_pointer)
+            .to_str()
+            .expect("Could not parse secret key");
+        nonce = CStr::from_ptr(nonce_pointer)
+            .to_str()
+            .expect("Could not parse secret key");
+        secret_message = CStr::from_ptr(secret_message_pointer)
+            .to_str()
+            .expect("Could not parse secret key");
+    }
+
+    let decoded_base64_secret_key = general_purpose::STANDARD.decode(secret_key).unwrap();
+    let decoded_base64_secret_key_u8: &[u8] = &decoded_base64_secret_key;
+
+    let decoded_base64_nonce = general_purpose::STANDARD.decode(nonce).unwrap();
+    let decoded_base64_nonce_u8: &[u8] = &decoded_base64_nonce;
+
+    // The message has to have 16 0s at the start
+    let message_start: &[u8; 16] = &[0; 16];
+    let message_final: &[u8] = secret_message.as_bytes();
+
+    let full_message_slice = [message_start, message_final].concat();
+
+    let mut out = vec![0u8; secret_message.as_bytes().len() + 16];
+    let _result = sodalite::secretbox_open(
+        &mut out,
+        &full_message_slice,
+        decoded_base64_nonce_u8
+            .try_into()
+            .expect("Nonce with incorrect lenght"),
+        decoded_base64_secret_key_u8
+            .try_into()
+            .expect("Key with incorrect lenght"),
+    );
+    // Ignore the first 32 bytes
+    let trimmed = &out[32..];
+    CString::new(general_purpose::STANDARD.encode(trimmed))
+        .expect("Error converting to pointer")
+        .into_raw()
+}
 
 #[cfg(test)]
 mod tests {
-    use std::ffi::CString;
+    use std::ffi::{CStr, CString};
 
-    use crate::{_secret_box, hash, verify};
+    use crate::{_secret_box, _unsecret_box, hash, verify};
 
     #[test]
     fn verify_ffi() {
@@ -148,6 +197,30 @@ mod tests {
         let message_ptr = CString::new(message).expect("Failed");
 
         let _out = _secret_box(key_ptr.as_ptr(), nonce_ptr.as_ptr(), message_ptr.as_ptr());
-        // TODO: Compare to an actual encrypted data chunk
+    }
+    #[test]
+    fn data_into_and_out_secret_box() {
+        let key = "RGLSbtumR+PLDGKX2/WVqfnPL/rglGyRs0U1DQppJm8=";
+        let key_ptr = CString::new(key).expect("Failed");
+        let nonce = "ApAsVLwI0S+2RNpxdblflLiVF4Sp3Dlk";
+        let nonce_ptr = CString::new(nonce).expect("Failed");
+
+        let message = "deno!";
+        let message_ptr = CString::new(message).expect("Failed");
+
+        let _out = _secret_box(key_ptr.as_ptr(), nonce_ptr.as_ptr(), message_ptr.as_ptr());
+        let out_str = unsafe {
+            CStr::from_ptr(_out)
+                .to_str()
+                .expect("Error exporting the result")
+        };
+        let out_ptr = CString::new(out_str).expect("Failed converting to ptr");
+        let to_verify = _unsecret_box(key_ptr.as_ptr(), nonce_ptr.as_ptr(), out_ptr.as_ptr());
+        let to_verify_src = unsafe {
+            CStr::from_ptr(to_verify)
+                .to_str()
+                .expect("Error exporting the result")
+        };
+        assert_eq!(to_verify_src, message, "The strings are not the same");
     }
 }
