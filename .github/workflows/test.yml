@@ -5,11 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: denoland/setup-deno@v1
+      - uses: denoland/setup-deno@v1.1.1
         with:
           deno-version: vx.x.x
       - name: Setup | Rust
-        uses: ATiltedTree/setup-rust@v1
+        uses: ATiltedTree/setup-rust@v1.0.5
         with:
           rust-version: stable
       - run: make lib

@@ -108,8 +108,6 @@ extern "C" fn unsecret_box() {}
 mod tests {
     use std::ffi::CString;
 
-    use base64::{engine::general_purpose, Engine};
-
     use crate::{_secret_box, hash, verify};
 
     #[test]
