@@ -129,13 +129,16 @@ extern "C" fn _unsecret_box(
     let decoded_base64_nonce = general_purpose::STANDARD.decode(nonce).unwrap();
     let decoded_base64_nonce_u8: &[u8] = &decoded_base64_nonce;
 
+    let decoded_base64_secret_message = general_purpose::STANDARD.decode(secret_message).unwrap();
+    let decoded_base64_secret_message_u8: &[u8] = &decoded_base64_secret_message;
+
     // The message has to have 16 0s at the start
     let message_start: &[u8; 16] = &[0; 16];
-    let message_final: &[u8] = secret_message.as_bytes();
+    let message_final: &[u8] = decoded_base64_secret_message_u8;
 
     let full_message_slice = [message_start, message_final].concat();
 
-    let mut out = vec![0u8; secret_message.as_bytes().len() + 16];
+    let mut out = vec![0u8; full_message_slice.len()];
     let _result = sodalite::secretbox_open(
         &mut out,
         &full_message_slice,
@@ -148,7 +151,7 @@ extern "C" fn _unsecret_box(
     );
     // Ignore the first 32 bytes
     let trimmed = &out[32..];
-    CString::new(general_purpose::STANDARD.encode(trimmed))
+    CString::new(trimmed)
         .expect("Error converting to pointer")
         .into_raw()
 }
@@ -214,6 +217,10 @@ mod tests {
                 .to_str()
                 .expect("Error exporting the result")
         };
+        assert_eq!(
+            out_str, "tIT+cUYJiozEPwb9BwY/1wIrolhY",
+            "Encrypted data does not match"
+        );
         let out_ptr = CString::new(out_str).expect("Failed converting to ptr");
         let to_verify = _unsecret_box(key_ptr.as_ptr(), nonce_ptr.as_ptr(), out_ptr.as_ptr());
         let to_verify_src = unsafe {
@@ -221,6 +228,6 @@ mod tests {
                 .to_str()
                 .expect("Error exporting the result")
         };
-        assert_eq!(to_verify_src, message, "The strings are not the same");
+        assert_eq!(to_verify_src, message, "Unencrypted data does not match");
     }
 }
