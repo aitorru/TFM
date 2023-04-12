@@ -43,10 +43,122 @@ extern "C" fn verify(password_pointer: *const c_char, hash_pointer: *const c_cha
 // "box" is a reserved name.
 // Public key
 #[no_mangle]
-extern "C" fn _box() {}
+extern "C" fn _box(
+    message_pointer: *const c_char,
+    nonce_pointer: *const c_char,
+    public_key_pointer: *const c_char,
+    private_key_pointer: *const c_char,
+) -> *mut c_char {
+    let message: &str;
+    let nonce: &str;
+    let public_key: &str;
+    let private_key: &str;
+
+    unsafe {
+        message = CStr::from_ptr(message_pointer)
+            .to_str()
+            .expect("Could not parse secret key");
+        nonce = CStr::from_ptr(nonce_pointer)
+            .to_str()
+            .expect("Could not parse secret key");
+        public_key = CStr::from_ptr(public_key_pointer)
+            .to_str()
+            .expect("Could not parse public key");
+        private_key = CStr::from_ptr(private_key_pointer)
+            .to_str()
+            .expect("Could not parse public key");
+    }
+
+    let decoded_base64_nonce = general_purpose::STANDARD.decode(nonce).unwrap();
+
+    let decoded_base64_public_key = general_purpose::STANDARD.decode(public_key).unwrap();
+
+    let decoded_base64_private_key = general_purpose::STANDARD.decode(private_key).unwrap();
+
+    // First 32 bytes of the message have to be zeroes
+    let message_start: &[u8; 32] = &[0; 32];
+    let message_final = message.as_bytes();
+
+    let full_message_slice = [message_start, message_final].concat();
+
+    // Create a vec to store the result
+    let mut out = vec![0u8; message.as_bytes().len() + 32];
+    sodalite::box_(
+        &mut out,
+        &full_message_slice,
+        &decoded_base64_nonce
+            .try_into()
+            .expect("Nonce with incorrect lenght"),
+        &decoded_base64_public_key
+            .try_into()
+            .expect("Public key with incorrect lenght"),
+        &decoded_base64_private_key
+            .try_into()
+            .expect("Private key with incorrect lenght"),
+    )
+    .expect("Could not encrypt");
+
+    let trimmed = &out[16..];
+    CString::new(general_purpose::STANDARD.encode(trimmed))
+        .expect("Error converting to pointer")
+        .into_raw()
+}
 
 #[no_mangle]
-extern "C" fn un_box() {}
+extern "C" fn un_box(
+    p_public_key_pointer: *const c_char,
+    s_secret_key_pointer: *const c_char,
+    nonce_pointer: *const c_char,
+    message_pointer: *const c_char,
+) -> *mut c_char {
+    let p_public_key: &str;
+    let s_secret_key: &str;
+    let nonce: &str;
+    let message: &str;
+
+    unsafe {
+        p_public_key = CStr::from_ptr(p_public_key_pointer)
+            .to_str()
+            .expect("Could not parse public key");
+        s_secret_key = CStr::from_ptr(s_secret_key_pointer)
+            .to_str()
+            .expect("Could not parse secret key");
+        nonce = CStr::from_ptr(nonce_pointer)
+            .to_str()
+            .expect("Could not parse nonce");
+        message = CStr::from_ptr(message_pointer)
+            .to_str()
+            .expect("Could not parse message");
+    }
+
+    let decoded_base64_p_public_key = general_purpose::STANDARD.decode(p_public_key).unwrap();
+
+    let decoded_base64_s_secret_key = general_purpose::STANDARD.decode(s_secret_key).unwrap();
+
+    let decoded_base64_nonce = general_purpose::STANDARD.decode(nonce).unwrap();
+
+    let decoded_base64_message = general_purpose::STANDARD.decode(message).unwrap();
+
+    // The message has to have 16 0s at the start
+    let message_start: &[u8; 16] = &[0; 16];
+    let message_final = decoded_base64_message.as_slice();
+
+    let full_message_slice = [message_start, message_final].concat();
+
+    let mut out = vec![0u8; full_message_slice.len()];
+
+    let _result = sodalite::box_open(
+        &mut out,
+        &full_message_slice,
+        &decoded_base64_nonce.try_into().unwrap(),
+        &decoded_base64_p_public_key.try_into().unwrap(),
+        &decoded_base64_s_secret_key.try_into().unwrap(),
+    );
+    let trimmed = &out[32..];
+    CString::new(trimmed)
+        .expect("Error converting to pointer")
+        .into_raw()
+}
 
 // Secret key
 #[no_mangle]
@@ -160,7 +272,7 @@ extern "C" fn _unsecret_box(
 mod tests {
     use std::ffi::{CStr, CString};
 
-    use crate::{_secret_box, _unsecret_box, hash, verify};
+    use crate::{_box, _secret_box, _unsecret_box, hash, un_box, verify};
 
     #[test]
     fn verify_ffi() {
@@ -223,6 +335,73 @@ mod tests {
         );
         let out_ptr = CString::new(out_str).expect("Failed converting to ptr");
         let to_verify = _unsecret_box(key_ptr.as_ptr(), nonce_ptr.as_ptr(), out_ptr.as_ptr());
+        let to_verify_src = unsafe {
+            CStr::from_ptr(to_verify)
+                .to_str()
+                .expect("Error exporting the result")
+        };
+        assert_eq!(to_verify_src, message, "Unencrypted data does not match");
+    }
+    #[test]
+    fn data_into_box() {
+        let peer_public_key = "WwNYorEmuuVFQ5MroQHmvunWk8pK7Pev7vOF2F0rti8=";
+        let peer_public_key_ptr = CString::new(peer_public_key).expect("");
+        let self_private_key = "S/tr7AxAFnt376o7VTMt5vVQ8sqPDzNMjOQ2hOWCB9I=";
+        let self_private_key_ptr = CString::new(self_private_key).expect("");
+        // Self public key 2MKROc1DwI42Zi4nthGmECkT67aLs30DA1TpyPNx4S0=
+        let nonce = "ApAsVLwI0S+2RNpxdblflLiVF4Sp3Dlk";
+        let nonce_ptr = CString::new(nonce).expect("Failed");
+        let message = "deno!";
+        let message_ptr = CString::new(message).expect("Failed");
+
+        let _out = _box(
+            message_ptr.as_ptr(),
+            nonce_ptr.as_ptr(),
+            peer_public_key_ptr.as_ptr(),
+            self_private_key_ptr.as_ptr(),
+        );
+        let out_str = unsafe {
+            CStr::from_ptr(_out)
+                .to_str()
+                .expect("Error exporting the result")
+        };
+
+        assert_eq!(out_str, "K5lmw6xAfEflb0XT9kDXo4L06qpr")
+    }
+    #[test]
+    fn data_into_and_out_box() {
+        let peer_public_key = "WwNYorEmuuVFQ5MroQHmvunWk8pK7Pev7vOF2F0rti8=";
+        let peer_public_key_ptr = CString::new(peer_public_key).expect("");
+        let self_private_key = "S/tr7AxAFnt376o7VTMt5vVQ8sqPDzNMjOQ2hOWCB9I=";
+        let self_private_key_ptr = CString::new(self_private_key).expect("");
+        // Self public key 2MKROc1DwI42Zi4nthGmECkT67aLs30DA1TpyPNx4S0=
+        let nonce = "ApAsVLwI0S+2RNpxdblflLiVF4Sp3Dlk";
+        let nonce_ptr = CString::new(nonce).expect("Failed");
+        let message = "deno!";
+        let message_ptr = CString::new(message).expect("Failed");
+
+        let _out = _box(
+            message_ptr.as_ptr(),
+            nonce_ptr.as_ptr(),
+            peer_public_key_ptr.as_ptr(),
+            self_private_key_ptr.as_ptr(),
+        );
+        let out_str = unsafe {
+            CStr::from_ptr(_out)
+                .to_str()
+                .expect("Error exporting the result")
+        };
+
+        assert_eq!(out_str, "K5lmw6xAfEflb0XT9kDXo4L06qpr");
+
+        let out_ptr = CString::new(out_str).expect("Failed converting to ptr");
+
+        let to_verify = un_box(
+            peer_public_key_ptr.as_ptr(),
+            self_private_key_ptr.as_ptr(),
+            nonce_ptr.as_ptr(),
+            out_ptr.as_ptr(),
+        );
         let to_verify_src = unsafe {
             CStr::from_ptr(to_verify)
                 .to_str()
