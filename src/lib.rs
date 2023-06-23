@@ -44,10 +44,10 @@ extern "C" fn verify(password_pointer: *const c_char, hash_pointer: *const c_cha
 // Public key
 #[no_mangle]
 extern "C" fn _box(
-    message_pointer: *const c_char,
-    nonce_pointer: *const c_char,
     public_key_pointer: *const c_char,
     private_key_pointer: *const c_char,
+    nonce_pointer: *const c_char,
+    message_pointer: *const c_char,
 ) -> *mut c_char {
     let message: &str;
     let nonce: &str;
@@ -105,7 +105,7 @@ extern "C" fn _box(
 }
 
 #[no_mangle]
-extern "C" fn un_box(
+extern "C" fn _unbox(
     p_public_key_pointer: *const c_char,
     s_secret_key_pointer: *const c_char,
     nonce_pointer: *const c_char,
@@ -272,7 +272,7 @@ extern "C" fn _unsecret_box(
 mod tests {
     use std::ffi::{CStr, CString};
 
-    use crate::{_box, _secret_box, _unsecret_box, hash, un_box, verify};
+    use crate::{_box, _secret_box, _unbox, _unsecret_box, hash, verify};
 
     #[test]
     fn verify_ffi() {
@@ -355,10 +355,10 @@ mod tests {
         let message_ptr = CString::new(message).expect("Failed");
 
         let _out = _box(
-            message_ptr.as_ptr(),
-            nonce_ptr.as_ptr(),
             peer_public_key_ptr.as_ptr(),
             self_private_key_ptr.as_ptr(),
+            nonce_ptr.as_ptr(),
+            message_ptr.as_ptr(),
         );
         let out_str = unsafe {
             CStr::from_ptr(_out)
@@ -381,10 +381,10 @@ mod tests {
         let message_ptr = CString::new(message).expect("Failed");
 
         let _out = _box(
-            message_ptr.as_ptr(),
-            nonce_ptr.as_ptr(),
             peer_public_key_ptr.as_ptr(),
             self_private_key_ptr.as_ptr(),
+            nonce_ptr.as_ptr(),
+            message_ptr.as_ptr(),
         );
         let out_str = unsafe {
             CStr::from_ptr(_out)
@@ -396,7 +396,7 @@ mod tests {
 
         let out_ptr = CString::new(out_str).expect("Failed converting to ptr");
 
-        let to_verify = un_box(
+        let to_verify = _unbox(
             peer_public_key_ptr.as_ptr(),
             self_private_key_ptr.as_ptr(),
             nonce_ptr.as_ptr(),

@@ -12,7 +12,22 @@ class RustyCrypto {
           nonblocking: true;
         };
         verify: { parameters: "pointer"[]; result: "bool"; nonblocking: true };
-        _secret_box: {parameters: "pointer"[]; result:"pointer"; nonblocking: true};
+        _secret_box: {
+          parameters: "pointer"[];
+          result: "pointer";
+          nonblocking: true;
+        };
+        _unsecret_box: {
+          parameters: "pointer"[];
+          result: "pointer";
+          nonblocking: true;
+        };
+        _box: { parameters: "pointer"[]; result: "pointer"; nonblocking: true };
+        _unbox: {
+          parameters: "pointer"[];
+          result: "pointer";
+          nonblocking: true;
+        };
       }
     >
     | null = null;
@@ -37,12 +52,21 @@ class RustyCrypto {
       };
     }
     const buffer = new TextEncoder().encode(`${input}\0`);
-    const raw_pointer = new Deno.UnsafePointerView(
-      await this.instance.symbols.hash(
-        Deno.UnsafePointer.of(buffer),
-        cost,
-      ),
+    if (buffer == null) {
+      throw {
+        error: "Failed to encode input.",
+      };
+    }
+    const hased_pointer = await this.instance.symbols.hash(
+      Deno.UnsafePointer.of(buffer),
+      cost,
     );
+    if (hased_pointer == null) {
+      throw {
+        error: "Failed to hash input.",
+      };
+    }
+    const raw_pointer = new Deno.UnsafePointerView(hased_pointer);
     return raw_pointer.getCString();
   }
 
@@ -65,13 +89,17 @@ class RustyCrypto {
   }
 
   /**
-   * 
+   * Function that encrypts a message using a secret key and a nonce
    * @param secret_key The secret key in base 64 format
    * @param nonce The nonce in base 64 format
    * @param message Plain text to encrypt
    * @returns The encrypted data in base 64
    */
-  async secretbox(secret_key: string, nonce: string, message: string): Promise<string> {
+  async secretbox(
+    secret_key: string,
+    nonce: string,
+    message: string,
+  ): Promise<string> {
     if (this.instance === null) {
       throw {
         error: "Library is closed.",
@@ -82,6 +110,93 @@ class RustyCrypto {
       Deno.UnsafePointer.of(new TextEncoder().encode(`${nonce}\0`)),
       Deno.UnsafePointer.of(new TextEncoder().encode(`${message}\0`)),
     );
+    if (result == null) {
+      throw {
+        error: "Encryption failed.",
+      };
+    }
+    const raw_pointer = new Deno.UnsafePointerView(result);
+    return raw_pointer.getCString();
+  }
+  /**
+   * Function that decrypts a message using a secret key and a nonce
+   * @param secret_key The secret key in base 64 format
+   * @param nonce The nonce in base 64 format
+   * @param encrypted_message The encrypted message in base 64 format
+   * @returns The decrypted message
+   */
+  async open_secretbox(
+    secret_key: string,
+    nonce: string,
+    encrypted_message: string,
+  ): Promise<string> {
+    if (this.instance === null) {
+      throw {
+        error: "Library is closed.",
+      };
+    }
+    const result = await this.instance.symbols._unsecret_box(
+      Deno.UnsafePointer.of(new TextEncoder().encode(`${secret_key}\0`)),
+      Deno.UnsafePointer.of(new TextEncoder().encode(`${nonce}\0`)),
+      Deno.UnsafePointer.of(new TextEncoder().encode(`${encrypted_message}\0`)),
+    );
+    if (result == null) {
+      throw {
+        error: "Decryption failed.",
+      };
+    }
+    const raw_pointer = new Deno.UnsafePointerView(result);
+    return raw_pointer.getCString();
+  }
+
+  async onpen_box(
+    public_key: string,
+    secret_key: string,
+    nonce: string,
+    encrypted_message: string,
+  ): Promise<string> {
+    if (this.instance === null) {
+      throw {
+        error: "Library is closed.",
+      };
+    }
+    const result = await this.instance.symbols._unbox(
+      Deno.UnsafePointer.of(new TextEncoder().encode(`${public_key}\0`)),
+      Deno.UnsafePointer.of(new TextEncoder().encode(`${secret_key}\0`)),
+      Deno.UnsafePointer.of(new TextEncoder().encode(`${nonce}\0`)),
+      Deno.UnsafePointer.of(new TextEncoder().encode(`${encrypted_message}\0`)),
+    );
+    if (result == null) {
+      throw {
+        error: "Decryption failed.",
+      };
+    }
+    const raw_pointer = new Deno.UnsafePointerView(result);
+    return raw_pointer.getCString();
+  }
+
+  async box(
+    public_key: string,
+    secret_key: string,
+    nonce: string,
+    message: string,
+  ): Promise<string> {
+    if (this.instance === null) {
+      throw {
+        error: "Library is closed.",
+      };
+    }
+    const result = await this.instance.symbols._box(
+      Deno.UnsafePointer.of(new TextEncoder().encode(`${public_key}\0`)),
+      Deno.UnsafePointer.of(new TextEncoder().encode(`${secret_key}\0`)),
+      Deno.UnsafePointer.of(new TextEncoder().encode(`${nonce}\0`)),
+      Deno.UnsafePointer.of(new TextEncoder().encode(`${message}\0`)),
+    );
+    if (result == null) {
+      throw {
+        error: "Encryption failed.",
+      };
+    }
     const raw_pointer = new Deno.UnsafePointerView(result);
     return raw_pointer.getCString();
   }
@@ -126,8 +241,23 @@ class RustyCrypto {
         _secret_box: {
           parameters: ["pointer", "pointer", "pointer"],
           result: "pointer",
-          nonblocking: true
-        }
+          nonblocking: true,
+        },
+        _unsecret_box: {
+          parameters: ["pointer", "pointer", "pointer"],
+          result: "pointer",
+          nonblocking: true,
+        },
+        _box: {
+          parameters: ["pointer", "pointer", "pointer", "pointer", "pointer"],
+          result: "pointer",
+          nonblocking: true,
+        },
+        _unbox: {
+          parameters: ["pointer", "pointer", "pointer", "pointer", "pointer"],
+          result: "pointer",
+          nonblocking: true,
+        },
       },
     );
   }
