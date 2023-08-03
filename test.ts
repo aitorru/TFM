@@ -89,7 +89,6 @@ Deno.test(
       nonce,
       message,
     );
-
     assert(result == "K5lmw6xAfEflb0XT9kDXo4L06qpr");
 
     lib.close();
@@ -100,5 +99,30 @@ Deno.test(
   async () => {
     const lib = new RustyCrypto();
     const nonce = "ApAsVLwI0S+2RNpxdblflLiVF4Sp3Dlk";
+    const peer_public_key = "WwNYorEmuuVFQ5MroQHmvunWk8pK7Pev7vOF2F0rti8=";
+    const self_private_key = "S/tr7AxAFnt376o7VTMt5vVQ8sqPDzNMjOQ2hOWCB9I=";
+
+    const message = "deno!";
+
+    const encrypted_data = await lib.box(
+      peer_public_key,
+      self_private_key,
+      nonce,
+      message,
+    );
+    assert(encrypted_data == "K5lmw6xAfEflb0XT9kDXo4L06qpr");
+
+    // Open the box
+
+    const result = await lib.open_box(
+      peer_public_key,
+      self_private_key,
+      nonce,
+      encrypted_data,
+    );
+
+    assert(result == "deno!");
+
+    lib.close();
   },
 );

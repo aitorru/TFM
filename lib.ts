@@ -149,7 +149,7 @@ class RustyCrypto {
     return raw_pointer.getCString();
   }
 
-  async onpen_box(
+  async open_box(
     public_key: string,
     secret_key: string,
     nonce: string,
@@ -249,12 +249,12 @@ class RustyCrypto {
           nonblocking: true,
         },
         _box: {
-          parameters: ["pointer", "pointer", "pointer", "pointer", "pointer"],
+          parameters: ["pointer", "pointer", "pointer", "pointer"],
           result: "pointer",
           nonblocking: true,
         },
         _unbox: {
-          parameters: ["pointer", "pointer", "pointer", "pointer", "pointer"],
+          parameters: ["pointer", "pointer", "pointer", "pointer"],
           result: "pointer",
           nonblocking: true,
         },
