@@ -1,0 +1,3 @@
+[submodule "tweetnacl-deno"]
+	path = tweetnacl-deno
+	url = https://github.com/intob/tweetnacl-deno.git
