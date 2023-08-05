@@ -1,5 +1,5 @@
 /target
 /Cargo.lock
-stats.csv
+*stats.csv
 .ipynb_checkpoints
 prueba.ts

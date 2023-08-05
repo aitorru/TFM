@@ -1,11 +1,23 @@
 import RustyCrypto from "./lib.ts";
 import * as bcrypt_deno from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
 import { Progressbar } from "https://deno.land/x/deno_progress@0.6.0/mod.ts";
+import { decode, encode } from "https://deno.land/std/encoding/base64.ts";
+import {
+  box,
+  box_open,
+  BoxLength,
+  ByteArray,
+  decodeBase64,
+  encodeBase64,
+  secretbox,
+  secretbox_open,
+} from "./tweetnacl-deno/src/nacl.ts";
 
-const TARGET_FILE = "./stats.csv";
+const HASH_TARGET_FILE = "./hash_stats.csv";
+const SECRETBOX_TARGET_FILE = "./secretbox_stats.csv";
 
 // Clean the stats file
-await Deno.writeTextFile(TARGET_FILE, "Serie,Rust,Deno\n");
+await Deno.writeTextFile(HASH_TARGET_FILE, "Serie,Rust,Deno\n");
 
 // TODO: Create static dic.
 const random_text_generator = (length: number) => {
@@ -16,22 +28,22 @@ const random_text_generator = (length: number) => {
   return result;
 };
 
-const FOR_INIT = 100;
-const FOR_END = 200;
-const FOR_STEP = 15;
+const FOR_INIT = 0;
+const FOR_END = 20;
+const FOR_STEP = 10;
 const rs_lib = new RustyCrypto();
 
-const bar = new Progressbar(
-  "  Rust lib: |:bar| eta: :eta S | Current Tick: :current Total Ticks: :total | :percent",
+let bar = new Progressbar(
+  "  Rust lib: |:bar| eta: :eta S | :percent",
   {
     total: (FOR_END - FOR_INIT) * FOR_STEP,
   },
 );
 
-for (let i = FOR_INIT; i < FOR_END + 1; i++) {
+for (let i = FOR_INIT; i < FOR_END; i++) {
   const data_to_encrypt = random_text_generator(i);
 
-  const rs_compute = async () => {
+  const rs_compute_hash = async () => {
     const rs_start_time = performance.now();
 
     const rs_hash = await rs_lib.hash(data_to_encrypt, 10);
@@ -43,7 +55,7 @@ for (let i = FOR_INIT; i < FOR_END + 1; i++) {
     return { rs_hash, rs_elapsed_time };
   };
 
-  const deno_compute = async () => {
+  const deno_compute_hash = async () => {
     const deno_start_time = performance.now();
 
     const deno_hash = await bcrypt_deno.hash(data_to_encrypt); // The default and only possible value is 10
@@ -60,8 +72,24 @@ for (let i = FOR_INIT; i < FOR_END + 1; i++) {
 
   // Run every test 20 times and get the average.
   for (let i = 0; i < FOR_STEP; i++) {
-    rs_computed_data.push(await rs_compute());
-    deno_computed_data.push(await deno_compute());
+    const rs_comuted_hash = await rs_compute_hash();
+    const deno_computed_hash = await deno_compute_hash();
+    rs_computed_data.push(rs_comuted_hash);
+    deno_computed_data.push(deno_computed_hash);
+
+    // Verify that the hashes are correct
+    if (
+      !(await rs_lib.verify(data_to_encrypt, rs_comuted_hash.rs_hash)) &&
+      !(await bcrypt_deno.compare(
+        data_to_encrypt,
+        deno_computed_hash.deno_hash,
+      ))
+    ) {
+      throw {
+        error: "Rust hash is not valid",
+      };
+    }
+
     bar.tick(1);
   }
 
@@ -75,45 +103,129 @@ for (let i = FOR_INIT; i < FOR_END + 1; i++) {
 
   const deno_computed = deno_computed_data.reduce((acc, curr) => {
     return {
-      deno_hash: acc.deno_hash + curr.deno_hash,
+      deno_hash: "",
       deno_elapsed_time: acc.deno_elapsed_time + curr.deno_elapsed_time,
     };
   }, { deno_hash: "", deno_elapsed_time: 0 });
 
-  const rs_avg = {
-    rs_hash: "",
-    rs_elapsed_time: rs_computed.rs_elapsed_time / rs_computed_data.length,
-  };
+  const rs_avg = rs_computed.rs_elapsed_time / rs_computed_data.length;
 
-  const deno_avg = {
-    deno_hash: "",
-    deno_elapsed_time: deno_computed.deno_elapsed_time /
-      deno_computed_data.length,
-  };
+  const deno_avg = deno_computed.deno_elapsed_time /
+    deno_computed_data.length;
 
   try {
-    if (
-      (await rs_lib.verify(data_to_encrypt, rs_computed_data[0].rs_hash)) &&
-      (await bcrypt_deno.compare(
-        data_to_encrypt,
-        deno_computed_data[0].deno_hash,
-      ))
-    ) {
-      // write stats to disk.
+    // write stats to disk.
 
-      await Deno.writeTextFile(
-        TARGET_FILE,
-        `${i},${Math.floor(rs_avg.rs_elapsed_time)},${
-          Math.floor(
-            deno_avg.deno_elapsed_time,
-          )
-        }\n`,
-        { append: true },
-      );
-    }
+    await Deno.writeTextFile(
+      HASH_TARGET_FILE,
+      `${i},${Math.floor(rs_avg)},${
+        Math.floor(
+          deno_avg,
+        )
+      }\n`,
+      { append: true },
+    );
   } catch (_) {
     // Most likelly is a rust panic.
-    // Todo: catch??
+    continue;
+  }
+}
+
+bar.terminate();
+bar = new Progressbar(
+  "  Rust lib: |:bar| eta: :eta S | :percent",
+  {
+    total: (FOR_END - FOR_INIT) * FOR_STEP,
+  },
+);
+
+// Calculate the secretbox
+await Deno.writeTextFile(SECRETBOX_TARGET_FILE, "Serie,Rust,Deno\n");
+
+for (let i = FOR_INIT; i < FOR_END + 1; i++) {
+  const data_to_encrypt = random_text_generator(i);
+
+  const rs_compute_secretbox = async () => {
+    const rs_start_time = performance.now();
+
+    const private_key = "S/tr7AxAFnt376o7VTMt5vVQ8sqPDzNMjOQ2hOWCB9I=";
+    const nonce = "ApAsVLwI0S+2RNpxdblflLiVF4Sp3Dlk";
+
+    const rs_secretbox = await rs_lib.secretbox(
+      private_key,
+      nonce,
+      data_to_encrypt,
+    );
+
+    const rs_end_time = performance.now();
+
+    const rs_elapsed_time = rs_end_time - rs_start_time;
+
+    return { rs_secretbox, rs_elapsed_time };
+  };
+
+  const deno_compute_secretbox = () => {
+    const deno_start_time = performance.now();
+
+    const private_key = decodeBase64(
+      "S/tr7AxAFnt376o7VTMt5vVQ8sqPDzNMjOQ2hOWCB9I=",
+    );
+    const nonce = decodeBase64("ApAsVLwI0S+2RNpxdblflLiVF4Sp3Dlk");
+
+    const deno_secretbox = secretbox(
+      decodeBase64(encode(data_to_encrypt)),
+      nonce,
+      private_key,
+    );
+
+    const deno_end_time = performance.now();
+
+    const deno_elapsed_time = deno_end_time - deno_start_time;
+
+    return { deno_secretbox: encodeBase64(deno_secretbox), deno_elapsed_time };
+  };
+  let rs_computed_data = [];
+  let deno_computed_data = [];
+
+  for (let i = 0; i < FOR_STEP; i++) {
+    const rs_computed_secretbox = await rs_compute_secretbox();
+    const deno_computed_secretbox = deno_compute_secretbox();
+
+    rs_computed_data.push(rs_computed_secretbox);
+    deno_computed_data.push(deno_computed_secretbox);
+
+    bar.tick(1);
+  }
+
+  const rs_computed = rs_computed_data.reduce((acc, curr) => {
+    return {
+      rs_secretbox: "",
+      rs_elapsed_time: acc.rs_elapsed_time + curr.rs_elapsed_time,
+    };
+  }, { rs_secretbox: "", rs_elapsed_time: 0 });
+
+  const deno_computed = deno_computed_data.reduce((acc, curr) => {
+    return {
+      deno_secretbox: "",
+      deno_elapsed_time: acc.deno_elapsed_time + curr.deno_elapsed_time,
+    };
+  }, { deno_secretbox: "", deno_elapsed_time: 0 });
+
+  const rs_avg = rs_computed.rs_elapsed_time / rs_computed_data.length;
+
+  const deno_avg = deno_computed.deno_elapsed_time / deno_computed_data.length;
+
+  try {
+    await Deno.writeTextFile(
+      SECRETBOX_TARGET_FILE,
+      `${i},${Math.floor(rs_avg)},${
+        Math.floor(
+          deno_avg,
+        )
+      }\n`,
+      { append: true },
+    );
+  } catch (_) {
     continue;
   }
 }
