@@ -28,3 +28,7 @@ jobs:
         with:
           name: secretbox_stats.csv
           path: secretbox_stats.csv
+      - uses: actions/upload-artifact@v3
+        with:
+          name: box_stats.csv
+          path: box_stats.csv
