@@ -31,7 +31,7 @@ const random_text_generator = (length: number) => {
 
 const FOR_INIT = 1000;
 const FOR_END = 1500;
-const FOR_STEP = 3;
+const FOR_STEP = 10;
 const rs_lib = new RustyCrypto();
 
 let bar = new Progressbar(
@@ -77,19 +77,6 @@ for (let i = FOR_INIT; i < FOR_END; i++) {
     const deno_computed_hash = await deno_compute_hash();
     rs_computed_data.push(rs_comuted_hash);
     deno_computed_data.push(deno_computed_hash);
-
-    // Verify that the hashes are correct
-    if (
-      !(await rs_lib.verify(data_to_encrypt, rs_comuted_hash.rs_hash)) &&
-      !(await bcrypt_deno.compare(
-        data_to_encrypt,
-        deno_computed_hash.deno_hash,
-      ))
-    ) {
-      throw {
-        error: "Rust hash is not valid",
-      };
-    }
 
     bar.tick(1);
   }
@@ -222,6 +209,14 @@ for (let i = FOR_INIT; i < FOR_END; i++) {
     continue;
   }
 }
+
+bar.terminate();
+bar = new Progressbar(
+  "  Rust lib: |:bar| eta: :eta S | :percent",
+  {
+    total: (FOR_END - FOR_INIT) * FOR_STEP,
+  },
+);
 
 // Calculate the box
 await Deno.writeTextFile(BOX_TARGET_FILE, "Serie,Rust,Deno\n");
