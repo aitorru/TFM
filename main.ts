@@ -1,16 +1,12 @@
 import RustyCrypto from "./lib.ts";
 import * as bcrypt_deno from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
 import { Progressbar } from "https://deno.land/x/deno_progress@0.6.0/mod.ts";
-import { decode, encode } from "https://deno.land/std/encoding/base64.ts";
+import { encode } from "https://deno.land/std@0.197.0/encoding/base64.ts";
 import {
   box,
-  box_open,
-  BoxLength,
-  ByteArray,
   decodeBase64,
   encodeBase64,
   secretbox,
-  secretbox_open,
 } from "./tweetnacl-deno/src/nacl.ts";
 
 const HASH_TARGET_FILE = "./hash_stats.csv";
@@ -31,7 +27,11 @@ const random_text_generator = (length: number) => {
 
 const FOR_INIT = 1000;
 const FOR_END = 1500;
+<<<<<<< Updated upstream
 const FOR_STEP = 10;
+=======
+const FOR_STEP = 5;
+>>>>>>> Stashed changes
 const rs_lib = new RustyCrypto();
 
 let bar = new Progressbar(
