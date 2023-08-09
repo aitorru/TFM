@@ -27,11 +27,7 @@ const random_text_generator = (length: number) => {
 
 const FOR_INIT = 1000;
 const FOR_END = 1500;
-<<<<<<< Updated upstream
 const FOR_STEP = 10;
-=======
-const FOR_STEP = 5;
->>>>>>> Stashed changes
 const rs_lib = new RustyCrypto();
 
 let bar = new Progressbar(
@@ -68,8 +64,8 @@ for (let i = FOR_INIT; i < FOR_END; i++) {
     return { deno_hash, deno_elapsed_time };
   };
 
-  let rs_computed_data = [];
-  let deno_computed_data = [];
+  const rs_computed_data = [];
+  const deno_computed_data = [];
 
   // Run every test 20 times and get the average.
   for (let i = 0; i < FOR_STEP; i++) {
@@ -168,8 +164,8 @@ for (let i = FOR_INIT; i < FOR_END; i++) {
 
     return { deno_secretbox: encodeBase64(deno_secretbox), deno_elapsed_time };
   };
-  let rs_computed_data = [];
-  let deno_computed_data = [];
+  const rs_computed_data = [];
+  const deno_computed_data = [];
 
   for (let i = 0; i < FOR_STEP; i++) {
     const rs_computed_secretbox = await rs_compute_secretbox();
@@ -270,8 +266,8 @@ for (let i = FOR_INIT; i < FOR_END; i++) {
     return { deno_box: encodeBase64(deno_box), deno_elapsed_time };
   };
 
-  let rs_computed_data = [];
-  let deno_computed_data = [];
+  const rs_computed_data = [];
+  const deno_computed_data = [];
 
   for (let i = 0; i < FOR_STEP; i++) {
     const rs_computed_box = await rs_compute_box();
