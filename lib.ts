@@ -1,5 +1,5 @@
 /**
- * ## RustyCrypto FFI API
+ * ### RustyCrypto FFI API
  * Hash and Crypto utils
  */
 class RustyCrypto {
