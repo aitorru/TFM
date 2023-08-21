@@ -1,7 +1,8 @@
 \documentclass[12pt, letterpaper]{article}
 \usepackage{blindtext}
 \usepackage{multicol}
-\title{Secure speedup of the future deployments}
+\usepackage{listings}
+\title{Secure speedup of the future}
 \author{Aitor Ruiz Garcia}
 \date{September 2023}
 \begin{document}
@@ -16,13 +17,49 @@
 
     All these factors have contributed to the rise of JavaScript as the language of the future. Nonetheless, as the creator himself contends, it has experienced some 'growing pains'.
     \section{The problem}
+
+    Ryan Dahl, the creator of Node.js, has expressed his regrets about the language. He has stated that he would not use JavaScript for a new project. He has also stated that he would not use Node.js for a new project. Node.js has grown past what it was intended to be, and it has become a 'monster'.
+
+    Whyle experimenting with my TFM project, I have found some problems with the current state of the JavaScript ecosystem. I will explain them in the following sections. This TFM project was a web application with blockchain integrations for decentralized identity management. Even though this project is not in the scope of this TFM, it is important to understand the context of the problems that I have found.
+
     \subsection{No types}
-    \subsection{package.json}
+    JavaScript, does not have a type checker. This means that the compiler does not check the types of the variables, and therefore, it is possible to assign a value of one type to a variable of another type. This can lead to unexpected errors in the code.
+
+    Take a look at the following example:
+    \begin{lstlisting}
+    const user = {
+        name = "",
+        age = 0
+    }
+
+    console.log(user.email)
+    \end{lstlisting}
+
+    This small code will not rise any error to warn the developer that the user object does not have an email property. This lead to a runtime error, which is not good for the developer experience.
+
+    It is even worse when the user recives the error in production, because the error will be shown to the user, and the user will not understand what is happening.
+
+    This happens because JavaScript is a dynamic language, and it does not have a type checker.
+
+    The original TFM used Next.js. A popular React-in-the-server framework. At the start of the project, I was not aware of the problems that I will explain in the following sections. I was using Next.js because it was the framework that I was more familiar with. Obviuslly, as the project grew, I started to have problems with the lack of types.
+
+    \subsection{node\_modules}
+
+    Node.js has a package manager called npm. This package manager is used to install libraries in the project. The problem is that the libraries are installed in the node\_modules folder, and this folder can grow a lot.
+
+    By default npm does not softlinks the libraries between them. This means that if you have two libraries that use the same library, the library will be installed twice. More packages installed means more space used, and more time to install the packages. A CI build could take a lot of time to just install all the packages.
+
+    \subsubsection{node\_modules security implications}
+
+    As JavaScript is used in Web applications mainlly and both in the server and in the client, it is a good target to attack.
+
+
     \subsection{Node GYP}
     \section{The solution}
     \subsection{TypeScript}
     \subsection{URL based imports}
     \subsection{Rust based FFI lib}
-
+    \section{The data}
+    \subsection{Why not WASM?}
 \end{multicols}
 \end{document}
