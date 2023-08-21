@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1692557430 "c:/Users/aitor/TFM/docs/main.tex" "main.pdf" "main" 1692557431 0
+["pdflatex"] 1692581312 "c:/Users/aitor/TFM/docs/main.tex" "main.pdf" "main" 1692581312 0
   "C:/Users/aitor/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1691607941 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/aitor/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1691607948 23178959 504e18a3600fe3318d61f03d4f08b41b ""
   "C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmbx12.tfm" 1136768653 1324 c910af8c371558dc20f2d7822f66fe64 ""
@@ -7,10 +7,14 @@
   "C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmr12.tfm" 1136768653 1288 655e228510b4c2a1abe905c368440826 ""
   "C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmr17.tfm" 1136768653 1292 296a67155bdbfc32aa9c636f21e91433 ""
   "C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmsy10.tfm" 1136768653 1124 6c73e740cf17375f03eec0ee63599741 ""
+  "C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmti12.tfm" 1136768653 1484 ed72f8f5cf654cda15ecc8e32bfcbee5 ""
+  "C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmtt12.tfm" 1136768653 772 9a936b7f5e2ff0557fce0f62822f0bbf ""
   "C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1247596666 32080 340ef9bf63678554ee606688e7b5339d ""
   "C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1247596667 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1247596666 32362 bc3f3eec7ab7d65fe700963d4017d32c ""
   "C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1247596667 32569 5e5ddc8df908dea60932f3c484a54c0d ""
+  "C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb" 1247596667 36118 fad905eba93cff5bce1e185fe980a177 ""
+  "C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb" 1247596666 24252 1e4e051947e12dfb50fee0b7f4e26e3a ""
   "C:/Users/aitor/AppData/Local/Programs/MiKTeX/tex/latex/base/article.cls" 1669847796 20144 d5ecf0a5140c8d8d8b72cbe86e320eff ""
   "C:/Users/aitor/AppData/Local/Programs/MiKTeX/tex/latex/base/omscmr.fd" 1669847796 2469 24e8437abfd2393aed5f0ac9f00f801e ""
   "C:/Users/aitor/AppData/Local/Programs/MiKTeX/tex/latex/base/size12.clo" 1669847796 8449 c314623021fbddd0180c05345324933c ""
@@ -22,9 +26,9 @@
   "C:/Users/aitor/AppData/Local/Programs/MiKTeX/tex/latex/listings/lstmisc.sty" 1679060724 77021 d05e9115c67855816136d82929db8892 ""
   "C:/Users/aitor/AppData/Local/Programs/MiKTeX/tex/latex/tools/multicol.sty" 1667245866 32329 5d201ab4b4c773e7c876c2a052b07be3 ""
   "C:/Users/aitor/AppData/Local/Programs/MiKTeX/tex/latex/tools/xspace.sty" 1667245866 4545 4c279ac9292a1be8afa9ab2f1d3299c2 ""
-  "c:/Users/aitor/TFM/docs/main.tex" 1692557430 4187 72fd50107b013ee05159962c7f2b8722 ""
-  "main.aux" 1692557431 1294 8a6bdc8f9521fe989a957f367da2022e "pdflatex"
-  "main.tex" 1692557430 4187 72fd50107b013ee05159962c7f2b8722 ""
+  "c:/Users/aitor/TFM/docs/main.tex" 1692581311 4978 2db240764811007aa900e32430012bd5 ""
+  "main.aux" 1692581312 1294 8a6bdc8f9521fe989a957f367da2022e "pdflatex"
+  "main.tex" 1692581311 4978 2db240764811007aa900e32430012bd5 ""
   (generated)
   "main.aux"
   "main.log"

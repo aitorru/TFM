@@ -51,7 +51,17 @@
 
     \subsubsection{node\_modules security implications}
 
-    As JavaScript is used in Web applications mainlly and both in the server and in the client, it is a good target to attack.
+    As JavaScript is used in Web applications mainlly and both in the server and in the client, it is a good target to attack. Currentlly npm holds more that 1.6 millions packages.
+
+    A sussesfull attack on a web framework would mean access a big chunk of browsers that a small porcentaje of them may be vulnerable.
+
+    However the JavaScript in a browser is sandboxed, it is \textit{safer}. In Node.js this is not the case. All the code can interact with the file system and the whole internet.
+
+    In the past there has been multiple cases of compromised npm, the most famous being \verb|colors| and \verb|faker.js|.
+
+    The developer went rogue and introduced some infinite loops\dots
+
+    Another notable example was \verb|UAParser.js|, and it downloaded and installed a password stealer and a cryptominer. It is important to note that this package was and still is used by millions of users dayly.
 
 
     \subsection{Node GYP}
