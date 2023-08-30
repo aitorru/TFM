@@ -36,7 +36,7 @@ extern "C" fn verify(password_pointer: *const c_char, hash_pointer: *const c_cha
 
     let result = bcrypt::verify(password, hash);
     match result {
-        Ok(_) => return true,
+        Ok(operation) => return operation,
         Err(_) => return false,
     }
 }
@@ -285,6 +285,19 @@ mod tests {
         result = verify(text_ptr.as_ptr(), hash_ptr.as_ptr());
 
         assert!(result);
+    }
+
+    #[test]
+    fn verify_should_fail_ffi() {
+        let hash = "$2a$12$LDcfCoNer8N.qDtkgjZekOBLdqB5uJbXPSEnfgiOAZhvw.S4FwT/6";
+        let text = "idontloverust";
+        let result: bool;
+
+        let hash_ptr = CString::new(hash).expect("Failed");
+        let text_ptr = CString::new(text).expect("Failed");
+        result = verify(text_ptr.as_ptr(), hash_ptr.as_ptr());
+
+        assert!(!result);
     }
 
     #[test]
