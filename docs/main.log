@@ -1,14 +1,14 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.8.9)  21 AUG 2023 03:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.8.23)  25 AUG 2023 13:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/aitor/TFM/docs/main.tex
-(c:/Users/aitor/TFM/docs/main.tex
+**/home/aitorru/prog/TFM/docs/main.tex
+(/home/aitorru/prog/TFM/docs/main.tex
 LaTeX2e <2022-11-01> patch level 1
-L3 programming layer <2023-03-30> (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
+L3 programming layer <2023-02-22> (/usr/share/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
-(C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.clo
+(/usr/share/texmf-dist/tex/latex/base/size12.clo
 File: size12.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count185
@@ -22,9 +22,9 @@ File: size12.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip48
 \belowcaptionskip=\skip49
 \bibindent=\dimen140
-) (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/blindtext\blindtext.sty
+) (/usr/share/texmf-dist/tex/latex/blindtext/blindtext.sty
 Package: blindtext 2012/01/06 V2.0 blindtext-Package
- (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/tools\xspace.sty
+ (/usr/share/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
 \c@blindtext=\count193
@@ -45,7 +45,7 @@ Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 \c@blind@randommax=\count274
 \c@blind@pangramcount=\count275
 \c@blind@pangrammax=\count276
-) (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/tools\multicol.sty
+) (/usr/share/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2021/11/30 v1.9d multicolumn formatting (FMi)
 \c@tracingmulticols=\count277
 \mult@box=\box51
@@ -113,7 +113,7 @@ Package: multicol 2021/11/30 v1.9d multicolumn formatting (FMi)
 \mult@nat@firstbox=\box94
 \colbreak@box=\box95
 \mc@col@check@num=\count286
-) (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+) (/usr/share/texmf-dist/tex/latex/listings/listings.sty (/usr/share/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks16
 )
@@ -129,20 +129,20 @@ Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \lst@newlines=\count291
 \lst@lineno=\count292
 \lst@maxwidth=\dimen153
- (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+ (/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
 \c@lstnumber=\count293
 \lst@skipnumbers=\count294
 \lst@framebox=\box97
-) (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
+) (/usr/share/texmf-dist/tex/latex/listings/listings.cfg
 File: listings.cfg 2023/02/27 1.9 listings configuration
 ))
 Package: listings 2023/02/27 1.9 (Carsten Heinz)
- (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
-File: l3backend-pdftex.def 2023-03-30 L3 backend support: PDF output (pdfTeX)
+ (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count295
 \l__pdf_internal_box=\box98
-) (main.aux)
+) (./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
@@ -166,36 +166,37 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 9.
  [1
 
-{C:/Users/aitor/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 30.
- (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/base\omscmr.fd
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 32.
+ (/usr/share/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 30.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 32.
 
-Overfull \hbox (0.34967pt too wide) in paragraph at lines 35--36
+Overfull \hbox (0.34967pt too wide) in paragraph at lines 37--38
 [][][][][][][][][][][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 52--52
+Underfull \hbox (badness 10000) in paragraph at lines 54--54
 []\OT1/cmr/bx/n/12 node[]modules se-cu-rity
  []
 
-[2] [3] (main.aux) ) 
+[2] [3] [4{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 2480 strings out of 476331
- 37944 string characters out of 5787766
- 1863660 words of memory out of 5000000
- 22962 multiletter control sequences out of 15000+600000
- 515790 words of font info for 44 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 42i,6n,48p,466b,1337s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (3 pages, 75960 bytes).
+ 2484 strings out of 477985
+ 37411 string characters out of 5840058
+ 1862388 words of memory out of 5000000
+ 22726 multiletter control sequences out of 15000+600000
+ 516127 words of font info for 45 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 42i,6n,48p,470b,1337s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on main.pdf (4 pages, 83639 bytes).
 PDF statistics:
- 42 PDF objects out of 1000 (max. 8388607)
+ 53 PDF objects out of 1000 (max. 8388607)
+ 32 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -15,6 +15,8 @@
 
     JavaScript is employed in desktop applications using Electron, and in mobile applications using React Native or Ionic. As an interpreted language, it has a low entry barrier. As the default language of the web, it also boasts a wealth of interesting libraries.
 
+    Node JS took the engine that runs JavaScript on Chrome, V8, and wrapped it in more C++ code to make it possible for it to interact with system calls.
+
     All these factors have contributed to the rise of JavaScript as the language of the future. Nonetheless, as the creator himself contends, it has experienced some 'growing pains'.
     \section{The problem}
 
@@ -65,9 +67,56 @@
 
 
     \subsection{Node GYP}
+
+    Node GYP is the state of the art when creating native libraries in Node JS. This tool is originally from google. When google discontinuated it the comunity made a fork and the project continued.
+
+    It is a tool writen in python, witch is not JavaScript, and it is inecessarilly complicated to write a native library.
+
     \section{The solution}
+
+    Ryan Dahl, created Deno, a solution to his own issues created by working on Node JS without a clear plan.
+
     \subsection{TypeScript}
+
+    TypeScript appeared in 2012 to add types to JavaScript. It works as a superset of JavaScript. Meaning all keywords would be valid in TypeScript but vicebersa.
+
+    TypeScript does not work by changing V8, but making JavaScript the compile target of TypeScript. This allowed also targeting multiple versions of JavaScript and the use of polyfils if the desired API was not present.
+
+    However TypeScript in this form, while very helpfull, it add more time to the development process because it now has to compile TypeScript to JavaScript and then run the intended program.
+
+    Deno, translates TypeScript on the fly and feeds it to V8, meaning the whole process is just plug and play and developers do not have to configure an external tool, as \verb|tsc|, the compiler, can be pretty hard to set up and get it to behave.
+
+    In the code, this mens that every variable would have an associated type and they could not change anywhere in the code.
+
+    \begin{lstlisting}
+    var name: string = "";
+    \end{lstlisting}
+
+    The variable name can not have another value asignated without being a string.
+
+    \begin{lstlisting}
+    name = 0;
+    \end{lstlisting}
+
+    This code will result in error as \verb|0| is not a string.
+
+    This will catch multiple runtime errors.
+
     \subsection{URL based imports}
+
+    A major change with Deno comes with the URL based imports the modules are cached and reused when needed.
+
+    However with this as the script comes from an URL it may come with malicius code in it. How could a developer protect itself?
+
+    \subsubsection{Security checks}
+
+    Deno implements multiple checks to prevent uncontrolled access to the machine.
+
+    \begin{itemize}
+        \item 
+    \end{itemize}
+
+
     \subsection{Rust based FFI lib}
     \section{The data}
     \subsection{Why not WASM?}

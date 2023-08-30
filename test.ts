@@ -1,6 +1,5 @@
 import { assert } from "https://deno.land/std@0.165.0/testing/asserts.ts";
 import RustyCrypto from "./lib.ts";
-// import * as bcrypt_deno from "https://deno.land/x/bcrypt/mod.ts";
 
 Deno.test(
   "ffi_verify",
@@ -37,6 +36,21 @@ Deno.test(
     const result = await lib.verify(target_text, hashed_value);
 
     assert(result);
+
+    lib.close();
+  },
+);
+Deno.test(
+  "ffi_hash_and_verify_fail",
+  async () => {
+    const lib = new RustyCrypto();
+    const target_text = "iloveffi";
+    const hashed_value =
+      "$2a$12$LDcfCoNer8N.qDtkgjZekOBLdqB5uJbXPSEnfgiOAZhvw.S4FwT/6";
+
+    const result = await lib.verify(target_text, hashed_value);
+
+    assert(!result);
 
     lib.close();
   },
