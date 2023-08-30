@@ -20,7 +20,7 @@
 
     Ryan Dahl, the creator of Node.js, has expressed his regrets about the language. He has stated that he would not use JavaScript for a new project. He has also stated that he would not use Node.js for a new project. Node.js has grown past what it was intended to be, and it has become a 'monster'.
 
-    Whyle experimenting with my TFM project, I have found some problems with the current state of the JavaScript ecosystem. I will explain them in the following sections. This TFM project was a web application with blockchain integrations for decentralized identity management. Even though this project is not in the scope of this TFM, it is important to understand the context of the problems that I have found.
+    Whyle experimenting with my TFG project, I have found some problems with the current state of the JavaScript ecosystem. I will explain them in the following sections. This TFM project was a web application with blockchain integrations for decentralized identity management. Even though this project is not in the scope of this TFM, it is important to understand the context of the problems that I have found.
 
     \subsection{No types}
     JavaScript, does not have a type checker. This means that the compiler does not check the types of the variables, and therefore, it is possible to assign a value of one type to a variable of another type. This can lead to unexpected errors in the code.
@@ -41,7 +41,7 @@
 
     This happens because JavaScript is a dynamic language, and it does not have a type checker.
 
-    The original TFM used Next.js. A popular React-in-the-server framework. At the start of the project, I was not aware of the problems that I will explain in the following sections. I was using Next.js because it was the framework that I was more familiar with. Obviuslly, as the project grew, I started to have problems with the lack of types.
+    The original TFG used Next.js. A popular React-in-the-server framework. At the start of the project, I was not aware of the problems that I will explain in the following sections. I was using Next.js because it was the framework that I was more familiar with. Obviuslly, as the project grew, I started to have problems with the lack of types.
 
     \subsection{node\_modules}
 
@@ -61,15 +61,100 @@
 
     The developer went rogue and introduced some infinite loops\dots
 
-    Another notable example was \verb|UAParser.js|, and it downloaded and installed a password stealer and a cryptominer. It is important to note that this package was and still is used by millions of users dayly.
+    Another notable example was \verb|UAParser.js|, and it downloaded and installed a password stealer and a cryptominer. It is important to note that this package was and still is used by millions of users daily.
 
 
     \subsection{Node GYP}
-    \section{The solution}
+    \section{The solution found currentlly}
     \subsection{TypeScript}
     \subsection{URL based imports}
-    \subsection{Rust based FFI lib}
-    \section{The data}
-    \subsection{Why not WASM?}
+    \subsection{Speedup}
+
+    The solution that some projects owners have implemented to solve the performance is just using a compiled languague as a companion. This languagues \textit{in general} have better performance than interpreted ones.
+
+    In the web space two projects stand out from the rest. The whole developer space arround the web development has grown exponentially and now more than ever a bundler is needed to combine all that information in a simple combination of HTML CSS and JS.
+
+    \verb|SWC| and \verb|esbuild| are both tools that relly in other languagues to speedup. However this two project payed a big role in the development of this project.
+
+    \subsubsection{SWC}
+
+    SWC decided to compile a rust porgram and compile it into a binary. Then later they wrote some JS glue code to make it usable from a JS project.
+
+    As this application is a pure CLI style application this approach is benefitial as it is only neccesary a small size of JS code. This is because they only need to pass the neccesary args to the rust binary and then the rust porgram takes over and packages the JS application.
+
+    This can be benefitial in this objetive but a library that needs to run when the developer calls a function, the glue code must spawn a shell and that takes time. So much time that it may not be even be benefitial to use a native library.
+
+    \subsubsection{esbuild}
+
+    \verb|esbuild| decided to take another approach. They used wasm to create the library. As this project is writen in go, the whole go garbage collector has to be injected into the wasm code.
+
+    This can result in larger install sizes and a bad developer experience as stated before.
+
+    It's worth noting that wasm, even though it is an excelent tecnology and has brought very good speedup to the web, it still lacks a good memory management solution. This results in very good performance compared to JavaScript but not compared to the rest.
+
+    \section{The code}
+
+    The arrived solution is a dynamic library with a minimal TypeScript glue code.
+
+    Deno offers an incredible dynamic library support with their native API.
+
+    \begin{lstlisting}
+    Deno.dlopen(
+        test.lib,
+        {},
+    )
+    \end{lstlisting}
+
+    In this method the developer just has to locate the dll physically. It also needs to specify how the methods in the library work.
+    The process wold be the following.
+
+    \begin{enumerate}
+        \item Peek at the file system to see if the dll is present. If the user did not allow from the launch flags Deno will ask for permision.
+        \item Download the dll if the dll is not present. If the user did not allow from the launch flags Deno will ask for permision.
+        \item Load the library and prepare it.
+    \end{enumerate}
+
+    \subsection{Speedy but memory safe}
+
+    The final peace to this project is deciding how to secure the last part of the project. The obvious choice is a low lever languague that can really squeeze out the performance of the CPU.
+
+    To prevent having some memory related issues some languagues have to be removed. Languagues like C and C++ the memory is managed my the developer and can result in segfaults and others.
+
+    And if the focus is to have the best possible performance languagues with garbage colletion had to be rulled out.
+
+    That only option left is \verb|Rust|.
+
+    Rust uses a borrow checker to keep track of all the memory allocated while not allowing the allocation and deallocation by the user. That way it can garantee that all the memory that is needed will be used.
+
+    If a variable is borrowed it means that it comes from another function and the current variable cannot be tranfered ownership. It means that the variable will continue living.
+
+    If a variable is owned, when the function runs out of scope it will be dealocated.
+
+    \begin{lstlisting}
+        const a = 10:
+        fun(a);
+        foo(a);
+    \end{lstlisting}
+
+    In this code only the first function call will comply with the compiler. The other one will fail.
+
+    In order for this code to work it will need to be changed.
+
+    \begin{lstlisting}
+        const a = 10;
+        fun(&a);
+        foo(a);
+    \end{lstlisting}
+
+    As the first function does not take ownership of the variable \verb|a| it does not get freed at the end, and can be user in the next function call.
+
+    \subsubsection{Creating a dynamic library}
+
+    In rust everything is just a compilation target so here it can just be specified that a library is wanted.
+
+    There are multiple types of libraries, but the focus of this project is that this library can be used in other projects 
+
+
+    \subsection{Where WASM fits}
 \end{multicols}
 \end{document}
