@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.8.9)  29 AUG 2023 19:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.8.9)  31 AUG 2023 19:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -138,64 +138,160 @@ File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
 File: listings.cfg 2023/02/27 1.9 listings configuration
 ))
 Package: listings 2023/02/27 1.9 (Carsten Heinz)
- (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
+ (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+ (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+ (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+) (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+ (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen154
+\Gin@req@width=\dimen155
+) (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/wrapfig\wrapfig.sty
+\wrapoverhang=\dimen156
+\WF@size=\dimen157
+\c@WF@wrappedlines=\count295
+\WF@box=\box98
+\WF@everypar=\toks18
+Package: wrapfig 2003/01/31  v 3.6
+) (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count296
+\float@exts=\toks19
+\float@box=\box99
+\@float@everytoks=\toks20
+\@floatcapt=\box100
+) (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-03-30 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count295
-\l__pdf_internal_box=\box98
+\l__color_backend_stack_int=\count297
+\l__pdf_internal_box=\box101
 ) (main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-\c@lstlisting=\count296
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+\c@lstlisting=\count298
+ (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count299
+\scratchdimen=\dimen158
+\scratchbox=\box102
+\nofMPsegments=\count300
+\nofMParguments=\count301
+\everyMPshowfont=\toks21
+\MPscratchCnt=\count302
+\MPscratchDim=\dimen159
+\MPnumerator=\count303
+\makeMPintoPDFobject=\count304
+\everyMPtoPDFconversion=\toks22
+) (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 9.
+(Font)              <14.4> on input line 13.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 9.
+(Font)              <7> on input line 13.
  [1
 
 {C:/Users/aitor/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 30.
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 36.
  (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/base\omscmr.fd
 File: omscmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 32.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 36.
 
-Overfull \hbox (0.34967pt too wide) in paragraph at lines 37--38
+Overfull \hbox (0.34967pt too wide) in paragraph at lines 41--42
 [][][][][][][][][][][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 54--54
+Underfull \hbox (badness 10000) in paragraph at lines 58--58
 []\OT1/cmr/bx/n/12 node[]modules se-cu-rity
  []
 
-[2] [3] [4] [5] (main.aux) ) 
+[2] [3] [4] [5] [6]
+<./images//hashing_lines.png, id=27, 591.20876pt x 451.6875pt>
+File: ./images//hashing_lines.png Graphic file (type png)
+<use ./images//hashing_lines.png>
+Package pdftex.def Info: ./images//hashing_lines.png  used on input line 242.
+(pdftex.def)             Requested size: 175.49881pt x 134.0806pt.
+<./images//trend_hash_deno.png, id=29, 591.20876pt x 451.6875pt>
+File: ./images//trend_hash_deno.png Graphic file (type png)
+<use ./images//trend_hash_deno.png>
+Package pdftex.def Info: ./images//trend_hash_deno.png  used on input line 251.
+(pdftex.def)             Requested size: 175.49881pt x 134.0806pt.
+<images/trend_hash_rust.png, id=30, 591.20876pt x 451.6875pt>
+File: images/trend_hash_rust.png Graphic file (type png)
+<use images/trend_hash_rust.png>
+Package pdftex.def Info: images/trend_hash_rust.png  used on input line 256.
+(pdftex.def)             Requested size: 175.49881pt x 134.0806pt.
+<images/secretbox_lines.png, id=31, 657.45625pt x 451.6875pt>
+File: images/secretbox_lines.png Graphic file (type png)
+<use images/secretbox_lines.png>
+Package pdftex.def Info: images/secretbox_lines.png  used on input line 273.
+(pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
+ [7 <./images//hashing_lines.png> <./images//trend_hash_deno.png> <./images/trend_hash_rust.png>]
+<./images//trend_secretbox_deno.png, id=39, 657.45625pt x 451.6875pt>
+File: ./images//trend_secretbox_deno.png Graphic file (type png)
+<use ./images//trend_secretbox_deno.png>
+Package pdftex.def Info: ./images//trend_secretbox_deno.png  used on input line 282.
+(pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
+<images/trend_secretbox_rust.png, id=40, 657.45625pt x 451.6875pt>
+File: images/trend_secretbox_rust.png Graphic file (type png)
+<use images/trend_secretbox_rust.png>
+Package pdftex.def Info: images/trend_secretbox_rust.png  used on input line 287.
+(pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
+<images/box_lines.png, id=41, 657.45625pt x 451.6875pt>
+File: images/box_lines.png Graphic file (type png)
+<use images/box_lines.png>
+Package pdftex.def Info: images/box_lines.png  used on input line 302.
+(pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
+<./images//trend_box_deno.png, id=42, 657.45625pt x 451.6875pt>
+File: ./images//trend_box_deno.png Graphic file (type png)
+<use ./images//trend_box_deno.png>
+Package pdftex.def Info: ./images//trend_box_deno.png  used on input line 309.
+(pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
+ [8 <./images/secretbox_lines.png> <./images//trend_secretbox_deno.png> <./images/trend_secretbox_rust.png> <./images/box_lines.png>]
+<images/trend_box_rust.png, id=50, 657.45625pt x 451.6875pt>
+File: images/trend_box_rust.png Graphic file (type png)
+<use images/trend_box_rust.png>
+Package pdftex.def Info: images/trend_box_rust.png  used on input line 314.
+(pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
+ [9 <./images//trend_box_deno.png> <./images/trend_box_rust.png>] (main.aux) ) 
 Here is how much of TeX's memory you used:
- 2480 strings out of 476331
- 37944 string characters out of 5787766
+ 3536 strings out of 476331
+ 55837 string characters out of 5787766
  1863660 words of memory out of 5000000
- 22962 multiletter control sequences out of 15000+600000
- 515790 words of font info for 44 fonts, out of 8000000 for 9000
+ 23969 multiletter control sequences out of 15000+600000
+ 516127 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,6n,48p,466b,1337s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (3 pages, 75960 bytes).
+ 57i,6n,62p,466b,1337s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\aitor\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on main.pdf (9 pages, 247273 bytes).
 PDF statistics:
- 48 PDF objects out of 1000 (max. 8388607)
+ 86 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

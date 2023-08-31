@@ -2,6 +2,10 @@
 \usepackage{blindtext}
 \usepackage{multicol}
 \usepackage{listings}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{float}
+\graphicspath{ {./images/} }
 \title{Secure speedup of the future}
 \author{Aitor Ruiz Garcia}
 \date{September 2023}
@@ -113,7 +117,7 @@
     Deno implements multiple checks to prevent uncontrolled access to the machine.
 
     \begin{itemize}
-        \item
+        \item //TODO: !!!!!
     \end{itemize}
 
 
@@ -201,9 +205,124 @@
 
     In rust everything is just a compilation target so here it can just be specified that a library is wanted.
 
-    There are multiple types of libraries, but the focus of this project is that this library can be used in other projects
-
+    There are multiple types of libraries, but the focus of this project is that this library can be used in other projects.
 
     \subsection{Where WASM fits}
+
+    WASM, as mentioned before it is pretty usefull in the browser, where it belongs. Right now it is a bit early and the WASM API within the browser is still joung and the WASI libc library works but it is not there yet.
+
+    \subsection{The data}
+
+    Lets take a look to the actual data to see if this idea actually holds up. This tests have been conducted using strings from a collection of 36 characters repeated 1000 times to the same collection of 36 characters repeated to 2000 times. Each set is repeated 15 times and the average is calculated to rule out any errors.
+
+    The data is collected one next to another. Meaning that no async functions are used an the deno and rust functions are runned one after the other, to rule out any OS induced noise.
+
+    \subsubsection{Hardware used}
+
+    This tests have been runned in a broad collection of hardware, all of the \verb|x86_64|.
+
+    \begin{itemize}
+        \item Github actions builders 2-core CPU \verb|x86_64|
+        \item i9-12900H
+        \item i5-1135G7
+    \end{itemize}
+
+    The data presented in this document will come from the CPU \textbf{i9-12900H}, however there is data present in the github repository that can be extracted from every commit added to the repo.
+
+    In every test runned the results are the same but with obvious speed difference as the hardware selected are very diverse.
+
+    \subsubsection{Hashing}
+
+    The first part of the library to analize is hashing. The algorithm used to hash is bcrypt.
+
+    //TODO: Entrar a fondo
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.45\textwidth]{hashing_lines}
+    \end{figure}
+
+    In this image it can be seen the creation of 1000 hashes and its cost in milliseconds with a bycrypt cost of 14. On average Rust is faster by 57\%.
+
+    The trends here are not clear but it is aparent that the following 2 graphs.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.45\textwidth]{trend_hash_deno}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.45\textwidth]{images/trend_hash_rust.png}
+    \end{figure}
+
+    From the data some aspects can be deduced.
+    \begin{itemize}
+        \item The cost of hashing will go up faster than rust does.
+        \item Rust will be more stable and grow less.
+    \end{itemize}
+
+    \subsubsection{Secret boxes}
+
+    Secret boxes are a concept introduced by the library NaCl. A secret box is just a box with just one lock. This is just a metaphor for syncronous cryptography. The algorithm that will be used in this project. To be exact it will be used a variant called tweetnacl, witch is a library that manages to copy the exact functionality but fit in 100 tweets.
+
+    The focus of this library is speed and a small footprint in the developer/user hard drive.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.45\textwidth]{images/secretbox_lines}
+    \end{figure}
+
+    In the graph there are some deno results that shotout from the predicted results. As this results do not appear in the rust variant they must come from variations on V8 function \textit{heat}. In V8 when a function is called it gets \textit{heat}. This means that it gets cached for later use and if a function gets executed a lot it gets stored in machine code, to maximize the performance.
+
+    In this example again it can be seen that JavaScript is more unstable than Rust and will grow more.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.45\textwidth]{trend_secretbox_deno}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.45\textwidth]{images/trend_secretbox_rust}
+    \end{figure}
+
+    From the data some aspects can be deduced.
+    \begin{itemize}
+        \item The cost of encrypting will go up faster than rust does.
+        \item Rust will be more stable and grow less.
+    \end{itemize}
+
+    \subsubsection{Box}
+
+    A box is just a a container with two locks. Another metaphor for asymetric encryption. As the last algorithm, this is based in tweetnacl.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.45\textwidth]{images/box_lines}
+    \end{figure}
+
+    In this final algorithm, rust, while being more disperse it outperforms deno by a lot.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.45\textwidth]{trend_box_deno}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.45\textwidth]{images/trend_box_rust}
+    \end{figure}
+
+    From the data some aspects can be deduced.
+    \begin{itemize}
+        \item The cost of encrypting will go up faster than rust does.
+        \item Rust will be more stable and grow less.
+    \end{itemize}
+
+    \section{Conclusions}
+
+
+
 \end{multicols}
 \end{document}
