@@ -33,12 +33,12 @@
 
     Take a look at the following example:
     \begin{lstlisting}
-    const user = {
-        name = "",
-        age = 0
-    }
+const user = {
+    name = "",
+    age = 0
+}
 
-    console.log(user.email)
+console.log(user.email)
     \end{lstlisting}
 
     This small code will not rise any error to warn the developer that the user object does not have an email property. This lead to a runtime error, which is not good for the developer experience.
@@ -93,13 +93,13 @@
     In the code, this mens that every variable would have an associated type and they could not change anywhere in the code.
 
     \begin{lstlisting}
-    var name: string = "";
+var name: string = "";
     \end{lstlisting}
 
     The variable name can not have another value asignated without being a string.
 
     \begin{lstlisting}
-    name = 0;
+name = 0;
     \end{lstlisting}
 
     This code will result in error as \verb|0| is not a string.
@@ -117,8 +117,22 @@
     Deno implements multiple checks to prevent uncontrolled access to the machine.
 
     \begin{itemize}
-        \item //TODO: !!!!!
+        \item \textbf{–allow-env} Allow the reading of \verb|.env| files.
+        \item \textbf{–allow-sys} Allow the reading of system specific information as the os version or the information about the memory.
+        \item \textbf{–allow-hrtime} Allow high-resolution time measurement. High-resolution time can be used in timing attacks and fingerprinting.
+        \item \textbf{–allow-net} Allow network access. You can specify an optional, comma-separated list of IP addresses or hostnames (optionally with ports) to provide an allow-list of allowed network addresses.
+        \item \textbf{–allow-ffi} Allow loading of dynamic libraries. This is still an unstable feature.
+        \item \textbf{–allow-read} Allow file system read access.
+        \item \textbf{–allow-run} Allow running subprocesses.
+        \item \textbf{–allow-write} Allow file system write access.
     \end{itemize}
+
+    All this flags have their opposite counterpart and can be used to allow to certain folders but disallow especific files. For example.
+
+    \begin{lstlisting}
+--allow-read=/etc \\
+--deny-read=/etc/hosts
+    \end{lstlisting}
 
 
     \subsection{Speedup}
@@ -152,10 +166,10 @@
     Deno offers an incredible dynamic library support with their native API.
 
     \begin{lstlisting}
-    Deno.dlopen(
-        test.lib,
-        {},
-    )
+Deno.dlopen(
+    test.lib,
+    {},
+)
     \end{lstlisting}
 
     In this method the developer just has to locate the dll physically. It also needs to specify how the methods in the library work.
@@ -184,9 +198,9 @@
     If a variable is owned, when the function runs out of scope it will be dealocated.
 
     \begin{lstlisting}
-        const a = 10:
-        fun(a);
-        foo(a);
+const a = 10:
+fun(a);
+foo(a);
     \end{lstlisting}
 
     In this code only the first function call will comply with the compiler. The other one will fail.
@@ -194,9 +208,9 @@
     In order for this code to work it will need to be changed.
 
     \begin{lstlisting}
-        const a = 10;
-        fun(&a);
-        foo(a);
+const a = 10;
+fun(&a);
+foo(a);
     \end{lstlisting}
 
     As the first function does not take ownership of the variable \verb|a| it does not get freed at the end, and can be user in the next function call.
@@ -322,6 +336,15 @@
 
     \section{Conclusions}
 
+    This project is a success in theory and in practice. The motivation of this project was the secure speedup of JavaScript based projects that appear to spawn every day. One of those projects is IPFS (Inter planetary File System). This project uses \textit{mostly} this collection of algorithms in its operation. This sweet of libraries is exactlly used in in \verb|OrbitDB|. A library usefull to create popular databases in a distributed manner.
+
+    Explaining in detail those libraries, but just to get a glimpse, this libraries are based in distributed technologies, that means sending lots of small information from many users to just one users. It may be neccesary to concatenate one piece of information through many peers in order to fullfill the request, so speed is critical to make this method of information transport possible.
+
+    IPFS is based in a JavaScript project and suffers from all the growing pains. Even though the IPFS team has spent a lot of time optimizing the library they are still tied to the maximum capacity of JavaScript.
+
+    The IPFS came close to solving the \textit{issue} when they implemented the protocol in go, an excelent languague with C ABI and a decent WASM implementation, but JavaScript is still used at the core. Even though there are multiple implementations of the IPFS protocol but the official one is the one that will be used the most, slowing the network significantly.
+
+    Using this library will help both in the desktop and in the browser.
 
 
 \end{multicols}

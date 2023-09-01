@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.8.9)  31 AUG 2023 19:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.8.9)  1 SEP 2023 03:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -222,76 +222,76 @@ File: omscmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 36.
 
-Overfull \hbox (0.34967pt too wide) in paragraph at lines 41--42
-[][][][][][][][][][][] 
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 58--58
 []\OT1/cmr/bx/n/12 node[]modules se-cu-rity
  []
 
-[2] [3] [4] [5] [6]
+[2] [3]
+Underfull \hbox (badness 7397) in paragraph at lines 122--123
+[]\OT1/cmr/bx/n/12 {allow-hrtime \OT1/cmr/m/n/12 Al-low high-
+ []
+
+[4] [5] [6]
 <./images//hashing_lines.png, id=27, 591.20876pt x 451.6875pt>
 File: ./images//hashing_lines.png Graphic file (type png)
 <use ./images//hashing_lines.png>
-Package pdftex.def Info: ./images//hashing_lines.png  used on input line 242.
+Package pdftex.def Info: ./images//hashing_lines.png  used on input line 256.
 (pdftex.def)             Requested size: 175.49881pt x 134.0806pt.
 <./images//trend_hash_deno.png, id=29, 591.20876pt x 451.6875pt>
 File: ./images//trend_hash_deno.png Graphic file (type png)
 <use ./images//trend_hash_deno.png>
-Package pdftex.def Info: ./images//trend_hash_deno.png  used on input line 251.
+Package pdftex.def Info: ./images//trend_hash_deno.png  used on input line 265.
 (pdftex.def)             Requested size: 175.49881pt x 134.0806pt.
 <images/trend_hash_rust.png, id=30, 591.20876pt x 451.6875pt>
 File: images/trend_hash_rust.png Graphic file (type png)
 <use images/trend_hash_rust.png>
-Package pdftex.def Info: images/trend_hash_rust.png  used on input line 256.
+Package pdftex.def Info: images/trend_hash_rust.png  used on input line 270.
 (pdftex.def)             Requested size: 175.49881pt x 134.0806pt.
-<images/secretbox_lines.png, id=31, 657.45625pt x 451.6875pt>
+ [7 <./images//hashing_lines.png> <./images//trend_hash_deno.png>]
+<images/secretbox_lines.png, id=37, 657.45625pt x 451.6875pt>
 File: images/secretbox_lines.png Graphic file (type png)
 <use images/secretbox_lines.png>
-Package pdftex.def Info: images/secretbox_lines.png  used on input line 273.
+Package pdftex.def Info: images/secretbox_lines.png  used on input line 287.
 (pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
- [7 <./images//hashing_lines.png> <./images//trend_hash_deno.png> <./images/trend_hash_rust.png>]
-<./images//trend_secretbox_deno.png, id=39, 657.45625pt x 451.6875pt>
+<./images//trend_secretbox_deno.png, id=38, 657.45625pt x 451.6875pt>
 File: ./images//trend_secretbox_deno.png Graphic file (type png)
 <use ./images//trend_secretbox_deno.png>
-Package pdftex.def Info: ./images//trend_secretbox_deno.png  used on input line 282.
+Package pdftex.def Info: ./images//trend_secretbox_deno.png  used on input line 296.
 (pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
-<images/trend_secretbox_rust.png, id=40, 657.45625pt x 451.6875pt>
+<images/trend_secretbox_rust.png, id=39, 657.45625pt x 451.6875pt>
 File: images/trend_secretbox_rust.png Graphic file (type png)
 <use images/trend_secretbox_rust.png>
-Package pdftex.def Info: images/trend_secretbox_rust.png  used on input line 287.
+Package pdftex.def Info: images/trend_secretbox_rust.png  used on input line 301.
 (pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
-<images/box_lines.png, id=41, 657.45625pt x 451.6875pt>
+ [8 <./images/trend_hash_rust.png> <./images/secretbox_lines.png> <./images//trend_secretbox_deno.png>]
+<images/box_lines.png, id=46, 657.45625pt x 451.6875pt>
 File: images/box_lines.png Graphic file (type png)
 <use images/box_lines.png>
-Package pdftex.def Info: images/box_lines.png  used on input line 302.
+Package pdftex.def Info: images/box_lines.png  used on input line 316.
 (pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
-<./images//trend_box_deno.png, id=42, 657.45625pt x 451.6875pt>
+<./images//trend_box_deno.png, id=47, 657.45625pt x 451.6875pt>
 File: ./images//trend_box_deno.png Graphic file (type png)
 <use ./images//trend_box_deno.png>
-Package pdftex.def Info: ./images//trend_box_deno.png  used on input line 309.
+Package pdftex.def Info: ./images//trend_box_deno.png  used on input line 323.
 (pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
- [8 <./images/secretbox_lines.png> <./images//trend_secretbox_deno.png> <./images/trend_secretbox_rust.png> <./images/box_lines.png>]
-<images/trend_box_rust.png, id=50, 657.45625pt x 451.6875pt>
+<images/trend_box_rust.png, id=48, 657.45625pt x 451.6875pt>
 File: images/trend_box_rust.png Graphic file (type png)
 <use images/trend_box_rust.png>
-Package pdftex.def Info: images/trend_box_rust.png  used on input line 314.
+Package pdftex.def Info: images/trend_box_rust.png  used on input line 328.
 (pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
- [9 <./images//trend_box_deno.png> <./images/trend_box_rust.png>] (main.aux) ) 
+ [9 <./images/trend_secretbox_rust.png> <./images/box_lines.png> <./images//trend_box_deno.png> <./images/trend_box_rust.png>] [10] (main.aux) ) 
 Here is how much of TeX's memory you used:
- 3536 strings out of 476331
- 55837 string characters out of 5787766
+ 3538 strings out of 476331
+ 55867 string characters out of 5787766
  1863660 words of memory out of 5000000
- 23969 multiletter control sequences out of 15000+600000
+ 23971 multiletter control sequences out of 15000+600000
  516127 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,6n,62p,466b,1337s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,6n,62p,511b,1335s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\aitor\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (9 pages, 247273 bytes).
+Output written on main.pdf (10 pages, 253148 bytes).
 PDF statistics:
- 86 PDF objects out of 1000 (max. 8388607)
+ 90 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
