@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.8.9)  1 SEP 2023 03:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.8.9)  5 SEP 2023 02:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -215,83 +215,128 @@ LaTeX Font Info:    External font `cmex10' loaded for size
  [1
 
 {C:/Users/aitor/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 36.
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 41.
  (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/base\omscmr.fd
 File: omscmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 36.
-
-Underfull \hbox (badness 10000) in paragraph at lines 58--58
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 41.
+ [2]
+Underfull \hbox (badness 10000) in paragraph at lines 63--63
 []\OT1/cmr/bx/n/12 node[]modules se-cu-rity
  []
 
-[2] [3]
-Underfull \hbox (badness 7397) in paragraph at lines 122--123
-[]\OT1/cmr/bx/n/12 {allow-hrtime \OT1/cmr/m/n/12 Al-low high-
+[3]
+Overfull \hbox (14.44965pt too wide) in paragraph at lines 100--101
+[][][][][][][][][][][][][][] 
  []
 
-[4] [5] [6]
-<./images//hashing_lines.png, id=27, 591.20876pt x 451.6875pt>
+[4] [5] [6] [7] [8]
+<./images//hashing_lines.png, id=34, 591.20876pt x 451.6875pt>
 File: ./images//hashing_lines.png Graphic file (type png)
 <use ./images//hashing_lines.png>
-Package pdftex.def Info: ./images//hashing_lines.png  used on input line 256.
-(pdftex.def)             Requested size: 175.49881pt x 134.0806pt.
-<./images//trend_hash_deno.png, id=29, 591.20876pt x 451.6875pt>
+Package pdftex.def Info: ./images//hashing_lines.png  used on input line 299.
+(pdftex.def)             Requested size: 202.80167pt x 154.93636pt.
+
+Overfull \hbox (12.80167pt too wide) in paragraph at lines 299--300
+ [][] 
+ []
+
+<./images//trend_hash_deno.png, id=36, 591.20876pt x 451.6875pt>
 File: ./images//trend_hash_deno.png Graphic file (type png)
 <use ./images//trend_hash_deno.png>
-Package pdftex.def Info: ./images//trend_hash_deno.png  used on input line 265.
-(pdftex.def)             Requested size: 175.49881pt x 134.0806pt.
-<images/trend_hash_rust.png, id=30, 591.20876pt x 451.6875pt>
+Package pdftex.def Info: ./images//trend_hash_deno.png  used on input line 308.
+(pdftex.def)             Requested size: 202.80167pt x 154.93636pt.
+
+Overfull \hbox (12.80167pt too wide) in paragraph at lines 308--309
+ [][] 
+ []
+
+<images/trend_hash_rust.png, id=37, 591.20876pt x 451.6875pt>
 File: images/trend_hash_rust.png Graphic file (type png)
 <use images/trend_hash_rust.png>
-Package pdftex.def Info: images/trend_hash_rust.png  used on input line 270.
-(pdftex.def)             Requested size: 175.49881pt x 134.0806pt.
- [7 <./images//hashing_lines.png> <./images//trend_hash_deno.png>]
-<images/secretbox_lines.png, id=37, 657.45625pt x 451.6875pt>
+Package pdftex.def Info: images/trend_hash_rust.png  used on input line 313.
+(pdftex.def)             Requested size: 202.80167pt x 154.93636pt.
+
+Overfull \hbox (12.80167pt too wide) in paragraph at lines 313--314
+ [][] 
+ []
+
+[9 <./images//hashing_lines.png> <./images//trend_hash_deno.png> <./images/trend_hash_rust.png>]
+<images/secretbox_lines.png, id=44, 657.45625pt x 451.6875pt>
 File: images/secretbox_lines.png Graphic file (type png)
 <use images/secretbox_lines.png>
-Package pdftex.def Info: images/secretbox_lines.png  used on input line 287.
-(pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
-<./images//trend_secretbox_deno.png, id=38, 657.45625pt x 451.6875pt>
+Package pdftex.def Info: images/secretbox_lines.png  used on input line 330.
+(pdftex.def)             Requested size: 202.80167pt x 139.32556pt.
+
+Overfull \hbox (12.80167pt too wide) in paragraph at lines 330--331
+ [][] 
+ []
+
+<./images//trend_secretbox_deno.png, id=45, 657.45625pt x 451.6875pt>
 File: ./images//trend_secretbox_deno.png Graphic file (type png)
 <use ./images//trend_secretbox_deno.png>
-Package pdftex.def Info: ./images//trend_secretbox_deno.png  used on input line 296.
-(pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
-<images/trend_secretbox_rust.png, id=39, 657.45625pt x 451.6875pt>
+Package pdftex.def Info: ./images//trend_secretbox_deno.png  used on input line 339.
+(pdftex.def)             Requested size: 202.80167pt x 139.32556pt.
+
+Overfull \hbox (12.80167pt too wide) in paragraph at lines 339--340
+ [][] 
+ []
+
+<images/trend_secretbox_rust.png, id=46, 657.45625pt x 451.6875pt>
 File: images/trend_secretbox_rust.png Graphic file (type png)
 <use images/trend_secretbox_rust.png>
-Package pdftex.def Info: images/trend_secretbox_rust.png  used on input line 301.
-(pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
- [8 <./images/trend_hash_rust.png> <./images/secretbox_lines.png> <./images//trend_secretbox_deno.png>]
-<images/box_lines.png, id=46, 657.45625pt x 451.6875pt>
+Package pdftex.def Info: images/trend_secretbox_rust.png  used on input line 344.
+(pdftex.def)             Requested size: 202.80167pt x 139.32556pt.
+
+Overfull \hbox (12.80167pt too wide) in paragraph at lines 344--345
+ [][] 
+ []
+
+<images/box_lines.png, id=47, 657.45625pt x 451.6875pt>
 File: images/box_lines.png Graphic file (type png)
 <use images/box_lines.png>
-Package pdftex.def Info: images/box_lines.png  used on input line 316.
-(pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
-<./images//trend_box_deno.png, id=47, 657.45625pt x 451.6875pt>
+Package pdftex.def Info: images/box_lines.png  used on input line 360.
+(pdftex.def)             Requested size: 202.80167pt x 139.32556pt.
+
+Overfull \hbox (12.80167pt too wide) in paragraph at lines 360--361
+ [][] 
+ []
+
+[10 <./images/secretbox_lines.png> <./images//trend_secretbox_deno.png> <./images/trend_secretbox_rust.png>]
+<./images//trend_box_deno.png, id=54, 657.45625pt x 451.6875pt>
 File: ./images//trend_box_deno.png Graphic file (type png)
 <use ./images//trend_box_deno.png>
-Package pdftex.def Info: ./images//trend_box_deno.png  used on input line 323.
-(pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
-<images/trend_box_rust.png, id=48, 657.45625pt x 451.6875pt>
+Package pdftex.def Info: ./images//trend_box_deno.png  used on input line 367.
+(pdftex.def)             Requested size: 202.80167pt x 139.32556pt.
+
+Overfull \hbox (12.80167pt too wide) in paragraph at lines 367--368
+ [][] 
+ []
+
+<images/trend_box_rust.png, id=55, 657.45625pt x 451.6875pt>
 File: images/trend_box_rust.png Graphic file (type png)
 <use images/trend_box_rust.png>
-Package pdftex.def Info: images/trend_box_rust.png  used on input line 328.
-(pdftex.def)             Requested size: 175.49881pt x 120.57191pt.
- [9 <./images/trend_secretbox_rust.png> <./images/box_lines.png> <./images//trend_box_deno.png> <./images/trend_box_rust.png>] [10] (main.aux) ) 
+Package pdftex.def Info: images/trend_box_rust.png  used on input line 372.
+(pdftex.def)             Requested size: 202.80167pt x 139.32556pt.
+
+Overfull \hbox (12.80167pt too wide) in paragraph at lines 372--373
+ [][] 
+ []
+
+[11 <./images/box_lines.png> <./images//trend_box_deno.png> <./images/trend_box_rust.png>] [12] [13] (main.aux) ) 
 Here is how much of TeX's memory you used:
- 3538 strings out of 476331
- 55867 string characters out of 5787766
- 1863660 words of memory out of 5000000
- 23971 multiletter control sequences out of 15000+600000
+ 3554 strings out of 476331
+ 55999 string characters out of 5787766
+ 1868660 words of memory out of 5000000
+ 23987 multiletter control sequences out of 15000+600000
  516127 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,6n,62p,511b,1335s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,6n,62p,580b,1338s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\aitor\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (10 pages, 253148 bytes).
+Output written on main.pdf (13 pages, 273675 bytes).
 PDF statistics:
- 90 PDF objects out of 1000 (max. 8388607)
+ 100 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

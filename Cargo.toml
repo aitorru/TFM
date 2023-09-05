@@ -9,9 +9,9 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-bcrypt = "0.13"
-crypto_kx = "0.1.0"
-crypto_box = "0.8.2"
+bcrypt = "0.15.0"
+crypto_kx = "0.2.1"
+crypto_box = "0.9.1"
 tweetnacl = "0.4.0"
 sodalite = "0.4.0"
 base64 = "0.21.0"
