@@ -17,11 +17,11 @@
 
     Node.js was primarily created to enable JavaScript to run on the server. The creator of Node never anticipated that JavaScript would be used for literally everything.
 
-    JavaScript is employed in desktop applications using Electron, and in mobile applications using React Native or Ionic. As an interpreted language, it has a low entry barrier. As the default language of the web, it also boasts a wealth of interesting libraries.
+    JavaScript is employed in desktop applications using Electron \cite{ELECTRON}, and in mobile applications using React Native \cite{RN} or Ionic \cite{IONIC}. As an interpreted language, it has a low entry barrier. As the default language of the web, it also boasts a wealth of interesting libraries.
 
-    Node.js took the engine that runs JavaScript on Chrome, known as V8, and wrapped it in additional C++ code to make it possible for it to interact with system calls.
+    Node.js took the engine that runs JavaScript on Chrome, known as V8, and wrapped it in additional C++ code to make it possible for it to interact with system calls \cite{FKNODE}.
 
-    All these factors have contributed to the rise of JavaScript as the language of the future. Nonetheless, as the creator himself contends, it has experienced some 'growing pains.'
+    All these factors have contributed to the rise of JavaScript as the language of the future. Nonetheless, as the creator himself contends, it has experienced some 'growing pains' \cite{FKNODE}.
 
     This project is born with the idea of solving some of these problems. The main objective is to create a library that can be used in Deno projects to speed up the most common operations. This library will be written in Rust, a language that is both fast and memory safe.
 
@@ -29,7 +29,7 @@
 
     \section{The problem}
 
-    Ryan Dahl, the creator of Node.js, has expressed his regrets about the language. He has stated that he would not use JavaScript for a new project and that he would also not use Node.js for a new project. Node.js has grown beyond what it was intended to be, and it has become a 'monster'.
+    Ryan Dahl, the creator of Node.js, has expressed his regrets about the language \cite{FKNODE}. He has stated that he would not use JavaScript for a new project and that he would also not use Node.js for a new project. Node.js has grown beyond what it was intended to be, and it has become a 'monster'.
 
     While experimenting with the TFG \cite{TFG} project, some problems where experienced with the current state of the JavaScript ecosystem, which they will be explained in the following sections. This TFG project was a web application with blockchain integrations for decentralized identity management. Even though this project is not within the scope of this TFM, it is important to understand the context of the problems that I have discovered.
 
@@ -77,7 +77,7 @@ console.log(user.email);
 
     \subsection{Node GYP}
 
-    Node GYP is the state of the art when creating native libraries in Node JS. This tool is originally from google. When google discontinuated it the comunity made a fork and the project continued. \cite{NODEGYP}
+    Node GYP is the state of the art when creating native libraries in Node JS. This tool is originally from google \cite{FKNODE}. When google discontinuated it the comunity made a fork and the project continued. \cite{NODEGYP}
 
     It is a tool writen in python, witch is not JavaScript, and it is inecessarilly complicated to write a native library.
 
@@ -85,7 +85,7 @@ console.log(user.email);
 
     \section{The solution}
 
-    Ryan Dahl, created Deno, a solution to his own issues created by working on Node JS without a clear plan. Here are some of his regrets and the solutions that have appeared.
+    Ryan Dahl, created Deno, a solution to his own issues created by working on Node JS without a clear plan. Here are some of the solutions that were developed.
 
     \subsection{TypeScript}
 
@@ -399,6 +399,18 @@ pub extern "C" fn hi() {
 
 \end{multicols}
 \begin{thebibliography}{9}
+    \bibitem{ELECTRON}
+    OpenJS Foundation \emph{Build cross-platform desktop apps with JavaScript, HTML, and CSS}
+
+    \bibitem{RN}
+    Facebook \emph{React Native Learn once, write anywhere.}
+
+    \bibitem{IONIC}
+    Ionic \emph{The mobile SDK for the Web.}
+
+    \bibitem{FKNODE}
+    Ryan Dahl (2018) \emph{10 Things I Regret About Node.js - JSConf EU}
+
     \bibitem{TFG}
     Aitor Ruiz Garcia (2022) \emph{Investigación y desarrollo del uso de la tecnoloía blockchain como validador de indentidades distribuidas y su aplicación en la Universidad de Deusto}.
 
@@ -443,6 +455,8 @@ pub extern "C" fn hi() {
 
     \bibitem{WASMBAD}
     \textit{juj} (2021) \emph{Wasm needs a better memory management story}
+
+
 
 \end{thebibliography}
 \end{document}
