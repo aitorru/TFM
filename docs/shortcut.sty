@@ -1,0 +1,27 @@
+% Author comments
+\newcommand{\authnote}[2]{\textcolor{red}{#1: }\textcolor{blue}{#2}}
+%\newcommand{\authnote}[2]{}
+
+\newcommand{\pedro}[1]{\authnote{Pedro}{#1}}
+\newcommand{\silvia}[1]{\authnote{Silvia}{#1}}
+
+% TODO 
+\newcommand{\todo}[1]{\textbf{[TODO: #1]}}
+
+% Ignore stuff
+\newcommand{\ignore}[1]{}
+
+% Review
+\newcommand{\review}[1]{{\leavevmode\color{blue}{#1}}}
+%\newcommand{\review}[1]{#1}
+
+
+% Tickmark and Crossmark
+\usepackage{amsfonts}
+\newcommand{\Y}{\checkmark}
+\usepackage{pifont}
+\newcommand{\N}{\hspace{1pt}\ding{55}}
+
+% General macros
+\newcommand{\Tool}{Our tool\xspace}
+\newcommand{\tool}{our tool\xspace}
