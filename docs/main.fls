@@ -941,6 +941,8 @@ INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplr7
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplr8r.tfm
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplri7t.vf
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplri8r.tfm
+INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplri7t.vf
+INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplri8r.tfm
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\courier\pcrr7t.vf
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\courier\pcrr8r.tfm
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\helvetic\phvro7t.tfm
@@ -955,8 +957,6 @@ INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex\latex\psnfss\ts1ppl.fd
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplr8c.tfm
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\helvetic\phvro7t.vf
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\helvetic\phvro8r.tfm
-INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplri7t.vf
-INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplri8r.tfm
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplr8c.vf
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\public\mathpazo\fplmr.tfm
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmex10.tfm
@@ -968,8 +968,6 @@ INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\sym
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm5.tfm
-INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplb7t.vf
-INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplb8r.tfm
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex8.tfm
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
@@ -979,6 +977,10 @@ INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\sym
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm5.tfm
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm5.tfm
+INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplb7t.vf
+INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplb8r.tfm
+INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplb7t.vf
+INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplb8r.tfm
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplr7t.vf
 INPUT C:\Users\aitor\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplr8r.tfm
 INPUT .\images\\flamegraph.png

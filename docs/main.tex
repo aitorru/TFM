@@ -103,7 +103,7 @@ Ryan Dahl, the creator of Node.js, has expressed his regrets about the language 
 While experimenting with the TFG \cite{TFG} project, some problems where experienced with the current state of the JavaScript ecosystem, which they will be explained in the following sections. This TFG project was a web application with blockchain integrations for decentralized identity management. Even though this project is not within the scope of this TFM, it is important to understand the context of the problems that I have discovered.
 
 \subsection{No types}
-JavaScript does not have a type checker. This means that the compiler does not check the types of the variables, and therefore, it is possible to assign a value of one type to a variable of another type. This can lead to unexpected errors in the code.
+JavaScript does not have a type checker, at least at \textit{compile} time. JavaScript is an interpreted language, therefore it does not have a compile step. This means that there is no compiler to check the types of the variables, and therefore, it is possible to assign a value of one type to a variable of another type. This can lead to unexpected errors in the code. It is also possible to request a property from an object that does not exist. This will result in a runtime error, with no previous warning.
 
 Take a look at the following example:
 \begin{lstlisting}
@@ -113,7 +113,7 @@ const user = {
 }
     
 console.log(user.email);
-    \end{lstlisting}
+\end{lstlisting}
 
 This small code will not raise any error to warn the developer that the user object does not have an email property. This leads to a runtime error, which is not good for the developer experience.
 
@@ -194,7 +194,7 @@ Rust, that will be discused later has a crate that links directly with V8, but i
 
 \section{The solution}
 
-Ryan Dahl, created Deno, a solution to his own issues created by working on Node JS without a clear plan. In a talk at JSConf he presented the project with some clear plan to make Deno the standard langua for the web.
+Ryan Dahl, created Deno, a solution to his own issues created by working on Node JS without a clear plan. In a talk at JSConf \cite{FKNODE} he presented the project with some clear plan to make Deno the standard langua for the web.
 
 His plan was to create a safe and secure environment for JavaScript and TypeScript to run. This means that the developer will not have to worry about security issues, as the code will be running in a sandboxed environment.
 
@@ -219,7 +219,7 @@ However, while TypeScript in this form is very helpful, it adds more time to the
     "start": "node index.js",
     "build": "tsc"
 }
-    \end{lstlisting}
+\end{lstlisting}
 
 This means that the developer has to run the \verb|build| script before running the \verb|start| script. This is not a problem in development, but it is a problem in production. This is because the developer has to run the \verb|build| script before deploying the application.
 
@@ -229,17 +229,74 @@ In the code, this means that every variable will have an associated type, and th
 
 \begin{lstlisting}
 var name: string = "";
-    \end{lstlisting}
+\end{lstlisting}
 
 The variable name cannot have another value assigned without it being a string.
 
 \begin{lstlisting}
 name = 0;
-    \end{lstlisting}
+\end{lstlisting}
 
 This code will result in an error, as \verb|0| is not a string.
 
-This will catch multiple runtime errors.
+\subsubsection{JSDoc}
+
+While TypeScript is a very good solution, it can be a pain to set up. It requires a lot of configuration, and it can be difficult to set up in some projects. While JSDoc main focus is to provide documentation abount functions to let developers know how a function can be used, it can also be used to provide types to variables.
+
+It is even possible to generate TypeScript types from JSDoc comments.
+
+\begin{lstlisting}
+/**
+ * @type {string}
+ */
+var name = "";
+\end{lstlisting}
+
+Just like that a variable can have a type. With this information a \verb|.d.ts| file can be generated and tsc will read it to apply type checking to native JavaScript code.
+
+Some projects stand out in this space like Svelte and Turbo.
+
+\subsubsection{Svelte}
+
+Svelte, is a framework that creates UIs, just like React. It is a very good alternative to React, as it is faster and has a smaller bundle size.
+
+In an article, the Svelte author discusses the benefits of using TypeScript in Svelte. In his oppinion, TypeScript is "\textit{not worth it}" for creating a framework.
+
+He argues that TypeScript is very good but in his case, the hustle of setting up TypeScript is too much for the benefits it provides.
+
+Most of their troubles comes from generics and types magic that is required in some edge cases on their framework.
+
+\textit{''My position is, types are fantastic, TypeScript is a bit of a pain … as soon as you use a .ts file, then you have to have the tooling to support that … there's all of these points of friction when you use a non-standard language like TypeScript that I have come to believe makes it not worth it. So instead, we have put all our types in JSDoc annotations, and we get all of the type safety, but none of the drawbacks, because it is just JavaScript, everything is in comments, you can just run the code. This is what we do in the Sveltekit codebase and it has worked out fantastically so for Svelte 4.0, we're going to do the same for Svelte because it's going to enable us to move much more quickly.''}
+
+\subsubsection{Turbo}
+
+Turbo, is a library that aims to make the life of backend developer easier, allowing the insertion of HTML in a page directly without a full page reload.
+
+Very recently, the lead developer of the library and the creator of Ruby on Rails, anounced that they are droping TypeScript entirely from the project. This also means that any other project that depends on Turbo will also have to adapt as they do not plan on giving any type information.
+
+His main argument is that types damage the code redability and they are not worth the hustle.
+
+\textit{''TypeScript just gets in the way of that for me. Not just because it requires an explicit compile step, but because it pollutes the code with type gymnastics that add ever so little joy to my development experience, and quite frequently considerable grief. Things that should be easy become hard, and things that are hard become `any`. No thanks!''}
+
+\subsubsection{ECMAScript proposal}
+
+There is currently an ECMAScript proposal in the making that aims to bring types to native JavaScript. It is still in stage 1, and it will be in that stage for a long time, but it is very promising.
+
+The main benefit is no more build steps. The developer will have types directly in JavaScript. This will unlock the following from the language.
+
+\begin{itemize}
+    \item Less time spent on build steps.
+    \item Cleaner code than JSDoc.
+    \item Engine maker will be able to optimize the code better.
+\end{itemize}
+
+But in the meantime, how can the developer experience be imporved?
+
+\subsubsection{How Deno can imporove the TypeScript experience}
+
+Using Deno there are no more build steps. This means that the developer can write TypeScript and run it directly in Deno. This is a very good developer experience, as the developer does not have to worry about the build step.
+
+Most of this library authors problem come from third party libraries that that are messy to work with, but Deno can and will make the experience smother.
 
 \subsection{URL based imports}
 
@@ -314,10 +371,10 @@ Deno.dlopen(
 
 Deno supports the whole C ABI, meaning that it can load any dynamic library that is compatible with the C ABI. This is very good, as it allows the developer to use any language that is compatible with the C ABI.
 
-\begin{table}[]
+\begin{table}[H]
     \begin{tabular}{|l|l|l|}
         \hline
-        FFI Type                       & Deno              & Rust              \\ \hline
+        \textbf{FFI Type}              & \textbf{Deno}     & \textbf{Rust}     \\ \hline
         i8                             & number            & i8                \\ \hline
         u8                             & number            & u8                \\ \hline
         i16                            & number            & i16               \\ \hline
@@ -339,6 +396,20 @@ Deno supports the whole C ABI, meaning that it can load any dynamic library that
     \end{tabular}
 \end{table}
 
+As this project only uses strings and numbers, the only times needed are a pointer and a u32. So the type declaration of the dynamic library is as follows.
+
+\begin{lstlisting}
+hash: {
+    parameters: ["pointer", "u32"],
+    result: "pointer",
+    nonblocking: true,
+}
+\end{lstlisting}
+
+This is the declaration of the hash function in the library. In the declaration it can be seen a \verb|nonblocking| flag. This flag is used to tell Deno that the function is async. Instead of complicated C ABI callbacks Deno converts the sync Rust code in async JavaScript code automatically.
+
+All of the functions in the library are async because in the Deno ecosystem async functions are easier to work with. This is because Deno has top level await and it is not necessary to wrap the code in promises or callbacks.
+
 This is the table that Deno uses to convert the types from JavaScript to Rust. It has some Rust magic to convert the types from C ABI to Rust types. It allows the convertion of unsafe operations to safe operations while having an excellent developer experience and performance.
 
 In this method, the developer simply has to locate the DLL physically. The developer also needs to specify how the methods in the library work.
@@ -355,9 +426,21 @@ The process would be as follows:
 
 The final piece of this project is deciding how to secure the actual horsepower of this project. The obvious choice is a low-level language that can maximize the performance of the CPU.
 
+Here is a list of compiled languages that may be a good fit for this project.
+
+\begin{itemize}
+    \item C
+    \item C++
+    \item Rust
+    \item Go
+    \item Zig
+\end{itemize}
+
 To prevent memory-related issues, some languages have to be ruled out. In languages like C and C++, memory is managed by the developer, which can result in segmentation faults and other issues.
 
-If the focus is on achieving the best possible performance, languages with garbage collection have to be ruled out.
+A garbage collector will not be a good fit for this project, as it can result in performance issues. It also can result in big library sizes, as the garbage collector has to be included in the library.
+
+Zig, while being a very good language, is still in its early stages, and it is not a good fit for this project. It also does not have a safe memory management solution, so it will not be considered as an option much like C. Although, it is worth noting that Zig is a very good language, and it is worth keeping an eye on it. The \verb|defer| keyword is a very good feature that can be used to keep track of memory allocation.
 
 The only sensible option left is \verb|Rust|.
 
@@ -371,7 +454,7 @@ If a variable is owned, it will be deallocated when it goes out of scope.
 const a = 10;
 fun(a);
 foo(a);
-    \end{lstlisting}
+\end{lstlisting}
 
 In this code, only the first function call will comply with the compiler. The other one will fail.
 
@@ -427,6 +510,7 @@ pub extern "C" fn hi() {
 There are multiple types of libraries, but the focus of this project is to create a library that can be used in other projects. It can be used in other project because it is a dynamic library, and it is not a static library. A static library needs to be compiled into the final binary, and can only be used inside that program. A dynamic library can exist in a separate file and can be used in multiple programs. This is the case of this project.
 
 A fear when using FFI is that it may result in a performance penalty. However, taking a flamegraph [\ref{img:flamegraph}] shows that that is not the case. The FFI bridge is not even visible in the flamegraph. It is just a transparent step. It does not add any overhead to the execution of the program.
+Between the \verb|deno.exe ffi_call_win64()| and the actual \verb|tfm.dll tfm::verify| function starting execution there is no time difference.
 
 \begin{figure*}
     \centering
@@ -474,6 +558,8 @@ The data presented in this document will come from the CPU \textbf{i9-12900H}. H
 
 In every test run, the results are consistent but with obvious speed differences, as the selected hardware varies widely.
 
+The \textbf{i9-12900H} is a 16-core CPU with 24 threads. It has a base clock of 2.2 GHz and a boost clock of 4.9 GHz. It has 24 MB of L3 cache and 16 MB of L2 cache. It is a very powerful CPU, and has a powerful single core performance. This means that it will go in favor of Deno. As reducing the speed of the processor will result in higher time values for Deno.
+
 \subsubsection{Hashing}
 
 The first part of the library to analyze is hashing. The algorithm used for hashing is bcrypt. This algorithm is a slow hashing algorithm that is designed to hash passwords. It is intentionally slow to prevent brute-force attacks \cite{Bcrypt}. The algorithm can be configured to use a different "cost," which is the number of iterations that the algorithm will perform. The higher the cost, the more secure the hash will be, but this comes at the expense of time. It also includes a salt to prevent rainbow table attacks.
@@ -483,9 +569,9 @@ The first part of the library to analyze is hashing. The algorithm used for hash
     \includegraphics[width=0.52\textwidth]{hashing_lines}
 \end{figure}
 
-In this image, the creation of 1,000 hashes and their respective costs in milliseconds are shown, using a bcrypt cost of 14. On average, Rust is faster by \textbf{57\%}.
+In this image, the creation of 1,000 hashes and their respective costs in milliseconds are shown, using a bcrypt cost of 14. On average, Rust is faster by \textbf{57\%}. Reducing the hardware choice to \textbf{i5-1135G7} results in a \textbf{34\%} more slowdown of Deno compared to Rust. Reducing even more the hardware to a single core instance of a VM runing on DigitalOcean, the results are even more drastic, with a \textbf{58\%} slowdown of Deno compared to Rust. This results are consistants with the rest of tests runned.
 
-In this graph a small OS induced noise can be seen, and ruled out as Deno or Rust fault. At the start of the series and between 1600 and 1800 can be detected. As both timings go up it is safe to rule out this data pasing to the next section.
+In this hash graph a small OS induced noise can be seen, and ruled out as Deno or Rust fault. At the start of the series and between 1600 and 1800 can be detected. As both timings go up it is safe to rule out this data pasing to the next section.
 The trends here are not clearly defined, but two aspects are apparent from the following graphs.
 
 \begin{figure}[H]
@@ -504,7 +590,7 @@ From the data, some observations can be made:
     \item Rust will be more stable and experience less growth.
 \end{itemize}
 
-The growth rate in the Deno is \textbf{0.001} and in Rust is in the range of the data chosen negible. Pushing it all the way to 50,000 characters will result in a growth rate of \textbf{0.0001}.
+The growth rate in the Deno is \textbf{0.001} and in Rust is in the range of the data chosen negible. Pushing it all the way to \textbf{1.800.000} characters will result in a growth rate of \textbf{0.0001}.
 
 \subsubsection{Secret boxes}
 
@@ -588,7 +674,7 @@ The integration of our library promises to drastically improve performance metri
 
 \subsection{Future-Proofing Developer Environments}
 
-A significant advantage offered by this project is the provision for fully virtualized development environments through the utilization of Docker containers. This virtualization allows for a consistent and reproducible development atmosphere, replete with all the necessary dependencies. It also serves as a security measure, as the operational codebase resides within a contained environment, effectively neutralizing potential threats.
+In this project, it is made enphasis in the use of Deno because of its sandboxed environment. The next logical step to prevent malicious code from being executed in developers machines is the use of containers. This way, the developer can be sure that the code is not doing anything malicious. Through the utilization of Docker containers. This virtualization allows for a consistent and reproducible development atmosphere, replete with all the necessary dependencies. It also serves as a security measure, as the operational codebase resides within a contained environment, effectively neutralizing potential threats.
 
 \subsection{Industry Leadership}
 
