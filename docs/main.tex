@@ -31,7 +31,6 @@
 \usepackage{boldline}
 \usepackage{hhline}
 
-
 \begin{document}
 
 \definecolor{azulUC3M}{RGB}{0,0,102}
@@ -208,7 +207,7 @@ Here are some of the solutions that were developed.
 
 \subsection{TypeScript}
 
-TypeScript appeared in 2012 developed by Microsoft, to add types to JavaScript. It works as a superset of JavaScript, meaning all keywords valid in JavaScript are also valid in TypeScript, but not vice versa. \cite{TypeScript}
+TypeScript appeared in 2012 developed by Microsoft, to add types to JavaScript. It works as a superset of JavaScript, meaning all keywords valid in JavaScript are also valid in TypeScript, but not vice versa. \cite{TypeScript} \cite{10162220}
 
 TypeScript does not work by modifying V8; instead, it makes JavaScript the compile target of TypeScript. This approach also allows for targeting multiple versions of JavaScript and the use of polyfills \cite{Polyfill} if the desired API is not present.
 
@@ -258,7 +257,7 @@ Some projects stand out in this space like Svelte and Turbo.
 
 \subsubsection{Svelte}
 
-Svelte, is a framework that creates UIs, just like React. It is a very good alternative to React, as it is faster and has a smaller bundle size.
+Svelte \cite{10101104}, is a framework that creates UIs, just like React. It is a very good alternative to React, as it is faster and has a smaller bundle size.
 
 In an article, the Svelte author discusses the benefits of using TypeScript in Svelte. In his oppinion, TypeScript is "\textit{not worth it}" for creating a framework.
 
@@ -266,7 +265,7 @@ He argues that TypeScript is very good but in his case, the hustle of setting up
 
 Most of their troubles comes from generics and types magic that is required in some edge cases on their framework.
 
-\textit{''My position is, types are fantastic, TypeScript is a bit of a pain … as soon as you use a .ts file, then you have to have the tooling to support that … there's all of these points of friction when you use a non-standard language like TypeScript that I have come to believe makes it not worth it. So instead, we have put all our types in JSDoc annotations, and we get all of the type safety, but none of the drawbacks, because it is just JavaScript, everything is in comments, you can just run the code. This is what we do in the Sveltekit codebase and it has worked out fantastically so for Svelte 4.0, we're going to do the same for Svelte because it's going to enable us to move much more quickly.''}
+\textit{''My position is, types are fantastic, TypeScript is a bit of a pain … as soon as you use a .ts file, then you have to have the tooling to support that … there's all of these points of friction when you use a non-standard language like TypeScript that I have come to believe makes it not worth it. So instead, we have put all our types in JSDoc annotations, and we get all of the type safety, but none of the drawbacks, because it is just JavaScript, everything is in comments, you can just run the code. This is what we do in the Sveltekit codebase and it has worked out fantastically so for Svelte 4.0, we're going to do the same for Svelte because it's going to enable us to move much more quickly.''} - \textit{Rich Harris} \cite{SvelteTS}
 
 \subsubsection{Turbo}
 
@@ -276,7 +275,7 @@ Very recently, the lead developer of the library and the creator of Ruby on Rail
 
 His main argument is that types damage the code redability and they are not worth the hustle.
 
-\textit{''TypeScript just gets in the way of that for me. Not just because it requires an explicit compile step, but because it pollutes the code with type gymnastics that add ever so little joy to my development experience, and quite frequently considerable grief. Things that should be easy become hard, and things that are hard become `any`. No thanks!''}
+\textit{''TypeScript just gets in the way of that for me. Not just because it requires an explicit compile step, but because it pollutes the code with type gymnastics that add ever so little joy to my development experience, and quite frequently considerable grief. Things that should be easy become hard, and things that are hard become `any`. No thanks!''} - \textit{David Heinemeier Hansson} \cite{TurboTS}
 
 \subsubsection{ECMAScript proposal}
 
@@ -295,6 +294,10 @@ But in the meantime, how can the developer experience be imporved?
 \subsubsection{How Deno can imporove the TypeScript experience}
 
 Using Deno there are no more build steps. This means that the developer can write TypeScript and run it directly in Deno. This is a very good developer experience, as the developer does not have to worry about the build step.
+
+Wanting no types in your code, can also be valid, so Deno allows the execution of JavaScript also. Allowing the best of both worlds.
+
+When the scope of the project is not well defined and a quick iteration process is wanted, JavaScript can be used, and then when the idea mature, TypeScript can be implemented.
 
 Most of this library authors problem come from third party libraries that that are messy to work with, but Deno can and will make the experience smother.
 
@@ -350,7 +353,7 @@ While this can be beneficial for this objective, for a library that needs to run
 
 esbuild is a bundler \cite{Bundler} that aims to be the fastest bundler in the world. A bundler combines all dependencies into a single file to distrite it to the users. This is a very common practice in the web space, as it can also split the code into chunks to be loaded on demand. This is very useful for large applications, as it can reduce the initial load time. This is the case of the TFG \cite{TFG} project, as it is a large application.
 
-\verb|esbuild| decided to take another approach. They used wasm \cite{WASM} to create the library. As this project is written in Go, the whole Go garbage collector has to be injected into the wasm code.
+\verb|esbuild| decided to take another approach. They used wasm \cite{WASM} \cite{WASMSPEC} to create the library. As this project is written in Go, the whole Go garbage collector has to be injected into the wasm code.
 
 This can result in larger install sizes and a poor developer experience, as stated before.
 
@@ -410,7 +413,7 @@ This is the declaration of the hash function in the library. In the declaration 
 
 All of the functions in the library are async because in the Deno ecosystem async functions are easier to work with. This is because Deno has top level await and it is not necessary to wrap the code in promises or callbacks.
 
-This is the table that Deno uses to convert the types from JavaScript to Rust. It has some Rust magic to convert the types from C ABI to Rust types. It allows the convertion of unsafe operations to safe operations while having an excellent developer experience and performance.
+This is the table that Deno uses to convert the types from JavaScript to Rust. It has some Rust magic to convert the types from C ABI to Rust types. It allows the convertion of \verb|unsafe| operations to safe operations while having an excellent developer experience and performance.
 
 In this method, the developer simply has to locate the DLL physically. The developer also needs to specify how the methods in the library work.
 The process would be as follows:
@@ -436,7 +439,7 @@ Here is a list of compiled languages that may be a good fit for this project.
     \item Zig
 \end{itemize}
 
-To prevent memory-related issues, some languages have to be ruled out. In languages like C and C++, memory is managed by the developer, which can result in segmentation faults and other issues.
+To prevent memory-related issues, some languages have to be ruled out. In languages like C and C++, memory is managed by the developer, which can result in segmentation faults and other issues. \cite{9793767}
 
 A garbage collector will not be a good fit for this project, as it can result in performance issues. It also can result in big library sizes, as the garbage collector has to be included in the library.
 
@@ -656,7 +659,7 @@ The growth rate in the Deno is \textbf{0.003} and in Rust is \textbf{0.001}.
 
 \section{Conclusions}
 
-The objective of this project has been met with remarkable success, both theoretically and pragmatically. The initiative was principally driven by the need to enhance the efficiency of JavaScript-based projects, a technology that is increasingly becoming ubiquitous. One notable application of this effort is seen in the InterPlanetary File System (IPFS), which heavily relies on our optimized suite of algorithms for its operations. Particularly, this suite of libraries plays a pivotal role in the functionality of OrbitDB, an instrumental library employed for the creation of decentralized databases.
+The objective of this project has been met with remarkable success, both theoretically and pragmatically. The initiative was principally driven by the need to enhance the efficiency of JavaScript-based projects, a technology that is increasingly becoming ubiquitous. One notable application of this effort is seen in the InterPlanetary File System (IPFS) \cite{IPFS}, which heavily relies on our optimized suite of algorithms for its operations. Particularly, this suite of libraries plays a pivotal role in the functionality of OrbitDB, an instrumental library employed for the creation of decentralized databases.
 
 \subsection{Technical Overview}
 
@@ -682,66 +685,6 @@ Microsoft is at the forefront of this technological space, particularly with the
 
 Microsoft offers a local version of this feature, named \verb|dev-containers|, that provides identical functionalities but operates within a locally-hosted environment.
 
-
-\begin{thebibliography}{9}
-    \bibitem{ELECTRON}
-    OpenJS Foundation \emph{Build cross-platform desktop apps with JavaScript, HTML, and CSS}
-
-    \bibitem{RN}
-    Facebook \emph{React Native Learn once, write anywhere.}
-
-    \bibitem{IONIC}
-    Ionic \emph{The mobile SDK for the Web.}
-
-    \bibitem{FKNODE}
-    Ryan Dahl (2018) \emph{10 Things I Regret About Node.js - JSConf EU}
-
-    \bibitem{TFG}
-    Aitor Ruiz Garcia (2022) \emph{Investigación y desarrollo del uso de la tecnoloía blockchain como validador de indentidades distribuidas y su aplicación en la Universidad de Deusto}.
-
-    \bibitem{NPMCOUNT}
-    Wikipedia (2023) \emph{npm}.
-
-    \bibitem{BADNPM}
-    Mateusz Morszczyzna (2017) \emph{What's really wrong with node\_modules and why this is your fault}.
-
-    \bibitem{BADFAKER}
-    Ax Sharma (2022) \emph{npm Libraries 'colors' and 'faker' Sabotaged in Protest by their Maintainer—What to do Now?}.
-
-    \bibitem{VERGEFAKER}
-    Emma Roth (2022) \emph{Open source developer corrupts widely-used libraries, affecting tons of projects}, The Verge.
-
-    \bibitem{NODEGYP}
-    Node (2023) \emph{node-gyp - Node.js native addon build tool}.
-
-    \bibitem{TypeScript}
-    Wikipedia (2023) \emph{TypeScript}.
-
-    \bibitem{Polyfill}
-    Mozilla (2023) \emph{MDN Web Docs Glossary: Definitions of Web-related terms - Polyfill}.
-
-    \bibitem{DenoSec}
-    Deno (2023) \emph{Deno - Permissions}.
-
-    \bibitem{Bundler}
-    Diego Salinas Gardón (2022) \emph{The Complete JavaScript Module Bundlers Guide}.
-
-    \bibitem{WASM}
-    Mozilla (2023) \emph{MDN Web Docs - WebAssembly}.
-
-    \bibitem{Github}
-    Github (2023) \emph{About GitHub-hosted runners}.
-
-    \bibitem{Bcrypt}
-    Wikipedia (2023) \emph{Bcrypt}.
-
-    \bibitem{IPFS}
-    IPFS team (2022) \emph{Design and Evaluation of IPFS: A Storage Layer for the Decentralized Web}.
-
-    \bibitem{WASMBAD}
-    \textit{juj} (2021) \emph{Wasm needs a better memory management story}
-
-
-
-\end{thebibliography}
+\bibliographystyle{unsrt} % We choose the "plain" reference style
+\bibliography{refs} % Entries are in the refs.bib file
 \end{document}

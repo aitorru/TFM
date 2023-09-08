@@ -1,0 +1,140 @@
+\begin{thebibliography}{10}
+
+\bibitem{ELECTRON}
+Build cross-platform desktop apps with javascript, html, and css.
+\newblock \url{https://www.electronjs.org/}, Accessed: 08/09/2023.
+
+\bibitem{RN}
+React native learn once, write anywhere.
+\newblock \url{https://reactnative.dev/}, Accessed: 08/09/2023.
+
+\bibitem{IONIC}
+The mobile sdk for the web.
+\newblock \url{https://ionicframework.com/}, Accessed: 08/09/2023.
+
+\bibitem{FKNODE}
+Ryan Dahl.
+\newblock 10 things i regret about node.js.
+\newblock In {\em JSConf EU 20202}, 2022.
+
+\bibitem{TFG}
+Aitor~Ruiz Garcia.
+\newblock Investigación y desarrollo del uso de la tecnoloía blockchain como
+  validador de indentidades distribuidas y su aplicación en la universidad de
+  deusto.
+\newblock Master's thesis, Universidad de Deusto, 2022.
+
+\bibitem{BADNPM}
+Mateusz Morszczyzna.
+\newblock What's really wrong with node\_modules and why this is your fault.
+\newblock
+  \url{https://hackernoon.com/whats-really-wrong-with-node-modules-and-why-this-is-your-fault-8ac9fa893823},,
+  2017.
+
+\bibitem{NPMCOUNT}
+Npm.
+\newblock \url{https://www.wikiwand.com/en/Npm}, Accessed: 08/09/2023.
+
+\bibitem{BADFAKER}
+Ax~Sharma.
+\newblock npm libraries 'colors' and 'faker' sabotaged in protest by their
+  maintainer—what to do now?
+\newblock
+  \url{https://blog.sonatype.com/npm-libraries-colors-and-faker-sabotaged-in-protest-by-their-maintainer-what-to-do-now},,
+  2022.
+
+\bibitem{VERGEFAKER}
+Emma Roth.
+\newblock Open source developer corrupts widely-used libraries, affecting tons
+  of projects.
+\newblock
+  \url{https://www.theverge.com/2022/1/9/22874949/developer-corrupts-open-source-libraries-projects-affected},,
+  2022.
+
+\bibitem{NODEGYP}
+Node.js native addon build tool.
+\newblock \url{https://github.com/nodejs/node-gyp}, 2023.
+
+\bibitem{TypeScript}
+Typescript.
+\newblock \url{https://www.wikiwand.com/en/TypeScript}, Accessed: 08/09/2023.
+
+\bibitem{10162220}
+Ben Grynhaus, Jordan Hudgens, Rayon Hunte, Matt Morgan, and Vekoslav
+  Stefanovski.
+\newblock 2021.
+
+\bibitem{Polyfill}
+Mdn web docs glossary: Definitions of web-related terms - polyfill.
+\newblock \url{https://developer.mozilla.org/en-US/docs/Glossary/Polyfill},
+  Accessed: 08/09/2023.
+
+\bibitem{10101104}
+Saumyamani Bhardwaz and Rohan Godha.
+\newblock Svelte.js: The most loved framework today.
+\newblock In {\em 2023 2nd International Conference for Innovation in
+  Technology (INOCON)}, pages 1--7, 2023.
+
+\bibitem{SvelteTS}
+Tim Anderson.
+\newblock Typescript is 'not worth it' for developing libraries, says svelte
+  author, as team switches to javascript and jsdoc.
+\newblock {\em Dev Class}, 2023.
+
+\bibitem{TurboTS}
+David~Heinemeier Hansson.
+\newblock Turbo 8 is dropping typescript.
+\newblock 2023.
+
+\bibitem{DenoSec}
+Deno - permissions.
+\newblock \url{https://deno.land/manual@v1.36.4/basics/permissions},, Accessed:
+  08/09/2023.
+
+\bibitem{Bundler}
+Diego~Salinas Gardón.
+\newblock The complete javascript module bundlers guide.
+\newblock \url{https://snipcart.com/blog/javascript-module-bundler},, Accessed:
+  08/09/2023.
+
+\bibitem{WASM}
+Mozilla.
+\newblock Mdn web docs - webassembly.
+\newblock \url{https://developer.mozilla.org/en-US/docs/WebAssembly},,
+  Accessed: 08/09/2023.
+
+\bibitem{WASMSPEC}
+WebAssembly~Community Group.
+\newblock {\em WebAssembly Specification}.
+\newblock 2023.
+
+\bibitem{9793767}
+Michael Ling, Yijun Yu, Haitao Wu, Yuan Wang, James~R. Cordy, and Ahmed~E.
+  Hassan.
+\newblock In rust we trust – a transpiler from unsafe c to safer rust.
+\newblock In {\em 2022 IEEE/ACM 44th International Conference on Software
+  Engineering: Companion Proceedings (ICSE-Companion)}, pages 354--355, 2022.
+
+\bibitem{WASMBAD}
+juj.
+\newblock Wasm needs a better memory management story.
+\newblock \url{https://github.com/WebAssembly/design/issues/1397},, 2021.
+
+\bibitem{Github}
+Github.
+\newblock About github-hosted runners.
+\newblock
+  \url{https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners},,
+  2023.
+
+\bibitem{Bcrypt}
+Bcrypt.
+\newblock \url{https://www.wikiwand.com/en/Bcrypt}, Accessed: 08/09/2023.
+
+\bibitem{IPFS}
+Gareth Tyson~\dots Dennis~Trautwein, Aravindh~Raman.
+\newblock Design and evaluation of ipfs: A storage layer for the decentralized
+  web.
+\newblock 2022.
+
+\end{thebibliography}

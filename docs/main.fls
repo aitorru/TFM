@@ -1044,6 +1044,10 @@ INPUT .\images\trend_box_rust.png
 INPUT .\images\trend_box_rust.png
 INPUT .\images\trend_box_rust.png
 INPUT .\images\trend_box_rust.png
+INPUT .\main.bbl
+INPUT main.bbl
+INPUT .\main.bbl
+INPUT main.bbl
 INPUT main.aux
 INPUT .\main.out
 INPUT .\main.out
