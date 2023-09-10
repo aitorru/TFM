@@ -81,30 +81,31 @@
 \date{September 2023}
 \maketitle
 \section{Abstract}
-JavaScript has emerged as a fundamental language in global development. Much of the success of Node.js, both in server-side applications and in full-stack web applications (client-server), can be attributed to it.
+JavaScript has emerged as a fundamental language in global development. Much of the success of Node.js, both in server-side applications and in full-stack web applications (client-server), can be attributed to this language.
 
-Node.js was primarily created to enable JavaScript to run on the server. The creator of Node never anticipated that JavaScript would be used for literally everything.
+Node.js was primarily created to enable JavaScript to run on the server. The creator of Node never anticipated that JavaScript would be used for virtually everything.
 
-JavaScript is employed in desktop applications using Electron \cite{ELECTRON}, and in mobile applications using React Native \cite{RN} or Ionic \cite{IONIC}. As an interpreted language, it has a low entry barrier. As the default language of the web, it also boasts a wealth of interesting libraries.
+JavaScript is employed in desktop applications using Electron \cite{ELECTRON}, and in mobile applications using React Native \cite{RN} or Ionic \cite{IONIC}. Being an interpreted language, it offers a low entry barrier. As the default language of the web, it also boasts a plethora of compelling libraries.
 
-Node.js took the engine that runs JavaScript on Chrome, known as V8, and wrapped it in additional C++ code to make it possible for it to interact with system calls \cite{FKNODE}.
+Node.js took the V8 engine, which runs JavaScript on Chrome, and wrapped it in additional C++ code to enable it to interact with system calls \cite{FKNODE}.
 
-All these factors have contributed to the rise of JavaScript as the language of the future. Nonetheless, as the creator himself contends, it has experienced some 'growing pains' \cite{FKNODE}.
+All these factors have contributed to the ascent of JavaScript as the language of the future. Nonetheless, as the creator himself has stated, the language has experienced some 'growing pains' \cite{FKNODE}.
 
-This project is born with the idea of solving some of these problems. The main objective is to create a library that can be used in Deno projects to speed up the most common operations. This library will be written in Rust, a language that is both fast and memory safe.
+This project is conceived with the aim of addressing some of these challenges. The primary objective is to develop a library for Deno projects to accelerate the most frequent operations. This library will be crafted in Rust, a language renowned for its speed and memory safety.
 
-This operations will be cryptographic operations, such as hashing, encrypting and decrypting. These operations are very common in the web space, and they are very CPU intensive. This is why they are a good candidate for this project.
+The targeted operations are cryptographic ones, such as hashing, encrypting, and decrypting. These operations are prevalent in the web domain and demand significant CPU resources. This makes them ideal candidates for this project.
 
 \section{The problem}
 
-Ryan Dahl, the creator of Node.js, has expressed his regrets about the language \cite{FKNODE}. He has stated that he would not use JavaScript for a new project and that he would also not use Node.js for a new project. Node.js has grown beyond what it was intended to be, and it has become a 'monster'.
+Ryan Dahl, the creator of Node.js, has expressed his regrets about the language \cite{FKNODE}. He has stated that he would not use JavaScript for a new project and that he would also not use Node.js for a new project. Node.js has grown beyond its original intentions and has become a 'monster'.
 
-While experimenting with the TFG \cite{TFG} project, some problems where experienced with the current state of the JavaScript ecosystem, which they will be explained in the following sections. This TFG project was a web application with blockchain integrations for decentralized identity management. Even though this project is not within the scope of this TFM, it is important to understand the context of the problems that I have discovered.
+While experimenting with the TFG \cite{TFG} project, some problems were encountered with the current state of the JavaScript ecosystem. These issues will be explained in the following sections. The TFG project was a web application with blockchain integrations for decentralized identity management. Although this project is not within the scope of this TFM, understanding its context is crucial to grasp the problems that were discovered.
+
 
 \subsection{No types}
-JavaScript does not have a type checker, at least at \textit{compile} time. JavaScript is an interpreted language, therefore it does not have a compile step. This means that there is no compiler to check the types of the variables, and therefore, it is possible to assign a value of one type to a variable of another type. This can lead to unexpected errors in the code. It is also possible to request a property from an object that does not exist. This will result in a runtime error, with no previous warning.
+JavaScript does not have a type checker, at least not at \textit{compile} time. Since JavaScript is an interpreted language, it lacks a compile step. This absence means there isn't a compiler to validate the types of variables, allowing a value of one type to be assigned to a variable of another type. Such assignments can lead to unforeseen errors in the code. Additionally, one might attempt to access a property of an object that does not exist, resulting in a runtime error without prior warning.
 
-Take a look at the following example:
+Consider the following example:
 \begin{lstlisting}
 const user = {
     name: "",
@@ -114,46 +115,46 @@ const user = {
 console.log(user.email);
 \end{lstlisting}
 
-This small code will not raise any error to warn the developer that the user object does not have an email property. This leads to a runtime error, which is not good for the developer experience.
+This snippet will not alert the developer to the fact that the user object lacks an email property, leading directly to a runtime error, which detracts from the developer experience.
 
-It is even worse when the user receives the error in production, because the error will be shown to the user, and the user will not understand what is happening.
+It becomes even more problematic when end-users encounter this error in a production environment. They would be presented with an error they can't comprehend.
 
-This happens because JavaScript is a dynamic language and does not have a type checker.
+Such issues arise because JavaScript is a dynamic language that lacks a built-in type checker.
 
-The original TFG \cite{TFG} employed Next.js, a popular framework for server-rendered React applications. Initially, the challenges that are elaborated in subsequent sections were not foreseen. Next.js was chosen due to familiarity with the framework. However, as the project evolved, issues began to arise, particularly related to the absence of types.
+The original TFG \cite{TFG} utilized Next.js, a renowned framework for server-rendered React applications. At the project's inception, the complications detailed in the following sections weren't anticipated. Next.js was the framework of choice due to its familiarity. As the project progressed, however, challenges emerged, most notably concerning the lack of type-checking.
 
 \subsection{node\_modules}
 
-Node.js has a package manager called npm. This package manager is used to install libraries in the project. The problem is that the libraries are installed in the \verb|node_modules| folder, and this folder can grow significantly. \cite{BADNPM}
+Node.js features a package manager named npm. This manager facilitates the installation of libraries into a project. However, a predicament arises due to these libraries being saved in the \verb|node_modules| directory, which can bloat considerably over time. \cite{BADNPM}
 
-By default, npm does not create symbolic links between the libraries. This means that if you have two libraries that use the same dependency, that dependency will be installed twice. More packages installed means more disk space used and more time required to install the packages. A CI build could take a considerable amount of time just to install all the packages.
+By default, npm does not create symbolic links between libraries. Consequently, if two libraries rely on the same dependency, that dependency will be duplicated within the installation. Having more packages means greater disk space consumption and extended installation times. As a result, a CI build could spend a significant duration merely installing all the requisite packages.
+
 
 \subsubsection{node\_modules security implications}
 
-As JavaScript is mainly used in web applications, both on the server and in the client, it is a good target for attacks. Currently, npm holds more than 1.6 million packages. \cite{NPMCOUNT}
+As JavaScript is predominantly utilized in web applications, both on the server and client sides, it presents an enticing target for attacks. As of now, npm hosts over 1.6 million packages. \cite{NPMCOUNT}
 
-A successful attack on a web framework could grant access to a large number of browsers, a small percentage of which may be vulnerable.
+If an attacker successfully exploits a web framework, they could potentially access a vast number of browsers. Even if only a small fraction of these browsers is vulnerable, the impact can be significant.
 
-Although JavaScript in a browser is sandboxed, making it \textit{safer}, this is not the case with Node.js. In Node.js, all the code can interact with the file system and the entire internet.
+While JavaScript in browsers is sandboxed, enhancing its security, the same cannot be said for Node.js. Within Node.js, code has the capability to interact with both the file system and the entire internet.
 
-In the past, there have been multiple cases of compromised npm packages, the most famous being \verb|colors| and \verb|faker.js|. \cite{BADFAKER} \cite{VERGEFAKER}
+Historically, there have been several instances of compromised npm packages. Among the most notable are \verb|colors| and \verb|faker.js|. \cite{BADFAKER} \cite{VERGEFAKER}
 
-The developer went rogue and introduced infinite loops, disrupting the normal workflow of multiple developers.
+In these cases, the developer maliciously introduced infinite loops, disrupting the standard workflows of numerous other developers.
 
-Another notable example was \verb|UAParser.js|, which downloaded and installed a password stealer and a cryptominer. It is important to note that this package is still used by millions of users daily.
-
+Another alarming instance involved \verb|UAParser.js|, which, when downloaded, secretly installed a password stealer and a cryptominer. It's crucial to recognize that this package is still accessed by millions of users on a daily basis.
 
 \subsection{Node GYP}
 
-Node GYP is the state of the art when creating native libraries in Node JS. This tool is originally from google \cite{FKNODE}. When google discontinuated it the comunity made a fork and the project continued. \cite{NODEGYP}
+Node GYP is the state of the art when it comes to creating native libraries in Node.js. This tool originally came from Google \cite{FKNODE}. When Google discontinued it, the community created a fork, allowing the project to continue. \cite{NODEGYP}
 
-It is a tool writen in python, witch is not JavaScript, and it is inecessarilly complicated to write a native library.
+It is a tool written in Python, which is not JavaScript, making it unnecessarily complicated to write a native library.
 
-In order to create a native library, some deep \verb|C++| understanding is needed and the tooling around it is writen in a variety of languagues making it an extra effort to develop some native libraries.
+To create a native library, a profound understanding of \verb|C++| is required. The tooling associated with it is written in various languages, adding an extra layer of complexity to the development of native libraries.
 
-In the original repository they present a simple example of a native library. \cite{NODEGYP}
+In the original repository, a simple example of a native library is presented. \cite{NODEGYP}
 
-It consists of 33 lines of code for a simple Hello world.
+This example consists of 33 lines of code for a basic "Hello World".
 
 \begin{lstlisting}
 extern "C" NODE_MODULE_EXPORT void
@@ -165,7 +166,7 @@ NODE_MODULE_INITIALIZER(
 }
 \end{lstlisting}
 
-It needs a lot of boiler plate code just to signal the actual function it is going to be called from JavaScript.
+A significant amount of boilerplate code is needed just to pinpoint the actual function that will be called from JavaScript.
 
 \begin{lstlisting}
 static void Method(
@@ -185,33 +186,33 @@ static void Method(
 }
 \end{lstlisting}
 
-It requires to interact with the V8 engine directly, witch is not a trivial task. This code, even though it is simple, it is not easy to understand. It just returns a string with the value \verb|world|.
+Interacting directly with the V8 engine is necessary, which is no simple feat. Although this code appears basic, it is not straightforward. It merely returns a string with the value \verb|world|.
 
-This code will be more complicated in some other C ABI compatible languages, because they would need to implement the V8 engine in their language, to then be able to interact with it.
+This code would be even more intricate in other C ABI compatible languages because they would need to implement the V8 engine in their native language to communicate with it.
 
-Rust, that will be discused later has a crate that links directly with V8, but it is not a trivial task to implement.
+Rust, which will be discussed later, has a crate that directly links with V8. Nevertheless, it remains a challenging task to implement.
 
 \section{The solution}
 
-Ryan Dahl, created Deno, a solution to his own issues created by working on Node JS without a clear plan. In a talk at JSConf \cite{FKNODE} he presented the project with some clear plan to make Deno the standard langua for the web.
+Ryan Dahl created Deno as a solution to the challenges he faced while working on Node.js without a clear roadmap. In a talk at JSConf \cite{FKNODE}, he introduced the project with a definitive plan to position Deno as the standard language for the web.
 
-His plan was to create a safe and secure environment for JavaScript and TypeScript to run. This means that the developer will not have to worry about security issues, as the code will be running in a sandboxed environment.
+His goal was to craft a safe and secure environment for JavaScript and TypeScript execution. This would mean that developers wouldn't need to fret about security issues since the code would run within a sandboxed environment.
 
-By default Deno should not allow access to the file system or the internet. As JavaScript by nature is a sandboxed environment this step is just natural to take.
+By default, Deno is designed to restrict access to both the file system and the internet. Given that JavaScript inherently operates within a sandboxed environment, this move is a logical progression.
 
-Deno should works via message passing between the host and the sandboxed environment. This means that the host will not have direct access to the sandboxed environment. This is a very good security measure, as the host will not be able to access the sandboxed environment. It makes embeding Deno in other projects very easy, as the developer must only implement the message passing protocol.
+Deno's architecture relies on message passing between the host and the sandboxed environment, eliminating the host's direct access to the latter. This is a commendable security feature as it prevents the host from infiltrating the sandboxed environment. Such a setup simplifies embedding Deno into other projects since developers would only need to implement the message-passing protocol.
 
-The whole experience would be almost the same as in the web. In the web the imports works via URL, and Deno should work the same way.
+The entire experience aims to mirror web interactions closely. On the web, imports are facilitated via URLs, and Deno is intended to function similarly.
 
-Here are some of the solutions that were developed.
+The following section highlights some of the solutions that were developed.
 
 \subsection{TypeScript}
 
-TypeScript appeared in 2012 developed by Microsoft, to add types to JavaScript. It works as a superset of JavaScript, meaning all keywords valid in JavaScript are also valid in TypeScript, but not vice versa. \cite{TypeScript} \cite{10162220}
+TypeScript was introduced in 2012 by Microsoft to augment JavaScript with type capabilities. It operates as a superset of JavaScript, implying that all keywords valid in JavaScript are also valid in TypeScript, but the reverse is not true. \cite{TypeScript} \cite{10162220}
 
-TypeScript does not work by modifying V8; instead, it makes JavaScript the compile target of TypeScript. This approach also allows for targeting multiple versions of JavaScript and the use of polyfills \cite{Polyfill} if the desired API is not present.
+Rather than modifying V8, TypeScript designates JavaScript as the compile target of TypeScript. This strategy allows targeting various versions of JavaScript and incorporating polyfills \cite{Polyfill} if the necessary API is absent.
 
-However, while TypeScript in this form is very helpful, it adds more time to the development process. This is because it first has to compile TypeScript to JavaScript and then run the intended program. This is the case in most of Node.js projects. In most cases the \verb|package.json| can appear as follows:
+While TypeScript is undeniably beneficial, it introduces additional time to the development workflow. This is attributed to the need to first compile TypeScript to JavaScript and subsequently execute the program. This sequence is typical for most Node.js projects. The \verb|package.json|, in many cases, is structured as:
 
 \begin{lstlisting}
 "scripts": {
@@ -220,29 +221,29 @@ However, while TypeScript in this form is very helpful, it adds more time to the
 }
 \end{lstlisting}
 
-This means that the developer has to run the \verb|build| script before running the \verb|start| script. This is not a problem in development, but it is a problem in production. This is because the developer has to run the \verb|build| script before deploying the application.
+This mandates that the developer invoke the \verb|build| script before initiating the \verb|start| script. While this might not pose challenges during development, it can be cumbersome in a production setting, especially since the \verb|build| script needs execution prior to application deployment.
 
-Deno translates TypeScript on the fly and feeds it to V8, meaning the whole process is plug-and-play. Developers do not have to configure an external tool, as \verb|tsc|, the compiler, can be difficult to set up and configure.
+Contrastingly, Deno compiles TypeScript in real-time and forwards it to V8, streamlining the entire process. Developers are spared the hassle of configuring an external utility, since the compiler, \verb|tsc|, can be intricate to install and fine-tune.
 
-In the code, this means that every variable will have an associated type, and they cannot change types anywhere in the code.
+In terms of coding, this ensures that every variable possesses a designated type, which remains consistent throughout the code.
 
 \begin{lstlisting}
 var name: string = "";
 \end{lstlisting}
 
-The variable name cannot have another value assigned without it being a string.
+The variable `name` can't be reassigned with a non-string value.
 
 \begin{lstlisting}
 name = 0;
 \end{lstlisting}
 
-This code will result in an error, as \verb|0| is not a string.
+This snippet would trigger an error since \verb|0| isn't a string.
 
 \subsubsection{JSDoc}
 
-While TypeScript is a very good solution, it can be a pain to set up. It requires a lot of configuration, and it can be difficult to set up in some projects. While JSDoc main focus is to provide documentation abount functions to let developers know how a function can be used, it can also be used to provide types to variables.
+While TypeScript offers a robust solution, its setup can be cumbersome. It demands extensive configuration, making it challenging to integrate into certain projects. Although JSDoc's primary objective is to furnish documentation about functions—enabling developers to understand a function's usage—it can also be harnessed to assign types to variables.
 
-It is even possible to generate TypeScript types from JSDoc comments.
+Remarkably, it's feasible to derive TypeScript types from JSDoc annotations.
 
 \begin{lstlisting}
 /**
@@ -251,119 +252,118 @@ It is even possible to generate TypeScript types from JSDoc comments.
 var name = "";
 \end{lstlisting}
 
-Just like that a variable can have a type. With this information a \verb|.d.ts| file can be generated and tsc will read it to apply type checking to native JavaScript code.
+With such a simple annotation, a variable is typed. Armed with this information, a \verb|.d.ts| file can be generated, which `tsc` will then utilize to apply type-checking to native JavaScript code.
 
-Some projects stand out in this space like Svelte and Turbo.
+Noteworthy projects in this domain include Svelte and Turbo.
 
 \subsubsection{Svelte}
 
-Svelte \cite{10101104}, is a framework that creates UIs, just like React. It is a very good alternative to React, as it is faster and has a smaller bundle size.
+Svelte \cite{10101104} is a framework designed for crafting UIs, similar to React. It stands as an excellent alternative to React due to its speed and reduced bundle size.
 
-In an article, the Svelte author discusses the benefits of using TypeScript in Svelte. In his oppinion, TypeScript is "\textit{not worth it}" for creating a framework.
+In an article, the Svelte author delves into the merits of integrating TypeScript with Svelte. In his opinion, utilizing TypeScript for crafting a framework is "\textit{not worth it}."
 
-He argues that TypeScript is very good but in his case, the hustle of setting up TypeScript is too much for the benefits it provides.
+He contends that while TypeScript possesses undeniable strengths, the hassle involved in its setup outweighs the benefits, at least in his specific case.
 
-Most of their troubles comes from generics and types magic that is required in some edge cases on their framework.
+The majority of their challenges arise from the intricacies of generics and the type magic necessary for addressing certain edge cases within their framework.
 
 \textit{''My position is, types are fantastic, TypeScript is a bit of a pain … as soon as you use a .ts file, then you have to have the tooling to support that … there's all of these points of friction when you use a non-standard language like TypeScript that I have come to believe makes it not worth it. So instead, we have put all our types in JSDoc annotations, and we get all of the type safety, but none of the drawbacks, because it is just JavaScript, everything is in comments, you can just run the code. This is what we do in the Sveltekit codebase and it has worked out fantastically so for Svelte 4.0, we're going to do the same for Svelte because it's going to enable us to move much more quickly.''} - \textit{Rich Harris} \cite{SvelteTS}
 
 \subsubsection{Turbo}
 
-Turbo, is a library that aims to make the life of backend developer easier, allowing the insertion of HTML in a page directly without a full page reload.
+Turbo is a library designed to simplify backend development tasks by facilitating the direct insertion of HTML into a page without necessitating a full page reload.
 
-Very recently, the lead developer of the library and the creator of Ruby on Rails, anounced that they are droping TypeScript entirely from the project. This also means that any other project that depends on Turbo will also have to adapt as they do not plan on giving any type information.
+Recently, the library's lead developer and the mind behind Ruby on Rails announced their decision to entirely exclude TypeScript from the project. Consequently, this means any project relying on Turbo will need to adjust since the team does not intend to provide any type information moving forward.
 
-His main argument is that types damage the code redability and they are not worth the hustle.
+He primarily argues that types compromise code readability and the setup effort isn't justifiable.
 
 \textit{''TypeScript just gets in the way of that for me. Not just because it requires an explicit compile step, but because it pollutes the code with type gymnastics that add ever so little joy to my development experience, and quite frequently considerable grief. Things that should be easy become hard, and things that are hard become `any`. No thanks!''} - \textit{David Heinemeier Hansson} \cite{TurboTS}
 
 \subsubsection{ECMAScript proposal}
 
-There is currently an ECMAScript proposal in the making that aims to bring types to native JavaScript. It is still in stage 1, and it will be in that stage for a long time, but it is very promising.
+There is currently an ECMAScript proposal underway that aims to introduce types to native JavaScript. Although it is still in stage 1 and may remain in this stage for a considerable time, the proposal shows great promise.
 
-The main benefit is no more build steps. The developer will have types directly in JavaScript. This will unlock the following from the language.
+The primary advantage is the elimination of build steps. Developers will have access to types directly within JavaScript. This enhancement will bring about the following improvements to the language:
 
 \begin{itemize}
-    \item Less time spent on build steps.
-    \item Cleaner code than JSDoc.
-    \item Engine maker will be able to optimize the code better.
+    \item Reduced time spent on build steps.
+    \item More streamlined code than JSDoc.
+    \item Better code optimization opportunities for engine makers.
 \end{itemize}
 
-But in the meantime, how can the developer experience be imporved?
+In the interim, how can we enhance the developer experience?
 
 \subsubsection{How Deno can imporove the TypeScript experience}
 
-Using Deno there are no more build steps. This means that the developer can write TypeScript and run it directly in Deno. This is a very good developer experience, as the developer does not have to worry about the build step.
+Using Deno, there are no more build steps. This means that a developer can write TypeScript and run it directly in Deno. This provides an excellent developer experience, as there's no need to worry about a build step.
 
-Wanting no types in your code, can also be valid, so Deno allows the execution of JavaScript also. Allowing the best of both worlds.
+Opting out of types in your code is also a valid choice, so Deno permits the execution of plain JavaScript as well. This approach offers the best of both worlds.
 
-When the scope of the project is not well defined and a quick iteration process is wanted, JavaScript can be used, and then when the idea mature, TypeScript can be implemented.
+When the project's scope is not clearly defined and rapid iterations are desired, JavaScript can be employed. As the concept matures, TypeScript can be integrated.
 
-Most of this library authors problem come from third party libraries that that are messy to work with, but Deno can and will make the experience smother.
+Many of the issues faced by library authors arise from third-party libraries that are cumbersome to work with. However, Deno has the potential to streamline and enhance this experience.
 
 \subsection{URL based imports}
 
-A major change with Deno comes with the URL-based imports; the modules are cached and reused when needed.
+A significant change in Deno is the adoption of URL-based imports; modules are cached and then reused as required.
 
-However, with this approach, since the script comes from a URL, it may contain malicious code. How could developers protect themselves?
+However, given that scripts are sourced from URLs, they might contain malicious code. How can developers safeguard themselves?
 
 \subsubsection{Security checks}
 
 Deno implements multiple checks to prevent uncontrolled access to the machine. \cite{DenoSec}
 
 \begin{itemize}
-    \item \textbf{--allow-env} Allows the reading of \verb|.env| files.
-    \item \textbf{--allow-sys} Allows the reading of system-specific information, such as the OS version or information about memory.
-    \item \textbf{--allow-hrtime} Allows high-resolution time measurement. High-resolution time can be used in timing attacks and fingerprinting.
-    \item \textbf{--allow-net} Allows network access. You can specify an optional, comma-separated list of IP addresses or hostnames (optionally with ports) to provide an allow-list of permitted network addresses.
-    \item \textbf{--allow-ffi} Allows the loading of dynamic libraries. This is still an unstable feature.
-    \item \textbf{--allow-read} Allows file system read access.
-    \item \textbf{--allow-run} Allows the running of subprocesses.
-    \item \textbf{--allow-write} Allows file system write access.
+    \item \textbf{--allow-env}: Allows reading of \verb|.env| files.
+    \item \textbf{--allow-sys}: Permits reading of system-specific information, such as the OS version or memory details.
+    \item \textbf{--allow-hrtime}: Enables high-resolution time measurement. High-resolution time can be exploited in timing attacks and fingerprinting.
+    \item \textbf{--allow-net}: Grants network access. An optional, comma-separated list of IP addresses or hostnames (optionally with ports) can be provided to establish an allow-list of permitted network addresses.
+    \item \textbf{--allow-ffi}: Permits loading of dynamic libraries. This feature is still in an unstable state.
+    \item \textbf{--allow-read}: Authorizes file system read access.
+    \item \textbf{--allow-run}: Allows execution of subprocesses.
+    \item \textbf{--allow-write}: Grants file system write access.
 \end{itemize}
 
-All these flags have their opposite counterparts and can be used to allow access to certain folders while disallowing specific files. For example:
+All these flags have opposite counterparts. They can be utilized to authorize access to certain folders while denying access to specific files. For example:
 
 \begin{lstlisting}
 --allow-read=/etc \
 --deny-read=/etc/hosts
-    \end{lstlisting}
+\end{lstlisting}
 
 \subsection{Speedup}
 
-The solution that some project owners have implemented to improve performance is to use a compiled language as a companion. These languages \textit{in general} have better performance than interpreted ones.
+The solution that some project owners have adopted to enhance performance is the use of a compiled language as a companion. These languages, \textit{in general}, exhibit better performance than interpreted ones.
 
-In the web space, two projects stand out from the rest. The developer ecosystem around web development has grown exponentially, and now, more than ever, a bundler \cite{Bundler} is needed to combine all that information into a simple combination of HTML, CSS, and JS.
+In the realm of web development, two projects particularly stand out. The developer ecosystem surrounding web development has expanded exponentially, and now, more than ever, a bundler \cite{Bundler} is essential to amalgamate all this information into a straightforward blend of HTML, CSS, and JS.
 
-\verb|SWC| and \verb|esbuild| are both tools that rely on other languages for speedup. However, these two projects played a significant role in the development of this project.
+\verb|SWC| and \verb|esbuild| both leverage other languages to achieve speedups. Notably, these two projects played a pivotal role in the development of this project.
 
 \subsubsection{SWC}
 
-SWC (Speedy Web Compiler) is a project that aims to speed up the compilation of JavaScript and TypeScript. This means it will convert an existing TypeScript codebase and convert it to JavaScript, while keeping everything tidy and compact.
+SWC (Speedy Web Compiler) is a project that aims to accelerate the compilation of JavaScript and TypeScript. This means it takes an existing TypeScript codebase and converts it to JavaScript, ensuring the output is neat and compact.
 
-As not all browsers support the latest JavaScript features, SWC can also convert the code to an older version of JavaScript. There is a whole list of browsers that SWC supports, and it is quite impressive.
+Since not all browsers support the latest JavaScript features, SWC can also transpile the code to an older version of JavaScript. The range of browsers that SWC supports is notably extensive.
 
-SWC decided to compile a Rust program and turn it into a binary. Later, wrote some JS glue code to make it usable in a JS project.
+SWC opted to compile a Rust program into a binary. Subsequently, they wrote some JS glue code to facilitate its use in a JS project.
 
-As this application is a pure CLI-style application, this approach is beneficial as it only requires a small amount of JS code. This is because they only need to pass the necessary arguments to the Rust binary, and then the Rust program takes over and packages the JS application.
+Given that this application primarily operates as a CLI-style application, this approach is advantageous. This is attributed to the minimal JS code required—essentially, the only task is to relay the necessary arguments to the Rust binary. From there, the Rust program takes the helm and packages the JS application.
 
-While this can be beneficial for this objective, for a library that needs to run when the developer calls a function, the glue code must spawn a shell, and that takes time. So much time, in fact, that it may not even be beneficial to use a native library.
+However, while this method is apt for the given use-case, it may not be as fitting for a library intended to execute when a developer invokes a function. The glue code would have to spawn a shell, which consumes time. In fact, the delay might be so significant that the benefits of using a native library could be nullified.
 
 \subsubsection{esbuild}
 
-esbuild is a bundler \cite{Bundler} that aims to be the fastest bundler in the world. A bundler combines all dependencies into a single file to distrite it to the users. This is a very common practice in the web space, as it can also split the code into chunks to be loaded on demand. This is very useful for large applications, as it can reduce the initial load time. This is the case of the TFG \cite{TFG} project, as it is a large application.
+esbuild is a bundler \cite{Bundler} that aspires to be the fastest bundler in the world. A bundler amalgamates all dependencies into a single file for distribution to users. This practice is prevalent in the web space, as it can also segment code into chunks for on-demand loading. Such an approach is particularly beneficial for expansive applications because it can diminish the initial load time, as exemplified by the TFG \cite{TFG} project.
 
-\verb|esbuild| decided to take another approach. They used wasm \cite{WASM} \cite{WASMSPEC} to create the library. As this project is written in Go, the whole Go garbage collector has to be injected into the wasm code.
+\verb|esbuild| opted for a distinct strategy. They employed wasm \cite{WASM} \cite{WASMSPEC} for crafting the library. Given that this project is penned in Go, the entire Go garbage collector must be integrated into the wasm code.
 
-This can result in larger install sizes and a poor developer experience, as stated before.
+Such integration can lead to enlarged install sizes and a suboptimal developer experience, as mentioned previously.
 
-It's worth noting that wasm, even though it is excellent technology and has brought significant speedup to the web, still lacks a good memory management solution. This results in very good performance compared to JavaScript, but not compared to other technologies.
+It's pivotal to highlight that, although wasm is a commendable technology that has ushered in substantial speed improvements to the web, it still lacks an efficient memory management solution. Consequently, while it offers impressive performance in contrast to JavaScript, it might not fare as well when juxtaposed with other technologies.
 
 \section{The code}
+The proposed solution is a dynamic library complemented with minimal TypeScript glue code.
 
-The arrived solution is a dynamic library with minimal TypeScript glue code.
-
-Deno offers incredible dynamic library support with their native API.
+Deno provides exceptional dynamic library support through their native API.
 
 \begin{lstlisting}
 Deno.dlopen(
@@ -372,7 +372,7 @@ Deno.dlopen(
 )
 \end{lstlisting}
 
-Deno supports the whole C ABI, meaning that it can load any dynamic library that is compatible with the C ABI. This is very good, as it allows the developer to use any language that is compatible with the C ABI.
+Deno is compatible with the complete C ABI, which means it can load any dynamic library adhering to the C ABI standards. This flexibility is beneficial, enabling developers to utilize any language in alignment with the C ABI.
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|}
@@ -399,7 +399,7 @@ Deno supports the whole C ABI, meaning that it can load any dynamic library that
     \end{tabular}
 \end{table}
 
-As this project only uses strings and numbers, the only times needed are a pointer and a u32. So the type declaration of the dynamic library is as follows.
+Considering this project solely involves strings and numbers, the only required types are a pointer and u32. Thus, the dynamic library's type declaration is as follows:
 
 \begin{lstlisting}
 hash: {
@@ -409,27 +409,26 @@ hash: {
 }
 \end{lstlisting}
 
-This is the declaration of the hash function in the library. In the declaration it can be seen a \verb|nonblocking| flag. This flag is used to tell Deno that the function is async. Instead of complicated C ABI callbacks Deno converts the sync Rust code in async JavaScript code automatically.
+This specification pertains to the hash function in the library. Within the declaration, one can observe a \verb|nonblocking| flag. This flag informs Deno that the function operates asynchronously. Rather than dealing with intricate C ABI callbacks, Deno seamlessly transforms synchronous Rust code into asynchronous JavaScript code.
 
-All of the functions in the library are async because in the Deno ecosystem async functions are easier to work with. This is because Deno has top level await and it is not necessary to wrap the code in promises or callbacks.
+Given the inherent asynchronous nature of the Deno ecosystem, all the library's functions are asynchronous. This choice simplifies the developer's tasks, especially since Deno features top-level await. Hence, there's no need to encase the code in promises or callbacks.
 
-This is the table that Deno uses to convert the types from JavaScript to Rust. It has some Rust magic to convert the types from C ABI to Rust types. It allows the convertion of \verb|unsafe| operations to safe operations while having an excellent developer experience and performance.
+The table provided by Deno facilitates the conversion of types from JavaScript to Rust. It incorporates some Rust-specific operations to transpose the types from the C ABI to Rust variants. This transition elegantly converts \verb|unsafe| procedures into safe ones, striking a balance between an excellent developer experience and performance.
 
-In this method, the developer simply has to locate the DLL physically. The developer also needs to specify how the methods in the library work.
-The process would be as follows:
+With this methodology, developers merely need to pinpoint the physical location of the DLL. They must also define the operational mode of the methods within the library. The typical workflow entails:
 
 \begin{enumerate}
-    \item Check the file system to see if the DLL is present. If the user did not allow this from the launch flags, Deno will ask for permission.
-    \item Download the DLL if it is not present. If the user did not allow this from the launch flags, Deno will ask for permission.
-    \item Load the library and prepare it.
+    \item Scanning the file system to verify the presence of the DLL. If the user hasn't granted this permission via the launch flags, Deno will seek approval.
+    \item If the DLL is absent, the system will download it. Again, if the user hasn't granted download permission via the launch flags, Deno will prompt for authorization.
+    \item The system will load the library and initialize it for use.
 \end{enumerate}
 
 
 \subsection{Speedy but memory safe}
 
-The final piece of this project is deciding how to secure the actual horsepower of this project. The obvious choice is a low-level language that can maximize the performance of the CPU.
+The final piece of this project entails determining how to harness the full computational power for this endeavor. A logical choice is a low-level language designed to extract optimal performance from the CPU.
 
-Here is a list of compiled languages that may be a good fit for this project.
+Below is a list of compiled languages potentially suitable for this project:
 
 \begin{itemize}
     \item C
@@ -439,19 +438,19 @@ Here is a list of compiled languages that may be a good fit for this project.
     \item Zig
 \end{itemize}
 
-To prevent memory-related issues, some languages have to be ruled out. In languages like C and C++, memory is managed by the developer, which can result in segmentation faults and other issues. \cite{9793767}
+Due to concerns about memory-related issues, some languages may not be feasible. In C and C++, memory management is developer-driven, leading to potential pitfalls like segmentation faults. \cite{9793767}
 
-A garbage collector will not be a good fit for this project, as it can result in performance issues. It also can result in big library sizes, as the garbage collector has to be included in the library.
+A garbage collector might not be appropriate for this project. Its presence could hamper performance and enlarge the library size, as it necessitates the inclusion of the garbage collector in the library.
 
-Zig, while being a very good language, is still in its early stages, and it is not a good fit for this project. It also does not have a safe memory management solution, so it will not be considered as an option much like C. Although, it is worth noting that Zig is a very good language, and it is worth keeping an eye on it. The \verb|defer| keyword is a very good feature that can be used to keep track of memory allocation.
+Though Zig is an impressive language, its nascent stage renders it unsuitable for this project. It currently lacks a reliable memory management solution, hence will be sidelined similarly to C. However, Zig's \verb|defer| keyword, which aids memory allocation tracking, warrants attention.
 
-The only sensible option left is \verb|Rust|.
+This narrows the feasible choice down to \verb|Rust|.
 
-Rust uses a borrow checker to keep track of all allocated memory while not allowing the user to allocate and deallocate manually. This way, it can guarantee that all the needed memory will be used efficiently.
+Rust employs a borrow checker to monitor all memory allocations without permitting manual allocation or deallocation. This ensures memory is utilized efficiently.
 
-If a variable is borrowed, it means that it originates from another function, and the current function cannot take ownership of the variable. The variable will continue to exist.
+If a variable is "borrowed," it's derived from another function, and its ownership cannot be assumed by the current function. Such a variable persists.
 
-If a variable is owned, it will be deallocated when it goes out of scope.
+If a variable is "owned," it will be deallocated upon exiting its scope.
 
 \begin{lstlisting}
 const a = 10;
@@ -459,9 +458,9 @@ fun(a);
 foo(a);
 \end{lstlisting}
 
-In this code, only the first function call will comply with the compiler. The other one will fail.
+Here, only the initial function call is compiler-friendly; the subsequent one will encounter an error.
 
-To make this code work, it will need to be changed.
+To rectify this, the code would need modification:
 
 \begin{lstlisting}
 const a = 10;
@@ -469,13 +468,13 @@ fun(&a);
 foo(a);
 \end{lstlisting}
 
-As the first function does not take ownership of the variable \verb|a|, it is not deallocated at the end and can be used in the subsequent function call.
+As the inaugural function doesn't assume ownership of variable \verb|a|, it remains undiscarded and is available for the following function invocation.
 
-However there is limitation to the borrow checker. It only works if the compailer knows for certain that the variable will exists and the memory will be allocated. Unfortunatelly is not the case when Rust has to interacts with the outside world. I/O operations are not guaranteed to be successful, and therefore, the borrow checker cannot be used. This is the case of this project, as it has to interact with Deno. Rust has to \textit{trust} Deno to allocate and pass that memory to the Rust library.
+However, the borrow checker does have limitations. It functions only when the compiler is certain of a variable's existence and its memory allocation. This assurance falters when Rust interfaces with external entities. Given that I/O operations lack guaranteed success, the borrow checker's application becomes restrictive. This project, needing to liaise with Deno, must rely on Rust's "faith" in Deno to allocate and transfer memory to the Rust library appropriately.
 
-Rust has a \textit{scary} keyword named \verb|unsafe|. It disables the borrow checker and allows the developer to do \textit{whatever they want} memory-wise.
+Rust possesses an \textit{intimidating} keyword: \verb|unsafe|. This command bypasses the borrow checker, granting developers full autonomy over memory operations.
 
-To convert an array of u8 bytes, witch is in fact an string, to a Rust string, the Rust language includes some methods to make this process as safe as it can.
+For converting an array of u8 bytes, which effectively represents a string, into a Rust string, the Rust language furnishes specific methods to ensure maximal safety.
 
 \begin{lstlisting}
 let password: &str;
@@ -488,20 +487,20 @@ unsafe {
 }
 \end{lstlisting}
 
-Rust has a method to convert a pointer to a string, but it is not safe. It can fail, and therefore, it is wrapped in a \verb|Result| type. This type can be either \verb|Ok| or \verb|Err|. If it is \verb|Ok|, the string is returned, and if it is \verb|Err|, the program will panic. This panic will have to be resolved in Deno. A panic will result in a null being returned from the FFI bridge. Checking for null will be in the necessary glue code of this library.
+Rust offers a method to morph a pointer into a string, albeit with a safety caveat. This process can falter, resulting in its encapsulation within a \verb|Result| type. This type can manifest as \verb|Ok| or \verb|Err|. An \verb|Ok| outcome returns the string, whereas an \verb|Err| will induce a program panic. Such a panic must be addressed within Deno. A panic translates into a null returned via the FFI bridge. Consequently, the essential glue code for this library should include null checks.
 
 \subsubsection{Creating a dynamic library}
 
-In Rust, everything is just a compilation target, so it can simply be specified that a library is desired. This can be achived by adding the following to the \verb|Cargo.toml| file.
+In Rust, everything is treated as a compilation target. Therefore, if one wants to generate a library, it can be specified directly. This is achieved by adding the following lines to the \verb|Cargo.toml| file:
 
 \begin{lstlisting}
 [lib]
 crate-type = ["cdylib"]
 \end{lstlisting}
 
-This tells \verb|rustc| to create a \verb|.dll| in windows or a \verb|.so| in linux. This is the only thing that needs to be done to create a dynamic library. The rest is just Rust code.
+This instructs \verb|rustc| to produce a \verb|.dll| on Windows or a \verb|.so| on Linux. This configuration is all that's required to create a dynamic library; the rest is standard Rust code.
 
-To make it fully usable in Deno, the Rust code needs to be wrapped in a \verb|extern "C"| block. This will make the Rust code callable from C, and therefore, from Deno. This is done as follows:
+To ensure the Rust code is fully compatible with Deno, it needs to be enclosed in an \verb|extern "C"| block. This makes the Rust code callable from C and, by extension, from Deno. The code for this is:
 
 \begin{lstlisting}
 #[no_mangle]
@@ -510,10 +509,9 @@ pub extern "C" fn hi() {
 }
 \end{lstlisting}
 
-There are multiple types of libraries, but the focus of this project is to create a library that can be used in other projects. It can be used in other project because it is a dynamic library, and it is not a static library. A static library needs to be compiled into the final binary, and can only be used inside that program. A dynamic library can exist in a separate file and can be used in multiple programs. This is the case of this project.
+There are various kinds of libraries, but this project specifically aims to create a library that can be incorporated into other projects. This is feasible because it is a dynamic library, not a static one. While a static library must be compiled into the final binary and can only be utilized within that program, a dynamic library can exist as a separate file and be integrated into multiple programs. This characteristic aligns with the goals of this project.
 
-A fear when using FFI is that it may result in a performance penalty. However, taking a flamegraph [\ref{img:flamegraph}] shows that that is not the case. The FFI bridge is not even visible in the flamegraph. It is just a transparent step. It does not add any overhead to the execution of the program.
-Between the \verb|deno.exe ffi_call_win64()| and the actual \verb|tfm.dll tfm::verify| function starting execution there is no time difference.
+A common concern when employing FFI (Foreign Function Interface) is the potential for a performance hit. However, an examination of a flamegraph [\ref{img:flamegraph}] dispels this notion. The FFI bridge is essentially invisible in the flamegraph, acting as a seamless intermediary. It doesn't impose any additional overhead on the program's execution. The time between invoking \verb|deno.exe ffi_call_win64()| and the commencement of the \verb|tfm.dll tfm::verify| function remains consistent, with no discernible delay.
 
 \begin{figure*}
     \centering
@@ -522,60 +520,59 @@ Between the \verb|deno.exe ffi_call_win64()| and the actual \verb|tfm.dll tfm::v
     \label{img:flamegraph}
 \end{figure*}
 
-
 \subsection{Where WASM fits}
 
-WASM, as mentioned before, is quite useful in the browser, where it belongs. Right now, it is still in its early stages, and the WASM API within the browser is still young. The WASI libc library works, but it is not fully matured yet.
+WASM, as previously mentioned, is most suitable for the browser environment where it was designed to operate. Currently, it is still in its nascent stage, and the WASM API within the browser remains under development. While the WASI libc library is functional, it has yet to reach full maturity.
 
-This is cobered in a Github issue. \cite{WASMBAD}
+This is discussed in a GitHub issue. \cite{WASMBAD}
 
 \begin{itemize}
-    \item No way to control in a guaranteed fashion when new memory commit vs address space reserve occurs.
-    \item No way to uncommit used memory pages.
-    \item No way to shrink the allocated Wasm Memory.
-    \item No virtual memory support (leading applications to either expect to always be able to grow, or have to implement memory defrag solutions)
-    \item If Memory is Shared, then application needs to know the Maximum memory size ahead of time, or gratuitously reserve all that it can.
+    \item There's no way to control, in a guaranteed manner, when a new memory commit versus address space reserve takes place.
+    \item There's no method to uncommit utilized memory pages.
+    \item It's impossible to reduce the size of allocated Wasm Memory.
+    \item Absence of virtual memory support, compelling applications to either always anticipate the ability to expand or to implement memory defragmentation solutions.
+    \item If Memory is shared, the application must determine the maximum memory size in advance, or preemptively reserve as much as possible.
 \end{itemize}
 
-The author summarizes the issue by saying, \textit{you can only grab more memory, with no guarantee if the memory you got is a reserve or a commit}.
+The author encapsulates the issue by stating, \textit{"you can only acquire more memory, without assurance if the memory acquired is reserved or committed"}.
 
-In WASM there is not way to allocate memory in compile time, witch would be benefitial for this project. WASM not being able to provide this functionality is a big limitation for this project, and results in a poorer performance.
+In WASM, there's no method to allocate memory at compile time, which would have been advantageous for this project. This inability of WASM poses a significant constraint for this project and consequently, leads to suboptimal performance.
 
 \subsection{The data}
 
-Let's take a look at the actual data to see if this idea actually holds up. These tests have been conducted using strings from a collection of 36 characters repeated 1,000 times to the same collection of 36 characters repeated 2,000 times. Each set is repeated 15 times, and the average is calculated to rule out any errors.
+Let's examine the actual data to determine if this idea holds true. These tests were conducted using strings from a collection of 36 characters, repeated from 1,000 to 2,000 times. Each set was repeated 15 times, and the average was calculated to eliminate potential errors.
 
-The data is collected sequentially, meaning that no async functions are used and the Deno and Rust functions are run one after the other to rule out any OS-induced noise.
+The data was collected sequentially, ensuring that no async functions were used. The Deno and Rust functions were executed consecutively to minimize any noise introduced by the operating system.
 
 \subsubsection{Hardware used}
 
-These tests have been run on a broad range of hardware, all of the \verb|x86_64| architecture.
+These tests were run on a wide range of hardware, all of the \verb|x86_64| architecture.
 
 \begin{itemize}
-    \item GitHub Actions builders 2-core CPU \verb|x86_64| \cite{Github}
+    \item GitHub Actions builders with a 2-core CPU \verb|x86_64| \cite{Github}
     \item i9-12900H
     \item i5-1135G7
 \end{itemize}
 
-The data presented in this document will come from the CPU \textbf{i9-12900H}. However, there is data available in the GitHub repository that can be extracted from every commit added to the repo.
+The data presented in this document is sourced from the \textbf{i9-12900H} CPU. However, additional data can be found in the GitHub repository, extracted from every commit added to the repo.
 
-In every test run, the results are consistent but with obvious speed differences, as the selected hardware varies widely.
+Across all test runs, the results are consistent, albeit with expected speed differences given the diverse hardware selection.
 
-The \textbf{i9-12900H} is a 16-core CPU with 24 threads. It has a base clock of 2.2 GHz and a boost clock of 4.9 GHz. It has 24 MB of L3 cache and 16 MB of L2 cache. It is a very powerful CPU, and has a powerful single core performance. This means that it will go in favor of Deno. As reducing the speed of the processor will result in higher time values for Deno.
+The \textbf{i9-12900H} boasts a 16-core CPU with 24 threads. It operates with a base clock of 2.2 GHz and can boost up to 4.9 GHz. It possesses 24 MB of L3 cache and 16 MB of L2 cache. Being a robust CPU, it delivers impressive single-core performance. Consequently, this plays to Deno's advantage. Decreasing the speed of the processor would lead to increased time values for Deno.
 
 \subsubsection{Hashing}
 
-The first part of the library to analyze is hashing. The algorithm used for hashing is bcrypt. This algorithm is a slow hashing algorithm that is designed to hash passwords. It is intentionally slow to prevent brute-force attacks \cite{Bcrypt}. The algorithm can be configured to use a different "cost," which is the number of iterations that the algorithm will perform. The higher the cost, the more secure the hash will be, but this comes at the expense of time. It also includes a salt to prevent rainbow table attacks.
+The initial part of the library to consider is hashing. Bcrypt is the algorithm employed for this purpose. Designed specifically for password hashing, bcrypt is deliberately slow to thwart brute-force attacks \cite{Bcrypt}. The algorithm's "cost" can be adjusted, which refers to the number of iterations it will undergo. A higher cost means a more secure hash but at the cost of time. Additionally, bcrypt incorporates a salt to deter rainbow table attacks.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.52\textwidth]{hashing_lines}
 \end{figure}
 
-In this image, the creation of 1,000 hashes and their respective costs in milliseconds are shown, using a bcrypt cost of 14. On average, Rust is faster by \textbf{57\%}. Reducing the hardware choice to \textbf{i5-1135G7} results in a \textbf{34\%} more slowdown of Deno compared to Rust. Reducing even more the hardware to a single core instance of a VM runing on DigitalOcean, the results are even more drastic, with a \textbf{58\%} slowdown of Deno compared to Rust. This results are consistants with the rest of tests runned.
+This image illustrates the creation of 1,000 hashes along with their respective costs in milliseconds, using a bcrypt cost of 14. On average, Rust is faster by \textbf{57\%}. When the hardware choice is limited to \textbf{i5-1135G7}, Deno's performance is \textbf{34\%} slower compared to Rust. Further limiting the hardware to a single-core instance of a VM running on DigitalOcean makes the disparity even starker, with Deno slowing down by \textbf{58\%} relative to Rust. These outcomes align with the findings from other tests conducted.
 
-In this hash graph a small OS induced noise can be seen, and ruled out as Deno or Rust fault. At the start of the series and between 1600 and 1800 can be detected. As both timings go up it is safe to rule out this data pasing to the next section.
-The trends here are not clearly defined, but two aspects are apparent from the following graphs.
+In the hash graph, a slight OS-induced noise is observable. This noise, evident at the beginning of the series and between 1600 and 1800, is not attributed to either Deno or Rust. Such anomalies can be excluded from the subsequent analysis.
+The trends are not explicitly delineated, yet the subsequent graphs highlight two distinct aspects.
 
 \begin{figure}[H]
     \centering
@@ -587,28 +584,28 @@ The trends here are not clearly defined, but two aspects are apparent from the f
     \includegraphics[width=0.52\textwidth]{images/trend_hash_rust.png}
 \end{figure}
 
-From the data, some observations can be made:
+Several insights can be gleaned from the data:
 \begin{itemize}
-    \item The cost of hashing will increase more rapidly than it does in Rust.
-    \item Rust will be more stable and experience less growth.
+    \item The hashing cost in Deno escalates more swiftly than in Rust.
+    \item Rust tends to be more stable, with a lesser increase in cost over time.
 \end{itemize}
 
-The growth rate in the Deno is \textbf{0.001} and in Rust is in the range of the data chosen negible. Pushing it all the way to \textbf{1.800.000} characters will result in a growth rate of \textbf{0.0001}.
+The growth rate in Deno is \textbf{0.001}, whereas in Rust, it's negligible for the data range chosen. Extending the character count to \textbf{1,800,000} leads to a growth rate of \textbf{0.0001} in Rust.
 
 \subsubsection{Secret boxes}
 
-Secret boxes are a concept introduced by the library NaCl. A secret box is essentially a box with only one lock, serving as a metaphor for synchronous cryptography. The algorithm to be used in this project is a variant called \textit{tweetnacl}, which replicates the exact functionality of NaCl but fits within 100 tweets.
+Secret boxes are a concept introduced by the NaCl library. A secret box can be envisioned as a box with a single lock, acting as a metaphor for synchronous cryptography. For this project, the chosen algorithm is a variant named \textit{tweetnacl}. It mirrors the exact functionality of NaCl but can be encapsulated within 100 tweets.
 
-The focus of this library is on speed and minimal disk footprint for both developers and users.
+The library's primary objectives are speed and a minimal disk footprint for both developers and end-users.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.52\textwidth]{images/secretbox_lines}
 \end{figure}
 
-In the graph, there are some Deno results that deviate from the predicted outcomes. Since these anomalies do not appear in the Rust variant, they likely arise from variations in V8's \textit{heat} function. In V8, when a function is called, it gains \textit{heat}, meaning it gets cached for later use. If a function is executed frequently, it gets stored in machine code to maximize performance.
+In the depicted graph, certain Deno results diverge from the anticipated patterns. Given that these anomalies are absent in the Rust variant, they most likely originate from variations in V8's \textit{heat} function. Within V8, when a function is invoked, it accumulates \textit{heat}, implying that it's cached for subsequent calls. If a function is invoked repetitively, it's translated to machine code to optimize performance.
 
-In this example, it can once again be observed that JavaScript is more unstable than Rust and tends to experience greater growth in computational cost.
+In this analysis, the relative instability of JavaScript compared to Rust is evident. Moreover, JavaScript appears to manifest a steeper increase in computational costs.
 
 \begin{figure}[H]
     \centering
@@ -620,24 +617,24 @@ In this example, it can once again be observed that JavaScript is more unstable 
     \includegraphics[width=0.52\textwidth]{images/trend_secretbox_rust}
 \end{figure}
 
-From the data, some observations can be made:
+Several conclusions can be drawn from the data:
 \begin{itemize}
-    \item The cost of encrypting will rise more rapidly in JavaScript than it does in Rust.
-    \item Rust will be more stable and experience less growth.
+    \item The cost of encryption escalates more swiftly in JavaScript than in Rust.
+    \item Rust displays greater stability and experiences a milder growth in cost.
 \end{itemize}
 
-The growth rate in the Deno is \textbf{0.004} and in Rust is \textbf{0.003}.
+The growth rate in Deno stands at \textbf{0.004}, while in Rust it is \textbf{0.003}.
 
 \subsubsection{Box}
 
-A box is essentially a container with two locks, serving as another metaphor for asymmetric encryption. Like the previous algorithm, this one is based on \textit{tweetnacl}.
+A box can be envisioned as a container with two locks, serving as a metaphor for asymmetric encryption. Similar to the previous algorithm, this one is derived from \textit{tweetnacl}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.52\textwidth]{images/box_lines}
 \end{figure}
 
-In this final algorithm, Rust outperforms Deno significantly, even though its performance is more dispersed.
+For this particular algorithm, Rust notably outperforms Deno, even if its results display a wider spread.
 
 \begin{figure}[H]
     \centering
@@ -649,41 +646,41 @@ In this final algorithm, Rust outperforms Deno significantly, even though its pe
     \includegraphics[width=0.52\textwidth]{images/trend_box_rust}
 \end{figure}
 
-From the data, some aspects can be deduced:
+From the presented data, the following observations can be made:
 \begin{itemize}
-    \item The cost of encrypting will rise more rapidly in Deno than in Rust.
-    \item Rust will be more stable and experience less growth.
+    \item The cost of encryption escalates more swiftly in Deno compared to Rust.
+    \item Rust demonstrates greater stability and a slower growth rate.
 \end{itemize}
 
-The growth rate in the Deno is \textbf{0.003} and in Rust is \textbf{0.001}.
+The growth rate for Deno is \textbf{0.003} and for Rust it is \textbf{0.001}.
 
 \section{Conclusions}
 
-The objective of this project has been met with remarkable success, both theoretically and pragmatically. The initiative was principally driven by the need to enhance the efficiency of JavaScript-based projects, a technology that is increasingly becoming ubiquitous. One notable application of this effort is seen in the InterPlanetary File System (IPFS) \cite{IPFS}, which heavily relies on our optimized suite of algorithms for its operations. Particularly, this suite of libraries plays a pivotal role in the functionality of OrbitDB, an instrumental library employed for the creation of decentralized databases.
+The objective of this project has been achieved with significant success, both in theory and in practice. The primary motivation for this initiative was the necessity to improve the efficiency of JavaScript-based projects, a technology that continues to grow in ubiquity. A prominent application of this effort can be seen in the InterPlanetary File System (IPFS) \cite{IPFS}, which heavily depends on our optimized suite of algorithms for its operations. Specifically, this suite of libraries is fundamental to the functionality of OrbitDB, a crucial library used to establish decentralized databases.
 
 \subsection{Technical Overview}
 
-The libraries developed under this project are predicated on distributed technology paradigms. These paradigms operate on the principle of data transmission involving multiple peers, wherein each peer sends fractional pieces of information to a centralized entity. Given this architecture, the need for high-speed data aggregation and dissemination is critical. Such requirements present unique challenges when relying on traditional methods of information transport.
+The libraries produced as part of this project are rooted in distributed technology paradigms. These paradigms hinge on a principle of data transmission involving multiple peers. In this setup, each peer dispatches fragments of data to a centralized entity. Given this architecture, the demand for swift data aggregation and dissemination becomes paramount. Such needs pose distinct challenges when relying on conventional methods of information transfer.
 
 \subsection{Performance Limitations in IPFS}
 
-Although IPFS is fundamentally a JavaScript-based project, it is not immune to the performance bottlenecks commonly associated with the language. Despite commendable optimization efforts by the IPFS development team, the potential of the system is constricted by the inherent limitations of JavaScript.
+Though IPFS is fundamentally based on JavaScript, it isn't spared from the typical performance challenges associated with the language. Even with the noteworthy optimization efforts by the IPFS development team, the system's potential is hindered by JavaScript's intrinsic limitations.
 
-A considerable breakthrough was achieved when IPFS was implemented in the Go programming language, known for its C Application Binary Interface (ABI) and robust WebAssembly (WASM) capabilities. Nevertheless, the core functionalities still rely on JavaScript. While multiple implementations of the IPFS protocol exist, the official version remains the most extensively deployed, resulting in significant network latency.
+A significant advancement occurred when IPFS was implemented in the Go programming language, celebrated for its C Application Binary Interface (ABI) and potent WebAssembly (WASM) capabilities. However, the core functionalities continue to lean on JavaScript. While various IPFS protocol implementations exist, the official one remains the most widely adopted, leading to pronounced network latency.
 
 \subsection{Performance Augmentation}
 
-The integration of our library promises to drastically improve performance metrics, both in desktop applications and browser-based environments.
+Integrating our library is expected to markedly enhance performance metrics in both desktop applications and web-based environments.
 
 \subsection{Future-Proofing Developer Environments}
 
-In this project, it is made enphasis in the use of Deno because of its sandboxed environment. The next logical step to prevent malicious code from being executed in developers machines is the use of containers. This way, the developer can be sure that the code is not doing anything malicious. Through the utilization of Docker containers. This virtualization allows for a consistent and reproducible development atmosphere, replete with all the necessary dependencies. It also serves as a security measure, as the operational codebase resides within a contained environment, effectively neutralizing potential threats.
+In this project, emphasis is placed on the utilization of Deno due to its sandboxed nature. The subsequent step in safeguarding against execution of malevolent code on developer machines would be to adopt containers. This ensures that the executed code remains benign. Employing Docker containers for this purpose provides a consistent and reproducible development environment, complete with essential dependencies. It also acts as a security buffer, with the working codebase ensconced within a contained setting, effectively mitigating potential hazards.
 
 \subsection{Industry Leadership}
 
-Microsoft is at the forefront of this technological space, particularly with their innovative feature in Visual Studio Code known as Remote Containers. This utility allows developers to execute code within a containerized environment directly from a specific folder, obviating the need for local dependency installations. This feature is not just advantageous for enhancing the developer experience but also critically important for bolstering security protocols.
+Microsoft stands as a pioneer in this technological realm, especially with their groundbreaking feature in Visual Studio Code called Remote Containers. This tool allows developers to run code within a containerized setting directly from a designated folder, eliminating the need for local dependency installations. Not only is this feature beneficial for enriching the developer experience, but it's also pivotal for strengthening security measures.
 
-Microsoft offers a local version of this feature, named \verb|dev-containers|, that provides identical functionalities but operates within a locally-hosted environment.
+Microsoft furnishes a local variant of this utility, termed \verb|dev-containers|, which offers the same features but functions within a local environment.
 
 \bibliographystyle{unsrt} % We choose the "plain" reference style
 \bibliography{refs} % Entries are in the refs.bib file

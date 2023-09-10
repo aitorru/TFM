@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.8.9)  8 SEP 2023 20:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.8.9)  10 SEP 2023 17:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -673,13 +673,13 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 83.
  (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for OMS+ppl on input line 109.
+LaTeX Font Info:    Trying to load font information for OMS+ppl on input line 110.
  (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omsppl.fd
 File: omsppl.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ppl/m/n' in size <9.53561> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 109.
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 127.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 110.
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 128.
  (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 ) [1
@@ -687,118 +687,132 @@ File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 
 ]
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <9.53561> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 131.
-LaTeX Font Info:    Trying to load font information for OML+ppl on input line 161.
- (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omlppl.fd
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 133.
+
+Underfull \hbox (badness 1354) in paragraph at lines 145--146
+[]\OT1/ppl/m/n/9.53561 Another alarm-ing in-stance in-volved [][]\OT1/pcr/m/n/9.53561 UAParser.js[]\OT1/ppl/m/n/9.53561 ,
+ []
+
+LaTeX Font Info:    Trying to load font information for OML+ppl on input line 162.
+(C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omlppl.fd
 File: omlppl.fd 
 )
 LaTeX Font Info:    Font shape `OML/ppl/m/n' in size <9.53561> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 161.
-LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 177.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 162.
+LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 178.
  (C:\Users\aitor\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
-) [2]
-LaTeX Font Info:    Calculating math sizes for size <9.53561> on input line 287.
+)
+Underfull \hbox (badness 3646) in paragraph at lines 213--214
+[]\OT1/ppl/m/n/9.53561 Rather than mod-i-fy-ing V8, Type-Script des-ig-nates
+ []
+
+[2]
+LaTeX Font Info:    Calculating math sizes for size <9.53561> on input line 288.
  [3]
+Underfull \hbox (badness 3396) in paragraph at lines 319--320
+[]\OT1/ppl/b/n/9.53561 --allow-net\OT1/ppl/m/n/9.53561 : Grants net-work ac-cess. An op-tional,
+ []
+
+[4]
 LaTeX Font Info:    Calculating math sizes for size <8.03> on input line 378.
 LaTeX Font Info:    Font shape `OMS/ppl/m/n' in size <8.03> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 393.
 LaTeX Font Info:    Font shape `OML/ppl/m/n' in size <8.03> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 395.
- [4] [5]
-<./images//flamegraph.png, id=314, 1052.733pt x 163.20975pt>
+ [5]
+<./images//flamegraph.png, id=305, 1052.733pt x 163.20975pt>
 File: ./images//flamegraph.png Graphic file (type png)
 <use ./images//flamegraph.png>
-Package pdftex.def Info: ./images//flamegraph.png  used on input line 520.
+Package pdftex.def Info: ./images//flamegraph.png  used on input line 518.
 (pdftex.def)             Requested size: 517.935pt x 80.2997pt.
-<./images//hashing_lines.png, id=318, 591.20876pt x 451.6875pt>
+ [6]
+<./images//hashing_lines.png, id=334, 591.20876pt x 451.6875pt>
 File: ./images//hashing_lines.png Graphic file (type png)
 <use ./images//hashing_lines.png>
-Package pdftex.def Info: ./images//hashing_lines.png  used on input line 572.
+Package pdftex.def Info: ./images//hashing_lines.png  used on input line 569.
 (pdftex.def)             Requested size: 269.3284pt x 205.77313pt.
 
-Overfull \hbox (16.3834pt too wide) in paragraph at lines 572--573
+Overfull \hbox (16.3834pt too wide) in paragraph at lines 569--570
  [][] 
  []
 
-[6 <./images//hashing_lines.png>]
-<./images//trend_hash_deno.png, id=338, 591.20876pt x 451.6875pt>
+<./images//trend_hash_deno.png, id=335, 591.20876pt x 451.6875pt>
 File: ./images//trend_hash_deno.png Graphic file (type png)
 <use ./images//trend_hash_deno.png>
-Package pdftex.def Info: ./images//trend_hash_deno.png  used on input line 582.
+Package pdftex.def Info: ./images//trend_hash_deno.png  used on input line 579.
 (pdftex.def)             Requested size: 269.3284pt x 205.77313pt.
 
-Overfull \hbox (16.3834pt too wide) in paragraph at lines 582--583
+Overfull \hbox (16.3834pt too wide) in paragraph at lines 579--580
  [][] 
  []
 
-<images/trend_hash_rust.png, id=339, 591.20876pt x 451.6875pt>
+<images/trend_hash_rust.png, id=336, 591.20876pt x 451.6875pt>
 File: images/trend_hash_rust.png Graphic file (type png)
 <use images/trend_hash_rust.png>
-Package pdftex.def Info: images/trend_hash_rust.png  used on input line 587.
+Package pdftex.def Info: images/trend_hash_rust.png  used on input line 584.
 (pdftex.def)             Requested size: 269.3284pt x 205.77313pt.
 
-Overfull \hbox (16.3834pt too wide) in paragraph at lines 587--588
+Overfull \hbox (16.3834pt too wide) in paragraph at lines 584--585
  [][] 
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-<images/secretbox_lines.png, id=340, 657.45625pt x 451.6875pt>
+[7 <./images//flamegraph.png> <./images//hashing_lines.png> <./images//trend_hash_deno.png> <./images/trend_hash_rust.png>]
+<images/secretbox_lines.png, id=349, 657.45625pt x 451.6875pt>
 File: images/secretbox_lines.png Graphic file (type png)
 <use images/secretbox_lines.png>
-Package pdftex.def Info: images/secretbox_lines.png  used on input line 606.
+Package pdftex.def Info: images/secretbox_lines.png  used on input line 603.
 (pdftex.def)             Requested size: 269.3284pt x 185.03455pt.
 
-Overfull \hbox (16.3834pt too wide) in paragraph at lines 606--607
+Overfull \hbox (16.3834pt too wide) in paragraph at lines 603--604
  [][] 
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [7 <./images//flamegraph.png> <./images//trend_hash_deno.png> <./images/trend_hash_rust.png>]
 <./images//trend_secretbox_deno.png, id=350, 657.45625pt x 451.6875pt>
 File: ./images//trend_secretbox_deno.png Graphic file (type png)
 <use ./images//trend_secretbox_deno.png>
-Package pdftex.def Info: ./images//trend_secretbox_deno.png  used on input line 615.
+Package pdftex.def Info: ./images//trend_secretbox_deno.png  used on input line 612.
 (pdftex.def)             Requested size: 269.3284pt x 185.03455pt.
 
-Overfull \hbox (16.3834pt too wide) in paragraph at lines 615--616
+Overfull \hbox (16.3834pt too wide) in paragraph at lines 612--613
  [][] 
  []
 
 <images/trend_secretbox_rust.png, id=351, 657.45625pt x 451.6875pt>
 File: images/trend_secretbox_rust.png Graphic file (type png)
 <use images/trend_secretbox_rust.png>
-Package pdftex.def Info: images/trend_secretbox_rust.png  used on input line 620.
+Package pdftex.def Info: images/trend_secretbox_rust.png  used on input line 617.
 (pdftex.def)             Requested size: 269.3284pt x 185.03455pt.
 
-Overfull \hbox (16.3834pt too wide) in paragraph at lines 620--621
+Overfull \hbox (16.3834pt too wide) in paragraph at lines 617--618
  [][] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
+
+Underfull \hbox (badness 1655) in paragraph at lines 622--623
+[]\OT1/ppl/m/n/9.53561 The cost of en-cryp-tion es-ca-lates more swiftly in
+ []
+
 <images/box_lines.png, id=352, 657.45625pt x 451.6875pt>
 File: images/box_lines.png Graphic file (type png)
 <use images/box_lines.png>
-Package pdftex.def Info: images/box_lines.png  used on input line 637.
+Package pdftex.def Info: images/box_lines.png  used on input line 634.
 (pdftex.def)             Requested size: 269.3284pt x 185.03455pt.
 
-Overfull \hbox (16.3834pt too wide) in paragraph at lines 637--638
+Overfull \hbox (16.3834pt too wide) in paragraph at lines 634--635
  [][] 
  []
 
 <./images//trend_box_deno.png, id=353, 657.45625pt x 451.6875pt>
 File: ./images//trend_box_deno.png Graphic file (type png)
 <use ./images//trend_box_deno.png>
-Package pdftex.def Info: ./images//trend_box_deno.png  used on input line 644.
+Package pdftex.def Info: ./images//trend_box_deno.png  used on input line 641.
 (pdftex.def)             Requested size: 269.3284pt x 185.03455pt.
 
-Overfull \hbox (16.3834pt too wide) in paragraph at lines 644--645
+Overfull \hbox (16.3834pt too wide) in paragraph at lines 641--642
  [][] 
  []
 
@@ -809,10 +823,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 <images/trend_box_rust.png, id=366, 657.45625pt x 451.6875pt>
 File: images/trend_box_rust.png Graphic file (type png)
 <use images/trend_box_rust.png>
-Package pdftex.def Info: images/trend_box_rust.png  used on input line 649.
+Package pdftex.def Info: images/trend_box_rust.png  used on input line 646.
 (pdftex.def)             Requested size: 269.3284pt x 185.03455pt.
 
-Overfull \hbox (16.3834pt too wide) in paragraph at lines 649--650
+Overfull \hbox (16.3834pt too wide) in paragraph at lines 646--647
  [][] 
  []
 
@@ -900,13 +914,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 Here is how much of TeX's memory you used:
  16599 strings out of 476331
  272969 string characters out of 5787766
- 1886660 words of memory out of 5000000
+ 1884660 words of memory out of 5000000
  36580 multiletter control sequences out of 15000+600000
  566960 words of font info for 149 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,9n,79p,811b,1879s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,9n,79p,811b,1451s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb><C:/Users/aitor/AppData/Local/Programs/MiKTeX/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (11 pages, 451596 bytes).
+Output written on main.pdf (11 pages, 453054 bytes).
 PDF statistics:
  500 PDF objects out of 1000 (max. 8388607)
  170 named destinations out of 1000 (max. 500000)
