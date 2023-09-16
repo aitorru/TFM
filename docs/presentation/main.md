@@ -110,4 +110,40 @@ As JavaScript was used more and more in bigger projects, the need for types was 
 
 - It does not depend in a build tool.
 - It is fully compatible with all dynamic libraries.
-  º
+
+---
+
+# What requirements does a native module ready laguage need?
+
+- It need to be C ABI compatible.
+- It needs to be able to generate dynamic libraries.
+- Needs to be fast.
+
+---
+
+# How to build a native module in Deno in a sensible way?
+
+### There are multiple choices to consider:
+
+- Rust
+- C++
+- C
+- Zig
+- Go
+- ...
+
+---
+
+# However not all of them are good choices.
+
+### C++, C are not memory safe.
+
+While C++ and C are very fast languages, they are not memory safe. This means that the developer has to be very careful when using them. If the developer is not careful, the application may have memory leaks or even worse, security vulnerabilities.
+
+---
+
+# However not all of them are good choices.
+
+### Go has a garbage collector.
+
+Go is a very fast language, but it has a garbage collector. The resulting binary will be bigger, and as the is garbage collected, it will not be as fast as it could be.
