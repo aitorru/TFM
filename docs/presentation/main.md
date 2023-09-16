@@ -86,3 +86,28 @@ During the development of the project, multiple problems were found:
 - It is a very popular language and it is used in multiple projects.
 
 As JavaScript was used more and more in bigger projects, the need for types was more and more evident. The comunication between segments of the application may be complex and runtime errors could appear.
+
+---
+
+# Tackling the speed problems
+
+### Currently, the state-of-the-art solution for creating native modules is `node-gyp`.
+
+#### `node-gyp` comes with its own problems:
+
+- It is hard to use.
+- It is written in python.
+- It comes from a proprietary project from google.
+
+---
+
+<!-- _backgroundColor: white  -->
+<!-- _color: black  -->
+
+# Deno aproach
+
+### Deno aproaches FFI in a different way.
+
+- It does not depend in a build tool.
+- It is fully compatible with all dynamic libraries.
+  º
