@@ -30,3 +30,6 @@ wasm:
 
 flame:
 	flamegraph -o out.svg -- C:\Users\aitor\deno\target\debug\deno.exe test --allow-ffi --unstable test.ts
+
+presentation:
+	cd docs/presentation && deno run -A npm:@marp-team/marp-cli main.md
