@@ -11,7 +11,7 @@ color: white
 
 Aitor Ruiz Garcia
 
-Pedro Peris Lopez
+Director: Pedro Peris Lopez
 
 ---
 
@@ -73,8 +73,8 @@ During the development of the project, multiple problems were found:
 
 ### Ryan Dahl, creator of Node.js, admited in 2018 that the desing of Node.js was made without a clear path and that it has some problems.
 
-- `node_modules`.
-- Node native modules.
+- `node_modules`. <!-- Not only the folder but also the package.json-->
+- Node native modules. <!-- Not only I belive Node.js is bad for perfonmace so more developers noticed.-->
 - Lack of types.
 
 ---
@@ -87,6 +87,8 @@ During the development of the project, multiple problems were found:
 ### Thats why Ryan Dahl created Deno.
 
 ![width:300px](https://raw.githubusercontent.com/denolib/high-res-deno-logo/master/deno_hr_circle.svg)
+
+<!-- Deno was announced in 2018 first using Go and later using Rust. He wanted to use more Promises.  -->
 
 ---
 
@@ -108,9 +110,9 @@ As JavaScript was used more and more in bigger projects, the need for types was 
 
 #### `node-gyp` comes with its own problems:
 
-- It is hard to use.
-- It is written in python.
-- It comes from a proprietary project from google.
+- It is hard to use. <!-- deep C++ understanding. Or importing convertion types.-->
+- It is written in python. <!-- It is not a problem per se, but it is a problem that a necessary tool for a language its written in another language.. -->
+- It comes from a proprietary project from google. <!-- Tech debt -->
 
 ---
 
@@ -121,8 +123,29 @@ As JavaScript was used more and more in bigger projects, the need for types was 
 
 ### Deno aproaches FFI in a different way.
 
-- It does not depend in a build tool.
+- It does not depend in a build tool. <!-- It can work with any dll. -->
 - It is fully compatible with all dynamic libraries.
+
+---
+
+# Deno url imports
+
+- Deno uses url imports instead of npm packages. <!-- To counter the use of node_modules folder is to remove it completlly. Only node uses this type of dependency instalation.-->
+
+```TypeScript
+import { Progressbar } from "https://deno.land/x/deno_progress@0.6.0/mod.ts";
+```
+
+---
+
+# Deno url imports
+
+- It can also use npm packages. <!-- It is still in development. -->
+- This packages also get cached. <!-- Talk about npm pnmp and bun. -->
+
+```TypeScript
+import express from "npm:express@4.18.2";
+```
 
 ---
 
@@ -133,7 +156,7 @@ As JavaScript was used more and more in bigger projects, the need for types was 
 
 ### Deno is secure by default
 
-![width:850px](../animations/denoflags.gif)
+![width:850px](../animations/denoflags.gif) <!-- Hablar sobre los flags. -->
 
 ---
 
@@ -341,3 +364,29 @@ async hash(input: string, cost = 12): Promise<string> {
 ### Asymetric encryption - box
 
 ![width:570px](../images/box_lines.png)
+
+---
+
+<!-- Scoped style -->
+<style scoped>
+h1 {
+  text-align: center;
+  font-size: 4rem; /* 128px */
+  line-height: 1;
+}
+</style>
+
+# Conclusions
+
+---
+
+<!-- Scoped style -->
+<style scoped>
+h1 {
+  text-align: center;
+  font-size: 4rem; /* 128px */
+  line-height: 1;
+}
+</style>
+
+# Questions?
