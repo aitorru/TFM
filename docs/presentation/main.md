@@ -28,6 +28,7 @@ This project builds on top of another project called ["Investigación y desarrol
 - Create a decentralized storage and computation system. <!-- To go all the way with the decentralized aproach, nor the data nor the computation must live in a centralized manner. That woult mean the data owner woult be a mayor company and the user would have to trust them. -->
 
 - It has to be a website that allows the user to create an identity, store files and execute code acordinly. <!-- As the state-of-art for login and working with identity is the web this project would be to. The concept of SSI is suficientlly complicated for users. -->
+<!-- SO IF ITS THE WEB IT IS ONE LANGUAGE... -->
 
 ---
 
@@ -61,8 +62,8 @@ This project builds on top of another project called ["Investigación y desarrol
 During the development of the project, multiple problems were found:
 
 - JavaScript is not a typed language. <!-- The comunication with the needed libraries was not typed and multiple runtime errors could have been prevented -->
-- JavaScript is slow. <!-- Metamask used to crash-->
 - JavaScript `node_modules` is heavy.
+- JavaScript is slow. <!-- Metamask used to crash-->
 
 ---
 
@@ -73,9 +74,9 @@ During the development of the project, multiple problems were found:
 
 ### Ryan Dahl, creator of Node.js, admited in 2018 that the desing of Node.js was made without a clear path and that it has some problems.
 
+- Lack of types. <!-- VANILA JAVASCRIPT IS OVERUSED. ITS BEEN USED IN LOTS OF PLACES WHERE IS NOT FITED.-->
 - `node_modules`. <!-- Not only the folder but also the package.json-->
 - Node native modules. <!-- Not only I belive Node.js is bad for perfonmace so more developers noticed.-->
-- Lack of types. <!-- JAVASCRIPT IS OVERUSED.-->
 
 ---
 
@@ -240,6 +241,7 @@ While Zig is a very good language, it is not mature enough.
 
 - The excution of cryptographic algorithms was slow. <!--Multiple hops and multiple layers of cryptography. Talk on tranport. -->
 - It was able to crash the browser. <!-- Metamask hanging-->
+<!-- Cryptographic operations should not be done in JavaScript. -->
 
 ---
 
@@ -390,7 +392,7 @@ h1 {
 
 # Conclusions
 
-<!-- Success. The benefits of speed in distributed systems. Talk about IPFS perf. Overuse of JS.  The use of dev containers. Sandboxing. DevContainers. CodeSpaces.  -->
+<!-- Success. The benefits of speed in distributed systems. Talk about IPFS perf. Overuse of JS but also grat if used with ts and native code.  The use of dev containers. Sandboxing. DevContainers. CodeSpaces.  -->
 
 ---
 
