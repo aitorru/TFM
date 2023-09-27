@@ -27,7 +27,7 @@ This project builds on top of another project called ["Investigación y desarrol
 
 - Create a decentralized storage and computation system. <!-- To go all the way with the decentralized aproach, nor the data nor the computation must live in a centralized manner. That woult mean the data owner woult be a mayor company and the user would have to trust them. -->
 
-- It has to be a website that allows the user to create an identity, store files and execute code acordinly. <!-- As the state-of-art for login and working with identity is the web this project would be to. -->
+- It has to be a website that allows the user to create an identity, store files and execute code acordinly. <!-- As the state-of-art for login and working with identity is the web this project would be to. The concept of SSI is suficientlly complicated for users. -->
 
 ---
 
@@ -48,7 +48,7 @@ This project builds on top of another project called ["Investigación y desarrol
 # JavaScript was used
 
 - Next.js was used to create the website.
-- Multiple depencencies were needed to comunicate between all the different parts of the project.
+- Multiple depencencies were needed to comunicate between all the different parts of the project. <!-- Comunicate with the blockchain. -->
 - 26 dependencies and 6 dev dependencies were necessary.
 
 ---
@@ -75,11 +75,11 @@ During the development of the project, multiple problems were found:
 
 - `node_modules`. <!-- Not only the folder but also the package.json-->
 - Node native modules. <!-- Not only I belive Node.js is bad for perfonmace so more developers noticed.-->
-- Lack of types.
+- Lack of types. <!-- JAVASCRIPT IS OVERUSED.-->
 
 ---
 
-<!-- _backgroundColor: white  -->
+<!-- _backgroundColor: #f2f2f2  -->
 <!-- _color: black  -->
 
 # Those are the same problems that were encountered!
@@ -97,34 +97,11 @@ During the development of the project, multiple problems were found:
 
 # Lack of types? - TypeScript
 
-- TypeScript is a superset of JavaScript that adds types to the language.
-- It is a very popular language and it is used in multiple projects.
+<!-- TO FIX THE TYPES. Created by Microsoft-->
 
-As JavaScript was used more and more in bigger projects, the need for types was more and more evident. The comunication between segments of the application may be complex and runtime errors could appear.
-
----
-
-# Tackling the speed problems
-
-### Currently, the state-of-the-art solution for creating native modules is `node-gyp`.
-
-#### `node-gyp` comes with its own problems:
-
-- It is hard to use. <!-- deep C++ understanding. Or importing convertion types.-->
-- It is written in python. <!-- It is not a problem per se, but it is a problem that a necessary tool for a language its written in another language.. -->
-- It comes from a proprietary project from google. <!-- Tech debt -->
-
----
-
-<!-- _backgroundColor: white  -->
-<!-- _color: black  -->
-
-# Deno aproach
-
-### Deno aproaches FFI in a different way.
-
-- It does not depend in a build tool. <!-- It can work with any dll. -->
-- It is fully compatible with all dynamic libraries.
+- TypeScript is a superset of JavaScript that adds types to the language. <!-- Explain some code.-->
+- It is a very popular language and it is used in multiple projects. <!-- It was angular the first big project to implement it and inforce it. -->
+<!-- As JavaScript was used more and more in bigger projects, the need for types was more and more evident. The comunication between segments of the application may be complex and runtime errors could appear. -->
 
 ---
 
@@ -147,9 +124,11 @@ import { Progressbar } from "https://deno.land/x/deno_progress@0.6.0/mod.ts";
 import express from "npm:express@4.18.2";
 ```
 
+<!-- BEFORE THE NEXT ONE: How can we run npm packages and still be secure. TALK ABOUT SECURITY.-->
+
 ---
 
-<!-- _backgroundColor: white  -->
+<!-- _backgroundColor: #f2f2f2  -->
 <!-- _color: black  -->
 
 # Deno aproach
@@ -160,10 +139,36 @@ import express from "npm:express@4.18.2";
 
 ---
 
+# Tackling the speed problems
+
+### Currently, the state-of-the-art solution for creating native modules is `node-gyp`.
+
+#### `node-gyp` comes with its own problems:
+
+- It is hard to use. <!-- deep C++ understanding. Or importing convertion types.-->
+- It is written in python. <!-- It is not a problem per se, but it is a problem that a necessary tool for a language its written in another language.. It has to compile. -->
+- It comes from a proprietary project from google. <!-- Tech debt -->
+
+---
+
+<!-- _backgroundColor: #f2f2f2  -->
+<!-- _color: black  -->
+
+# Deno aproach
+
+### Deno aproaches FFI in a different way.
+
+- It does not depend in a build tool. <!-- It can work with any dll.
+  -->
+- It is fully compatible with all dynamic libraries.
+
+---
+
 # What requirements does a native module ready laguage need?
 
-- It need to be C ABI compatible.
-- It needs to be able to generate dynamic libraries.
+- It need to be C ABI compatible. <!-- Most of the top languagues have to be ruled out. -->
+- It needs to be able to generate dynamic libraries. <!-- This is a must. No two runtime schema. -->
+- It needs to be cross platform. <!-- It is a must. Self contained. -->
 - Needs to be fast.
 
 ---
@@ -184,7 +189,7 @@ import express from "npm:express@4.18.2";
 
 ### C++, C are not memory safe.
 
-While C++ and C are very fast languages, they are not memory safe. This means that the developer has to be very careful when using them. If the developer is not careful, the application may have memory leaks or even worse, security vulnerabilities.
+While C++ and C are very fast languages, they are not memory safe. <!-- This means that the developer has to be very careful when using them. If the developer is not careful, the application may have memory leaks or even worse, security vulnerabilities. By not memory safe it means. Use after free, memory leaks, null pointers, integer overflow...  -->
 
 ---
 
@@ -192,7 +197,7 @@ While C++ and C are very fast languages, they are not memory safe. This means th
 
 ### Go has a garbage collector.
 
-Go is a very fast language, but it has a garbage collector. The resulting binary will be bigger, and as the is garbage collected, it will not be as fast as it could be.
+Go is a very fast language, but it has a garbage collector. <!-- The resulting binary will be bigger, and as the is garbage collected, it will not be as fast as it could be. Double runtime. The function calls would be infected with memory marking and the runtime start.-->
 
 ---
 
@@ -202,8 +207,8 @@ Go is a very fast language, but it has a garbage collector. The resulting binary
 
 While Zig is a very good language, it is not mature enough.
 
-- The language is still in development.
-- _It is not memory safe._
+- The language is still in development. <!-- The latest release 0.11.0 was released in August. And it has an issue with libraries. (It is fixed)-->
+- _It is not memory safe._ <!-- The memory is not safe per-se but it has runtime checks and it has some keywords to make this safer. Also it has some allocator that allow the dealocation of all memory as one. It also checks for memory leaks. It is enjoyable to write and read (less keywords than rust) and it could be a really good fit for this project. This comes later. Self-hosted -->
 
 ---
 
@@ -211,31 +216,30 @@ While Zig is a very good language, it is not mature enough.
 
 # A compilation target for the web.
 
-- Its speed is comparable to native performance.
-- It runs in a VM.
-- It can run on a browser but only with JavaScript calling it.
-- It can run on a server not depending on JavaScript.
+- Its speed is comparable to native performance. <!-- It is like a nerfed assembly.-->
+- It runs in a VM. <!-- Its just a compilation target. Insteath of x86 is web assembly.-->
+- It can run on a browser but only with JavaScript calling it. <!-- As it runs in a VM, it is sanboxed.-->
+- It can run not depending on JavaScript. <!-- Using WASI and or WASMER it can be used to interact with the OS. Import libc into WASM. Its not ready!-->
 
 ---
 
 # Rust it is!
 
-<!-- _backgroundColor: white  -->
+<!-- _backgroundColor: #f2f2f2  -->
 <!-- _color: black  -->
 
-- It is memory safe.
-- It is fast.
-- It is C ABI compatible.
-- It can generate dynamic libraries and more.
+- It is memory safe. <!-- Borrowing and ownership.-->
+- It is fast. <!-- Its compiled -->
+- It is C ABI compatible. <!-- It uses llvm so it's out of the box -->
+- It can generate dynamic libraries and more. <!-- Compile targets-->
   ![width:300px](https://www.rust-lang.org/static/images/rust-logo-blk.svg)
 
 ---
 
 # The main bottleneck of the project was the cryptography.
 
-- The excution of cryptographic algorithms was slow.
-- It was able to crash the browser.
-- The lack of types was a problem.
+- The excution of cryptographic algorithms was slow. <!--Multiple hops and multiple layers of cryptography. Talk on tranport. -->
+- It was able to crash the browser. <!-- Metamask hanging-->
 
 ---
 
@@ -244,11 +248,11 @@ The main parts of the project, among others, were:
 - IPFS
   ![width:150px](https://ipfs.tech/_nuxt/ipfs-logo.a313bcee.svg)
 - OrbitDB
-  ![width:250px](https://raw.githubusercontent.com/orbitdb/orbitdb/main/images/orbit_db_logo_color.png)
+  ![width:300px](https://raw.githubusercontent.com/orbitdb/orbitdb/main/images/orbit_db_logo_color.png)
 
 ---
 
-<!-- _backgroundColor: #51b8bc -->
+<!-- _backgroundColor: #3b8689 -->
 
 # IPFS - InterPlanetary File System
 
@@ -260,7 +264,7 @@ The main parts of the project, among others, were:
 
 # OrbitDB - Decentralized database
 
-<!-- _backgroundColor: #ef4f80 -->
+<!-- _backgroundColor: #bd3e65 -->
 <!-- _color: white -->
 
 - Works with IPFS.
@@ -270,7 +274,7 @@ The main parts of the project, among others, were:
 
 # Let's create a Rust library!
 
-![width:1000px](../animations/build-final.gif)
+![width:1000px](../animations/build-final.gif) <!-- There is not intermediary step. Just compile Rust, (as is a compiled language, and just run deno.)-->
 
 ---
 
@@ -284,6 +288,8 @@ extern "C" fn hash(input_text_pointer: *const c_char, cost: u32) -> *mut c_char 
     // ...
 }
 ```
+
+<!-- No Mangle y c_char unsafe-->
 
 ---
 
@@ -303,6 +309,8 @@ async hash(input: string, cost = 12): Promise<string> {
     return raw_pointer.getCString();
   }
 ```
+
+<!-- Note the async. Doing this in node js is more complicated. -->
 
 ---
 
@@ -347,7 +355,9 @@ async hash(input: string, cost = 12): Promise<string> {
 
 ### Hashing
 
-![width:570px](../images/hashing_lines.png)
+![width:560px](../images/hashing_lines.png)
+
+<!-- This image illustrates the creation of 1,000 hashes along with their respective costs in milliseconds, using a bcrypt cost of 14. On average, Rust is faster by \textbf{57\%}. When the hardware choice is limited to \textbf{i5-1135G7}, Deno's performance is \textbf{34\%} slower compared to Rust. Further limiting the hardware to a single-core instance of a VM running on DigitalOcean makes the disparity even starker, with Deno slowing down by \textbf{58\%} relative to Rust. These outcomes align with the findings from other tests conducted. -->
 
 ---
 
@@ -367,25 +377,31 @@ async hash(input: string, cost = 12): Promise<string> {
 
 ---
 
-<!-- Scoped style -->
 <style scoped>
 h1 {
   text-align: center;
   font-size: 4rem; /* 128px */
   line-height: 1;
+  top: 40%;
+  left: 19%;
+  position: absolute;
 }
 </style>
 
 # Conclusions
 
+<!-- Success. The benefits of speed in distributed systems. Talk about IPFS perf. Overuse of JS.  The use of dev containers. Sandboxing. DevContainers. CodeSpaces.  -->
+
 ---
 
-<!-- Scoped style -->
 <style scoped>
 h1 {
   text-align: center;
   font-size: 4rem; /* 128px */
   line-height: 1;
+  top: 45%;
+  left: 22%;
+  position: absolute;
 }
 </style>
 
